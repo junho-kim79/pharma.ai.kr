@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pharma.ai.kr</title>
+  <meta name="description" content="AI × Pharma Signals — 조용히 흐름을 기록합니다." />
+  <style>
+    :root{
+      --bg:#000;
+      --fg:#fff;
+      --muted:rgba(255,255,255,.72);
+      --hair:rgba(255,255,255,.14);
+      --card:rgba(255,255,255,.06);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      min-height:100vh;
+      background:
+        radial-gradient(1200px 600px at 50% 20%, rgba(92,138,255,.18), transparent 55%),
+        radial-gradient(900px 500px at 30% 70%, rgba(173,81,255,.14), transparent 60%),
+        var(--bg);
+      color:var(--fg);
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      letter-spacing:-0.01em;
+    }
+    .wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
+    .container{width:min(920px,100%); text-align:center;}
+    .badge{
+      display:inline-flex; align-items:center; gap:10px;
+      padding:10px 14px; border:1px solid var(--hair);
+      border-radius:999px; background:rgba(255,255,255,.03);
+      color:rgba(255,255,255,.85); font-size:13px; margin-bottom:18px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+    }
+    .dot{width:8px;height:8px;border-radius:50%; background:#2dd4bf; box-shadow:0 0 18px rgba(45,212,191,.55);}
+    h1{margin:0; font-size:clamp(44px,6vw,70px); font-weight:650; letter-spacing:-0.045em;}
+    .sub{
+      margin:14px auto 18px; width:min(720px,100%);
+      font-size:clamp(16px,2vw,20px); color:var(--muted); line-height:1.65;
+    }
+    .note{
+      margin:0 auto 22px; width:min(760px,100%);
+      font-size:14px; color:rgba(255,255,255,.60); line-height:1.7;
+    }
+    .card{
+      margin:26px auto 0; width:min(820px,100%);
+      border:1px solid var(--hair); background:var(--card);
+      border-radius:22px; padding:18px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      text-align:left;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap;}
+    input[type="email"]{
+      flex:1 1 260px;
+      padding:14px 16px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.16);
+      background:rgba(0,0,0,.35);
+      color:#fff;
+      outline:none;
+      font-size:14px;
+    }
+    input::placeholder{color:rgba(255,255,255,.45)}
+    .btn{
+      padding:14px 18px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:#fff;
+      color:#000;
+      font-weight:700;
+      font-size:14px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .hint{margin-top:10px; font-size:12px; color:rgba(255,255,255,.55); line-height:1.6;}
+    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px;}
+    .tile{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:16px;
+      padding:12px;
+      background:rgba(0,0,0,.25);
+    }
+    .tile b{display:block; font-size:13px; margin-bottom:6px; color:rgba(255,255,255,.92); font-weight:650;}
+    .tile span{font-size:12px; color:rgba(255,255,255,.68); line-height:1.55;}
+    footer{margin-top:16px; color:rgba(255,255,255,.45); font-size:12px; text-align:center;}
+    @media (max-width:780px){ .grid{grid-template-columns:1fr;} .card{text-align:left;} }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <main class="container">
+      <div class="badge"><span class="dot"></span>Pharma.ai.kr — Coming Soon</div>
+      <h1>AI × Pharma Signals</h1>
+      <p class="sub">조용히 흐름을 기록합니다. (요약이 아니라, 의미를 정리합니다)</p>
+      <p class="note">
+        본 사이트는 <b>상업 목적이 아닌 정보 공유</b>를 지향합니다. 기사 원문은 복사하지 않으며,
+        출처와 링크를 기반으로 <b>요점/시그널/해석</b> 형태로 정리합니다.
+      </p>
+
+      <!-- ✅ 무료 구독 폼: 아래 action만 바꾸면 작동 -->
+      <section class="card" aria-label="Subscribe">
+        <form class="row" action="https://formspree.io/f/폼ID여기에" method="POST">
+          <input type="email" name="email" placeholder="이메일 주소 (무료 구독)" required />
+          <button class="btn" type="submit">무료 구독하기</button>
+        </form>
+        <div class="hint">
+          ※ 이메일은 업데이트 알림에만 사용합니다. 언제든지 구독 해지 가능합니다.
+        </div>
+
+        <div class="grid" aria-label="What you'll get">
+          <div class="tile">
+            <b>Daily Brief</b>
+            <span>핵심 이슈 3줄 + 한 줄 의미</span>
+          </div>
+          <div class="tile">
+            <b>Signals</b>
+            <span>AI 도입/규제/투자 ‘움직임’만 추적</span>
+          </div>
+          <div class="tile">
+            <b>Field Notes</b>
+            <span>가끔, 현장 기반 코멘트</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>Developer: 김준호</footer>
+    </main>
+  </div>
+</body>
+</html>
