@@ -12,9 +12,6 @@
     #callBtn { position:fixed; right:30px; bottom:30px; background:#00ffff; color:#000; padding:12px 20px; border-radius:30px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 0 20px rgba(0,255,255,0.4); transition: 0.3s; }
     #callBtn:hover { transform: scale(1.05); background:#fff; }
     #introSection { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; }
-    .video-background { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; opacity:0.35; }
-    .video-background iframe { width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
-    .video-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle, transparent 20%, #000 90%); z-index:2; }
     .intro-text-wrap { position:absolute; text-align:center; opacity:0; filter:blur(10px); animation: introFade 31s infinite; z-index:3; width:100%; }
     @keyframes introFade { 0% { opacity:0; filter:blur(10px); transform:translateY(20px); } 5%,15% { opacity:1; filter:blur(0); transform:translateY(0); } 20%,100% { opacity:0; filter:blur(10px); } }
     .i1{animation-delay:0s;} .i2{animation-delay:5s;color:#00ffff;} .i3{animation-delay:10s;color:#a0ff40;} .i4{animation-delay:15s;color:#ff8040;} .i5{animation-delay:20s;color:#ffcc00;} .i6{animation-delay:25s;}
@@ -37,9 +34,9 @@
     .p-card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:60px; }
     .p-card { width:240px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
     .p-card:hover { transform:translateY(-12px); border-color:#00ffff; box-shadow:0 20px 50px rgba(0,255,255,0.2); }
-    .p-photo { height:320px; position:relative; background:#111; display:flex; align-items:center; justify-content:center; color:#444; font-weight:700; overflow:hidden; }
-    .hover-img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.1); transition:0.6s; }
-    .p-card:hover .hover-img { opacity:1; transform:scale(1); }
+    .p-photo { height:280px; position:relative; overflow:hidden; }
+    .p-photo img { width:100%; height:100%; object-fit:cover; display:block; transition:0.6s; }
+    .p-card:hover .p-photo img { transform:scale(1.08); }
     .p-content { padding:20px; text-align:left; }
     .p-tag { font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:10px; }
     .tag-wm{background:#fff;color:#000;} .tag-ik{background:#00ffff;color:#000;} .tag-ys{background:#a0ff40;color:#000;} .tag-zb{background:#ff8040;color:#000;} .tag-kb{background:#ffcc00;color:#000;}
@@ -64,13 +61,12 @@
     .addr-item { margin:15px 0; font-size:16px; color:#ccc; }
     .addr-label { color:#00ffff; font-weight:700; display:block; margin-bottom:5px; }
     @media (max-width:768px) {
-        #topNav { gap:15px; padding:10px 18px; font-size:11px; }
-        .p-card { width:160px; } .p-photo { height:200px; }
+        #topNav { gap:12px; padding:10px 15px; font-size:11px; }
+        .p-card { width:160px; } .p-photo { height:180px; }
         .news-grid { grid-template-columns:1fr; }
         .contact-wrap { flex-direction:column; }
         .map-box, .address-box { max-width:100%; }
         #callBtn { padding:10px 15px; font-size:13px; right:15px; bottom:15px; }
-        #loadingWave { bottom:60px; gap:12px; }
     }
 </style>
 </head>
@@ -83,10 +79,6 @@
 </div>
 <a href="tel:053-721-8578" id="callBtn">☎ 053-721-8578</a>
 <section id="introSection">
-    <div class="video-background">
-        <iframe src="https://www.youtube.com/embed/9XInS_XFv0Y?autoplay=1&mute=1&loop=1&playlist=9XInS_XFv0Y&controls=0&showinfo=0&rel=0&playsinline=1" frameborder="0" allow="autoplay"></iframe>
-    </div>
-    <div class="video-overlay"></div>
     <div class="intro-text-wrap i1"><div style="font-size:3rem;font-weight:800;">위드메드</div><p>종합병원 네트워크 플랫폼</p></div>
     <div class="intro-text-wrap i2"><div style="font-size:3rem;font-weight:800;">임강약품</div><p>의약품 유통 파트너</p></div>
     <div class="intro-text-wrap i3"><div style="font-size:3rem;font-weight:800;">양신파마</div><p>로컬 병원 전문 파트너</p></div>
@@ -110,11 +102,11 @@
     <h2 style="color:#00ffff;letter-spacing:5px;font-size:13px;">THE EXPERTS</h2>
     <h3 style="font-size:40px;margin-top:10px;font-weight:800;">각 분야 최고의 파트너</h3>
     <div class="p-card-container">
-        <div class="p-card"><div class="p-photo">WITHMED<img class="hover-img" src="위드메드.jpg"></div><div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div></div>
-        <div class="p-card"><div class="p-photo">IMKANG<img class="hover-img" src="임강약품.jpg"></div><div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div></div>
-        <div class="p-card"><div class="p-photo">YANGSHIN<img class="hover-img" src="양신파마.jpg"></div><div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div></div>
-        <div class="p-card"><div class="p-photo">ZZINBBANG<img class="hover-img" src="찐빵투어.jpg"></div><div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div></div>
-        <div class="p-card"><div class="p-photo">KIM BUJANG<img class="hover-img" src="김부장공인중개사.jpg"></div><div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div></div>
+        <div class="p-card"><div class="p-photo"><img src="위드메드.jpg" alt="위드메드"></div><div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div></div>
+        <div class="p-card"><div class="p-photo"><img src="임강약품.jpg" alt="임강약품"></div><div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div></div>
+        <div class="p-card"><div class="p-photo"><img src="양신파마.jpg" alt="양신파마"></div><div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div></div>
+        <div class="p-card"><div class="p-photo"><img src="찐빵투어.jpg" alt="찐빵투어"></div><div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div></div>
+        <div class="p-card"><div class="p-photo"><img src="김부장공인중개사.jpg" alt="김부장공인중개사"></div><div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div></div>
     </div>
 </section>
 <section id="newsSection">
@@ -135,7 +127,7 @@
     <div class="contact-title">CONTACT US</div>
     <div class="contact-wrap">
         <div class="map-box">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.562!2d128.59467!3d35.84378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565df5b3e8ef3cd%3A0x44dc41f0bf7f3e35!2z64-Z6rWt66eI7Iqk7IKs7Jq07IKwIDYw!5e0!3m2!1sko!2skr!4v1741100000000!5m2!1sko!2skr" style="border:0; filter:invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.562!2d128.59467!3d35.84378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565df5b3e8ef3cd%3A0x44dc41f0bf7f3e35!2z64-Z6rWt66eI7Iqk7IKs7Jq07IKwIDYw!5e0!3m2!1sko!2skr!4v1741100000000!5m2!1sko!2skr" style="border:0;filter:invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
         </div>
         <div class="address-box">
             <div class="addr-item"><span class="addr-label">ADDRESS</span>대구광역시 남구 현충로 60,<br>405호·406호</div>
