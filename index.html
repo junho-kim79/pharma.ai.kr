@@ -12,25 +12,28 @@
     #callBtn { position:fixed; right:30px; bottom:30px; background:#00ffff; color:#000; padding:12px 20px; border-radius:30px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 0 20px rgba(0,255,255,0.4); transition: 0.3s; }
     #callBtn:hover { transform: scale(1.05); background:#fff; }
     #introSection { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; }
-    .intro-text-wrap { position:absolute; text-align:center; opacity:0; filter:blur(10px); animation: introFade 31s infinite; }
-    @keyframes introFade { 0% { opacity: 0; filter: blur(10px); transform: translateY(20px); } 5%, 15% { opacity: 1; filter: blur(0); transform: translateY(0); } 20%, 100% { opacity: 0; filter: blur(10px); } }
-    .i1 { animation-delay: 0s; } .i2 { animation-delay: 5s; color: #00ffff; } .i3 { animation-delay: 10s; color: #a0ff40; } .i4 { animation-delay: 15s; color: #ff8040; } .i5 { animation-delay: 20s; color: #ffcc00; } .i6 { animation-delay: 25s; }
-    #loadingWave { display: flex; gap: 18px; position: absolute; bottom: 100px; align-items: center; }
-    .shape { opacity: 0.3; display:flex; align-items:center; justify-content:center; }
-    .shape:not(.triangle):not(.cross):not(.hexagon) { width: 30px; height: 30px; background: #fff; }
-    .s-circle { border-radius: 50%; animation: circleWave 2.2s infinite ease-in-out; }
-    .s-diamond { animation: diamondWave 1.8s infinite ease-in-out; }
-    .triangle { width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-bottom: 30px solid #fff; background: transparent !important; animation: triWave 3.1s infinite ease-in-out; }
-    .cross { width:30px; height:30px; background:transparent !important; position:relative; animation: crossWave 2.6s infinite ease-in-out; }
+    .video-background { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; opacity:0.35; }
+    .video-background iframe { width:100vw; height:56.25vw; min-height:100vh; min-width:177.77vh; position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); }
+    .video-overlay { position:absolute; top:0; left:0; width:100%; height:100%; background:radial-gradient(circle, transparent 20%, #000 90%); z-index:2; }
+    .intro-text-wrap { position:absolute; text-align:center; opacity:0; filter:blur(10px); animation: introFade 31s infinite; z-index:3; width:100%; }
+    @keyframes introFade { 0% { opacity:0; filter:blur(10px); transform:translateY(20px); } 5%,15% { opacity:1; filter:blur(0); transform:translateY(0); } 20%,100% { opacity:0; filter:blur(10px); } }
+    .i1{animation-delay:0s;} .i2{animation-delay:5s;color:#00ffff;} .i3{animation-delay:10s;color:#a0ff40;} .i4{animation-delay:15s;color:#ff8040;} .i5{animation-delay:20s;color:#ffcc00;} .i6{animation-delay:25s;}
+    #loadingWave { display:flex; gap:18px; position:absolute; bottom:100px; align-items:center; z-index:3; }
+    .shape { opacity:0.3; display:flex; align-items:center; justify-content:center; }
+    .shape:not(.triangle):not(.cross):not(.hexagon) { width:30px; height:30px; background:#fff; }
+    .s-circle { border-radius:50%; animation:circleWave 2.2s infinite ease-in-out; }
+    .s-diamond { animation:diamondWave 1.8s infinite ease-in-out; }
+    .triangle { width:0; height:0; border-left:15px solid transparent; border-right:15px solid transparent; border-bottom:30px solid #fff; background:transparent !important; animation:triWave 3.1s infinite ease-in-out; }
+    .cross { width:30px; height:30px; background:transparent !important; position:relative; animation:crossWave 2.6s infinite ease-in-out; }
     .cross::before { content:''; position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; height:8px; background:#fff; border-radius:4px; }
     .cross::after { content:''; position:absolute; left:50%; top:0; transform:translateX(-50%); height:100%; width:8px; background:#fff; border-radius:4px; }
-    .hexagon { width:30px; height:30px; background:#fff; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); animation: hexWave 3.5s infinite ease-in-out; }
-    @keyframes circleWave { 0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; } 50% { transform: translateY(-30px) scale(1.2); opacity: 1; background: #00ffff; box-shadow: 0 0 15px #00ffff; } }
-    @keyframes diamondWave { 0%, 100% { transform: translateY(0) rotate(45deg) scale(1); opacity: 0.3; } 50% { transform: translateY(-30px) rotate(225deg) scale(1.2); opacity: 1; background: #00ffff; box-shadow: 0 0 15px #00ffff; } }
-    @keyframes triWave { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.3; border-bottom-color: #fff; } 30% { transform: translateY(-20px) rotate(-20deg) scale(1.1); opacity: 0.8; border-bottom-color: #00ffff; } 70% { transform: translateY(-28px) rotate(20deg) scale(1.2); opacity: 1; border-bottom-color: #00ffff; filter: drop-shadow(0 0 10px #00ffff); } }
-    @keyframes crossWave { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.3; } 40% { transform: translateY(-25px) rotate(60deg) scale(1.1); opacity: 0.7; } 50% { transform: translateY(-30px) rotate(90deg) scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px #00ffff); } }
-    @keyframes hexWave { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.3; } 50% { transform: translateY(-30px) rotate(-60deg) scale(1.2); opacity: 1; background: #00ffff; filter: drop-shadow(0 0 10px #00ffff); } }
-    #partnership { padding:120px 20px; text-align:center; border-top:1px solid #111; background: #000; }
+    .hexagon { width:30px; height:30px; background:#fff; clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%); animation:hexWave 3.5s infinite ease-in-out; }
+    @keyframes circleWave { 0%,100%{transform:translateY(0) scale(1);opacity:0.3;} 50%{transform:translateY(-30px) scale(1.2);opacity:1;background:#00ffff;box-shadow:0 0 15px #00ffff;} }
+    @keyframes diamondWave { 0%,100%{transform:translateY(0) rotate(45deg) scale(1);opacity:0.3;} 50%{transform:translateY(-30px) rotate(225deg) scale(1.2);opacity:1;background:#00ffff;box-shadow:0 0 15px #00ffff;} }
+    @keyframes triWave { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.3;border-bottom-color:#fff;} 30%{transform:translateY(-20px) rotate(-20deg) scale(1.1);opacity:0.8;border-bottom-color:#00ffff;} 70%{transform:translateY(-28px) rotate(20deg) scale(1.2);opacity:1;border-bottom-color:#00ffff;filter:drop-shadow(0 0 10px #00ffff);} }
+    @keyframes crossWave { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.3;} 40%{transform:translateY(-25px) rotate(60deg) scale(1.1);opacity:0.7;} 50%{transform:translateY(-30px) rotate(90deg) scale(1.2);opacity:1;filter:drop-shadow(0 0 10px #00ffff);} }
+    @keyframes hexWave { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.3;} 50%{transform:translateY(-30px) rotate(-60deg) scale(1.2);opacity:1;background:#00ffff;filter:drop-shadow(0 0 10px #00ffff);} }
+    #partnership { padding:120px 20px; text-align:center; border-top:1px solid #111; background:#000; }
     .p-card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:60px; }
     .p-card { width:240px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
     .p-card:hover { transform:translateY(-12px); border-color:#00ffff; box-shadow:0 20px 50px rgba(0,255,255,0.2); }
@@ -39,37 +42,60 @@
     .p-card:hover .hover-img { opacity:1; transform:scale(1); }
     .p-content { padding:20px; text-align:left; }
     .p-tag { font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:10px; }
-    .tag-wm {background:#fff;color:#000;} .tag-ik {background:#00ffff;color:#000;} .tag-ys {background:#a0ff40;color:#000;} .tag-zb {background:#ff8040;color:#000;} .tag-kb {background:#ffcc00;color:#000;}
+    .tag-wm{background:#fff;color:#000;} .tag-ik{background:#00ffff;color:#000;} .tag-ys{background:#a0ff40;color:#000;} .tag-zb{background:#ff8040;color:#000;} .tag-kb{background:#ffcc00;color:#000;}
     .p-name { font-size:18px; font-weight:700; margin:0 0 5px 0; }
     .p-desc { font-size:13px; color:#888; line-height:1.5; }
-    #contact { padding:100px 20px; text-align:center; background:#050505; border-top:1px solid #111; display: flex; flex-direction: column; align-items: center; }
-    .contact-title { font-size: 32px; font-weight: 800; letter-spacing: 2px; margin-bottom: 40px; }
-    .contact-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; max-width: 1200px; width: 100%; align-items: flex-start; }
-    .map-box { width: 100%; max-width: 600px; border: 1px solid #222; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-    .map-box iframe { width: 100%; height: 400px; display: block; border: none; }
-    .address-box { flex: 1; text-align: center; border: 1px solid #222; padding: 40px; border-radius: 20px; transition: 0.3s; max-width: 450px; }
-    .address-box:hover { border-color: #00ffff; background: rgba(0,255,255,0.02); }
-    .addr-item { margin: 15px 0; font-size: 16px; color: #ccc; }
-    .addr-label { color: #00ffff; font-weight: 700; margin-right: 10px; display: block; margin-bottom: 5px; }
+    #newsSection { padding:120px 20px; background:#050505; border-top:1px solid #111; }
+    .news-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:25px; max-width:1200px; margin:60px auto 0; }
+    .news-card { background:#0a0a0a; border:1px solid #1a1a1a; padding:30px; border-radius:20px; transition:0.4s; cursor:pointer; display:flex; flex-direction:column; justify-content:space-between; min-height:180px; }
+    .news-card:hover { transform:translateY(-5px); background:#111; }
+    .news-card.ai{border-left:4px solid #00ffff;} .news-card.estate{border-left:4px solid #ffcc00;} .news-card.policy{border-left:4px solid #ff5050;} .news-card.global{border-left:4px solid #a0ff40;} .news-card.finance{border-left:4px solid #fff;} .news-card.event{border-left:4px solid #ff8040;}
+    .news-cat { font-size:11px; font-weight:800; letter-spacing:2px; margin-bottom:15px; display:block; }
+    .cat-ai{color:#00ffff;} .cat-estate{color:#ffcc00;} .cat-policy{color:#ff5050;} .cat-global{color:#a0ff40;} .cat-finance{color:#fff;} .cat-event{color:#ff8040;}
+    .news-title { font-size:16px; font-weight:700; line-height:1.6; color:#eee; word-break:keep-all; }
+    .news-footer { display:flex; justify-content:space-between; opacity:0.3; font-size:11px; margin-top:20px; }
+    #contact { padding:100px 20px; text-align:center; background:#000; border-top:1px solid #111; display:flex; flex-direction:column; align-items:center; }
+    .contact-title { font-size:32px; font-weight:800; letter-spacing:2px; margin-bottom:40px; }
+    .contact-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:40px; max-width:1200px; width:100%; align-items:flex-start; }
+    .map-box { width:100%; max-width:600px; border:1px solid #222; border-radius:20px; overflow:hidden; box-shadow:0 10px 30px rgba(0,0,0,0.3); }
+    .map-box iframe { width:100%; height:400px; display:block; border:none; }
+    .address-box { flex:1; text-align:center; border:1px solid #222; padding:40px; border-radius:20px; transition:0.3s; max-width:450px; }
+    .address-box:hover { border-color:#00ffff; background:rgba(0,255,255,0.02); }
+    .addr-item { margin:15px 0; font-size:16px; color:#ccc; }
+    .addr-label { color:#00ffff; font-weight:700; display:block; margin-bottom:5px; }
+    @media (max-width:768px) {
+        #topNav { gap:15px; padding:10px 18px; font-size:11px; }
+        .p-card { width:160px; } .p-photo { height:200px; }
+        .news-grid { grid-template-columns:1fr; }
+        .contact-wrap { flex-direction:column; }
+        .map-box, .address-box { max-width:100%; }
+        #callBtn { padding:10px 15px; font-size:13px; right:15px; bottom:15px; }
+        #loadingWave { bottom:60px; gap:12px; }
+    }
 </style>
 </head>
 <body>
 <div id="topNav">
     <a href="#introSection">HOME</a>
     <a href="#partnership">NETWORK</a>
+    <a href="#newsSection">NEWS</a>
     <a href="#contact">CONTACT</a>
 </div>
 <a href="tel:053-721-8578" id="callBtn">☎ 053-721-8578</a>
 <section id="introSection">
-    <div class="intro-text-wrap i1"><div style="font-size:3rem; font-weight:800;">위드메드</div><p>종합병원 네트워크 플랫폼</p></div>
-    <div class="intro-text-wrap i2"><div style="font-size:3rem; font-weight:800;">임강약품</div><p>의약품 유통 파트너</p></div>
-    <div class="intro-text-wrap i3"><div style="font-size:3rem; font-weight:800;">양신파마</div><p>로컬 병원 전문 파트너</p></div>
-    <div class="intro-text-wrap i4"><div style="font-size:3rem; font-weight:800;">찐빵투어</div><p>의사 전용 프리미엄 여행</p></div>
-    <div class="intro-text-wrap i5"><div style="font-size:3rem; font-weight:800;">김부장공인중개사</div><p>의사전용 개원 도우미</p></div>
+    <div class="video-background">
+        <iframe src="https://www.youtube.com/embed/9XInS_XFv0Y?autoplay=1&mute=1&loop=1&playlist=9XInS_XFv0Y&controls=0&showinfo=0&rel=0&playsinline=1" frameborder="0" allow="autoplay"></iframe>
+    </div>
+    <div class="video-overlay"></div>
+    <div class="intro-text-wrap i1"><div style="font-size:3rem;font-weight:800;">위드메드</div><p>종합병원 네트워크 플랫폼</p></div>
+    <div class="intro-text-wrap i2"><div style="font-size:3rem;font-weight:800;">임강약품</div><p>의약품 유통 파트너</p></div>
+    <div class="intro-text-wrap i3"><div style="font-size:3rem;font-weight:800;">양신파마</div><p>로컬 병원 전문 파트너</p></div>
+    <div class="intro-text-wrap i4"><div style="font-size:3rem;font-weight:800;">찐빵투어</div><p>의사 전용 프리미엄 여행</p></div>
+    <div class="intro-text-wrap i5"><div style="font-size:3rem;font-weight:800;">김부장공인중개사</div><p>의사전용 개원 도우미</p></div>
     <div class="intro-text-wrap i6">
-        <div style="font-size:4rem; font-weight:900; letter-spacing:10px;">AI</div>
-        <div style="font-size:1.5rem; letter-spacing:5px; color:#00ffff;">MEDICAL NETWORK</div>
-        <p style="margin-top:20px; opacity:0.6;">병원·유통·로컬·의사 라이프를 연결합니다</p>
+        <div style="font-size:4rem;font-weight:900;letter-spacing:10px;">AI</div>
+        <div style="font-size:1.5rem;letter-spacing:5px;color:#00ffff;">MEDICAL NETWORK</div>
+        <p style="margin-top:20px;opacity:0.6;">병원·유통·로컬·의사 라이프를 연결합니다</p>
     </div>
     <div id="loadingWave">
         <div class="shape triangle" style="animation-delay:0s;"></div>
@@ -81,42 +107,41 @@
     </div>
 </section>
 <section id="partnership">
-    <h2 style="color:#00ffff; letter-spacing:5px; font-size:13px;">THE EXPERTS</h2>
-    <h3 style="font-size:40px; margin-top:10px; font-weight:800;">각 분야 최고의 파트너</h3>
+    <h2 style="color:#00ffff;letter-spacing:5px;font-size:13px;">THE EXPERTS</h2>
+    <h3 style="font-size:40px;margin-top:10px;font-weight:800;">각 분야 최고의 파트너</h3>
     <div class="p-card-container">
-        <div class="p-card">
-            <div class="p-photo">WITHMED<img class="hover-img" src="위드메드.jpg"></div>
-            <div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo">IMKANG<img class="hover-img" src="임강약품.jpg"></div>
-            <div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo">YANGSHIN<img class="hover-img" src="양신파마.jpg"></div>
-            <div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo">ZZINBBANG<img class="hover-img" src="찐빵투어.jpg"></div>
-            <div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo">KIM BUJANG<img class="hover-img" src="김부장공인중개사.jpg"></div>
-            <div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div>
-        </div>
+        <div class="p-card"><div class="p-photo">WITHMED<img class="hover-img" src="위드메드.jpg"></div><div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div></div>
+        <div class="p-card"><div class="p-photo">IMKANG<img class="hover-img" src="임강약품.jpg"></div><div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div></div>
+        <div class="p-card"><div class="p-photo">YANGSHIN<img class="hover-img" src="양신파마.jpg"></div><div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div></div>
+        <div class="p-card"><div class="p-photo">ZZINBBANG<img class="hover-img" src="찐빵투어.jpg"></div><div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div></div>
+        <div class="p-card"><div class="p-photo">KIM BUJANG<img class="hover-img" src="김부장공인중개사.jpg"></div><div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div></div>
+    </div>
+</section>
+<section id="newsSection">
+    <div style="text-align:center;">
+        <h2 style="color:#a0ff40;letter-spacing:5px;font-size:13px;">REAL-TIME INSIGHT</h2>
+        <h3 style="font-size:40px;font-weight:800;margin-top:10px;">비즈니스 브리핑</h3>
+    </div>
+    <div class="news-grid">
+        <div class="news-card ai" onclick="window.open('https://search.naver.com/search.naver?where=news&query=의료+AI+정부정책')"><div><span class="news-cat cat-ai">AI & DIGITAL HEALTH</span><div class="news-title">정부, AI 기반 스마트 병원 확산 지원안 발표... 의료 혁신 가속도</div></div><div class="news-footer"><span>TOP TREND</span><span>2026.03</span></div></div>
+        <div class="news-card estate" onclick="window.open('https://search.naver.com/search.naver?where=news&query=부동산+개원+정책')"><div><span class="news-cat cat-estate">REAL ESTATE</span><div class="news-title">2026년 상가 임대차 보호법 개정안... 병의원 개원가 영향 분석</div></div><div class="news-footer"><span>POLICY</span><span>2026.03</span></div></div>
+        <div class="news-card policy" onclick="window.open('https://search.naver.com/search.naver?where=news&query=제약+약가인하+정책')"><div><span class="news-cat cat-policy">PHARMA POLICY</span><div class="news-title">보건복지부, 기등재 의약품 약가 재평가 및 인하 목록 공고</div></div><div class="news-footer"><span>GOV</span><span>2026.03</span></div></div>
+        <div class="news-card global" onclick="window.open('https://search.naver.com/search.naver?where=news&query=글로벌+헬스케어+트렌드')"><div><span class="news-cat cat-global">GLOBAL TREND</span><div class="news-title">글로벌 헬스케어 2026: 디지털 치료제와 정밀 의료의 시대</div></div><div class="news-footer"><span>WORLDWIDE</span><span>2026.03</span></div></div>
+        <div class="news-card finance" onclick="window.open('https://search.naver.com/search.naver?where=news&query=병의원+세무+자산관리')"><div><span class="news-cat cat-finance">MEDICAL FINANCE</span><div class="news-title">성공적인 개원을 위한 세법 가이드: 병의원 절세 전략의 핵심</div></div><div class="news-footer"><span>ASSET MGMT</span><span>2026.03</span></div></div>
+        <div class="news-card event" onclick="window.open('https://search.naver.com/search.naver?where=news&query=의학+학회+일정')"><div><span class="news-cat cat-event">CONFERENCE</span><div class="news-title">하반기 주요 의학 학회 및 의료기기 박람회 일정 안내</div></div><div class="news-footer"><span>NETWORKING</span><span>UPCOMING</span></div></div>
     </div>
 </section>
 <section id="contact">
     <div class="contact-title">CONTACT US</div>
     <div class="contact-wrap">
         <div class="map-box">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.562!2d128.59467!3d35.84378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565df5b3e8ef3cd%3A0x44dc41f0bf7f3e35!2z64-Z6rWt66eI7Iqk7IKs7Jq07IKwIDYw!5e0!3m2!1sko!2skr!4v1741100000000!5m2!1sko!2skr" style="border:0; filter: invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.562!2d128.59467!3d35.84378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565df5b3e8ef3cd%3A0x44dc41f0bf7f3e35!2z64-Z6rWt66eI7Iqk7IKs7Jq07IKwIDYw!5e0!3m2!1sko!2skr!4v1741100000000!5m2!1sko!2skr" style="border:0; filter:invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
         </div>
         <div class="address-box">
             <div class="addr-item"><span class="addr-label">ADDRESS</span>대구광역시 남구 현충로 60,<br>405호·406호</div>
             <div class="addr-item"><span class="addr-label">TEL</span>053-721-8578</div>
-            <div class="addr-item"><a href="https://map.kakao.com/link/search/대구광역시 남구 현충로 60" target="_blank" style="color:#00ffff; font-size:14px; text-decoration:none; border:1px solid #00ffff; padding:8px 20px; border-radius:20px; display:inline-block; margin-top:10px;">🗺 카카오맵으로 보기</a></div>
-            <div class="addr-item" style="margin-top:30px; opacity:0.4; font-size:12px;">© 2026 WithMed Group | AI Medical Network</div>
+            <div class="addr-item"><a href="https://map.kakao.com/link/search/대구광역시 남구 현충로 60" target="_blank" style="color:#00ffff;font-size:14px;text-decoration:none;border:1px solid #00ffff;padding:8px 20px;border-radius:20px;display:inline-block;margin-top:10px;">🗺 카카오맵으로 보기</a></div>
+            <div class="addr-item" style="margin-top:30px;opacity:0.4;font-size:12px;">© 2026 WithMed Group | AI Medical Network</div>
         </div>
     </div>
 </section>
