@@ -1,132 +1,124 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pharma.ai.kr</title>
-  <meta name="description" content="AI × Pharma Signals — 조용히 흐름을 기록합니다." />
-  <style>
-    :root{
-      --bg:#000;
-      --fg:#fff;
-      --muted:rgba(255,255,255,.72);
-      --hair:rgba(255,255,255,.14);
-      --card:rgba(255,255,255,.06);
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      background:
-        radial-gradient(1200px 600px at 50% 20%, rgba(92,138,255,.18), transparent 55%),
-        radial-gradient(900px 500px at 30% 70%, rgba(173,81,255,.14), transparent 60%),
-        var(--bg);
-      color:var(--fg);
-      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      letter-spacing:-0.01em;
-    }
-    .wrap{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
-    .container{width:min(920px,100%); text-align:center;}
-    .badge{
-      display:inline-flex; align-items:center; gap:10px;
-      padding:10px 14px; border:1px solid var(--hair);
-      border-radius:999px; background:rgba(255,255,255,.03);
-      color:rgba(255,255,255,.85); font-size:13px; margin-bottom:18px;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-    }
-    .dot{width:8px;height:8px;border-radius:50%; background:#2dd4bf; box-shadow:0 0 18px rgba(45,212,191,.55);}
-    h1{margin:0; font-size:clamp(44px,6vw,70px); font-weight:650; letter-spacing:-0.045em;}
-    .sub{
-      margin:14px auto 18px; width:min(720px,100%);
-      font-size:clamp(16px,2vw,20px); color:var(--muted); line-height:1.65;
-    }
-    .note{
-      margin:0 auto 22px; width:min(760px,100%);
-      font-size:14px; color:rgba(255,255,255,.60); line-height:1.7;
-    }
-    .card{
-      margin:26px auto 0; width:min(820px,100%);
-      border:1px solid var(--hair); background:var(--card);
-      border-radius:22px; padding:18px;
-      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-      text-align:left;
-    }
-    .row{display:flex; gap:10px; flex-wrap:wrap;}
-    input[type="email"]{
-      flex:1 1 260px;
-      padding:14px 16px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.16);
-      background:rgba(0,0,0,.35);
-      color:#fff;
-      outline:none;
-      font-size:14px;
-    }
-    input::placeholder{color:rgba(255,255,255,.45)}
-    .btn{
-      padding:14px 18px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background:#fff;
-      color:#000;
-      font-weight:700;
-      font-size:14px;
-      cursor:pointer;
-      white-space:nowrap;
-    }
-    .hint{margin-top:10px; font-size:12px; color:rgba(255,255,255,.55); line-height:1.6;}
-    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px;}
-    .tile{
-      border:1px solid rgba(255,255,255,.10);
-      border-radius:16px;
-      padding:12px;
-      background:rgba(0,0,0,.25);
-    }
-    .tile b{display:block; font-size:13px; margin-bottom:6px; color:rgba(255,255,255,.92); font-weight:650;}
-    .tile span{font-size:12px; color:rgba(255,255,255,.68); line-height:1.55;}
-    footer{margin-top:16px; color:rgba(255,255,255,.45); font-size:12px; text-align:center;}
-    @media (max-width:780px){ .grid{grid-template-columns:1fr;} .card{text-align:left;} }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WithMed Group | AI Medical Network</title>
+<style>
+    body,html{ margin:0; padding:0; background:#000; font-family: 'Pretendard', sans-serif; color:#fff; scroll-behavior:smooth; overflow-x:hidden; }
+    #topNav { position:fixed; top:25px; left:50%; transform:translateX(-50%); display:flex; gap:30px; font-size:13px; letter-spacing:2px; z-index:100; background: rgba(0,0,0,0.6); padding: 12px 25px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
+    #topNav a { color:#aaa; text-decoration:none; transition: 0.3s; font-weight: 500; }
+    #topNav a:hover { color:#00ffff; }
+    #callBtn { position:fixed; right:30px; bottom:30px; background:#00ffff; color:#000; padding:12px 20px; border-radius:30px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 0 20px rgba(0,255,255,0.4); transition: 0.3s; }
+    #callBtn:hover { transform: scale(1.05); background:#fff; }
+    #introSection { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; }
+    .intro-text-wrap { position:absolute; text-align:center; opacity:0; filter:blur(10px); animation: introFade 31s infinite; }
+    @keyframes introFade { 0% { opacity: 0; filter: blur(10px); transform: translateY(20px); } 5%, 15% { opacity: 1; filter: blur(0); transform: translateY(0); } 20%, 100% { opacity: 0; filter: blur(10px); } }
+    .i1 { animation-delay: 0s; } .i2 { animation-delay: 5s; color: #00ffff; } .i3 { animation-delay: 10s; color: #a0ff40; } .i4 { animation-delay: 15s; color: #ff8040; } .i5 { animation-delay: 20s; color: #ffcc00; } .i6 { animation-delay: 25s; }
+    #loadingWave { display: flex; gap: 18px; position: absolute; bottom: 100px; align-items: center; }
+    .shape { opacity: 0.3; display:flex; align-items:center; justify-content:center; }
+    .shape:not(.triangle):not(.cross):not(.hexagon) { width: 30px; height: 30px; background: #fff; }
+    .s-circle { border-radius: 50%; animation: circleWave 2.2s infinite ease-in-out; }
+    .s-diamond { animation: diamondWave 1.8s infinite ease-in-out; }
+    .triangle { width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent; border-bottom: 30px solid #fff; background: transparent !important; animation: triWave 3.1s infinite ease-in-out; }
+    .cross { width:30px; height:30px; background:transparent !important; position:relative; animation: crossWave 2.6s infinite ease-in-out; }
+    .cross::before { content:''; position:absolute; top:50%; left:0; transform:translateY(-50%); width:100%; height:8px; background:#fff; border-radius:4px; }
+    .cross::after { content:''; position:absolute; left:50%; top:0; transform:translateX(-50%); height:100%; width:8px; background:#fff; border-radius:4px; }
+    .hexagon { width:30px; height:30px; background:#fff; clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); animation: hexWave 3.5s infinite ease-in-out; }
+    @keyframes circleWave { 0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; } 50% { transform: translateY(-30px) scale(1.2); opacity: 1; background: #00ffff; box-shadow: 0 0 15px #00ffff; } }
+    @keyframes diamondWave { 0%, 100% { transform: translateY(0) rotate(45deg) scale(1); opacity: 0.3; } 50% { transform: translateY(-30px) rotate(225deg) scale(1.2); opacity: 1; background: #00ffff; box-shadow: 0 0 15px #00ffff; } }
+    @keyframes triWave { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.3; border-bottom-color: #fff; } 30% { transform: translateY(-20px) rotate(-20deg) scale(1.1); opacity: 0.8; border-bottom-color: #00ffff; } 70% { transform: translateY(-28px) rotate(20deg) scale(1.2); opacity: 1; border-bottom-color: #00ffff; filter: drop-shadow(0 0 10px #00ffff); } }
+    @keyframes crossWave { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.3; } 40% { transform: translateY(-25px) rotate(60deg) scale(1.1); opacity: 0.7; } 50% { transform: translateY(-30px) rotate(90deg) scale(1.2); opacity: 1; filter: drop-shadow(0 0 10px #00ffff); } }
+    @keyframes hexWave { 0%, 100% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.3; } 50% { transform: translateY(-30px) rotate(-60deg) scale(1.2); opacity: 1; background: #00ffff; filter: drop-shadow(0 0 10px #00ffff); } }
+    #partnership { padding:120px 20px; text-align:center; border-top:1px solid #111; background: #000; }
+    .p-card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:60px; }
+    .p-card { width:240px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
+    .p-card:hover { transform:translateY(-12px); border-color:#00ffff; box-shadow:0 20px 50px rgba(0,255,255,0.2); }
+    .p-photo { height:320px; position:relative; background:#111; display:flex; align-items:center; justify-content:center; color:#444; font-weight:700; overflow:hidden; }
+    .hover-img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; opacity:0; transform:scale(1.1); transition:0.6s; }
+    .p-card:hover .hover-img { opacity:1; transform:scale(1); }
+    .p-content { padding:20px; text-align:left; }
+    .p-tag { font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:10px; }
+    .tag-wm {background:#fff;color:#000;} .tag-ik {background:#00ffff;color:#000;} .tag-ys {background:#a0ff40;color:#000;} .tag-zb {background:#ff8040;color:#000;} .tag-kb {background:#ffcc00;color:#000;}
+    .p-name { font-size:18px; font-weight:700; margin:0 0 5px 0; }
+    .p-desc { font-size:13px; color:#888; line-height:1.5; }
+    #contact { padding:100px 20px; text-align:center; background:#050505; border-top:1px solid #111; display: flex; flex-direction: column; align-items: center; }
+    .contact-title { font-size: 32px; font-weight: 800; letter-spacing: 2px; margin-bottom: 40px; }
+    .contact-wrap { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; max-width: 1200px; width: 100%; align-items: flex-start; }
+    .map-box { width: 100%; max-width: 600px; border: 1px solid #222; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+    .map-box iframe { width: 100%; height: 400px; display: block; border: none; }
+    .address-box { flex: 1; text-align: center; border: 1px solid #222; padding: 40px; border-radius: 20px; transition: 0.3s; max-width: 450px; }
+    .address-box:hover { border-color: #00ffff; background: rgba(0,255,255,0.02); }
+    .addr-item { margin: 15px 0; font-size: 16px; color: #ccc; }
+    .addr-label { color: #00ffff; font-weight: 700; margin-right: 10px; display: block; margin-bottom: 5px; }
+</style>
 </head>
 <body>
-  <div class="wrap">
-    <main class="container">
-      <div class="badge"><span class="dot"></span>Pharma.ai.kr — Coming Soon</div>
-      <h1>AI × Pharma Signals</h1>
-      <p class="sub">조용히 흐름을 기록합니다. (요약이 아니라, 의미를 정리합니다)</p>
-      <p class="note">
-        본 사이트는 <b>상업 목적이 아닌 정보 공유</b>를 지향합니다. 기사 원문은 복사하지 않으며,
-        출처와 링크를 기반으로 <b>요점/시그널/해석</b> 형태로 정리합니다.
-      </p>
-
-      <!-- ✅ 무료 구독 폼: 아래 action만 바꾸면 작동 -->
-      <section class="card" aria-label="Subscribe">
-        <form class="row" action="https://formspree.io/f/폼ID여기에" method="POST">
-          <input type="email" name="email" placeholder="이메일 주소 (무료 구독)" required />
-          <button class="btn" type="submit">무료 구독하기</button>
-        </form>
-        <div class="hint">
-          ※ 이메일은 업데이트 알림에만 사용합니다. 언제든지 구독 해지 가능합니다.
+<div id="topNav">
+    <a href="#introSection">HOME</a>
+    <a href="#partnership">NETWORK</a>
+    <a href="#contact">CONTACT</a>
+</div>
+<a href="tel:053-721-8578" id="callBtn">☎ 053-721-8578</a>
+<section id="introSection">
+    <div class="intro-text-wrap i1"><div style="font-size:3rem; font-weight:800;">위드메드</div><p>종합병원 네트워크 플랫폼</p></div>
+    <div class="intro-text-wrap i2"><div style="font-size:3rem; font-weight:800;">임강약품</div><p>의약품 유통 파트너</p></div>
+    <div class="intro-text-wrap i3"><div style="font-size:3rem; font-weight:800;">양신파마</div><p>로컬 병원 전문 파트너</p></div>
+    <div class="intro-text-wrap i4"><div style="font-size:3rem; font-weight:800;">찐빵투어</div><p>의사 전용 프리미엄 여행</p></div>
+    <div class="intro-text-wrap i5"><div style="font-size:3rem; font-weight:800;">김부장공인중개사</div><p>의사전용 개원 도우미</p></div>
+    <div class="intro-text-wrap i6">
+        <div style="font-size:4rem; font-weight:900; letter-spacing:10px;">AI</div>
+        <div style="font-size:1.5rem; letter-spacing:5px; color:#00ffff;">MEDICAL NETWORK</div>
+        <p style="margin-top:20px; opacity:0.6;">병원·유통·로컬·의사 라이프를 연결합니다</p>
+    </div>
+    <div id="loadingWave">
+        <div class="shape triangle" style="animation-delay:0s;"></div>
+        <div class="shape s-circle" style="animation-delay:0.3s;"></div>
+        <div class="shape hexagon" style="animation-delay:0.7s;"></div>
+        <div class="shape s-diamond" style="animation-delay:1.1s;"></div>
+        <div class="shape cross" style="animation-delay:0.5s;"></div>
+        <div class="shape triangle" style="animation-delay:1.5s;"></div>
+    </div>
+</section>
+<section id="partnership">
+    <h2 style="color:#00ffff; letter-spacing:5px; font-size:13px;">THE EXPERTS</h2>
+    <h3 style="font-size:40px; margin-top:10px; font-weight:800;">각 분야 최고의 파트너</h3>
+    <div class="p-card-container">
+        <div class="p-card">
+            <div class="p-photo">WITHMED<img class="hover-img" src="위드메드.jpg"></div>
+            <div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div>
         </div>
-
-        <div class="grid" aria-label="What you'll get">
-          <div class="tile">
-            <b>Daily Brief</b>
-            <span>핵심 이슈 3줄 + 한 줄 의미</span>
-          </div>
-          <div class="tile">
-            <b>Signals</b>
-            <span>AI 도입/규제/투자 ‘움직임’만 추적</span>
-          </div>
-          <div class="tile">
-            <b>Field Notes</b>
-            <span>가끔, 현장 기반 코멘트</span>
-          </div>
+        <div class="p-card">
+            <div class="p-photo">IMKANG<img class="hover-img" src="임강약품.jpg"></div>
+            <div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div>
         </div>
-      </section>
-
-      <footer>Developer: 김준호</footer>
-    </main>
-  </div>
+        <div class="p-card">
+            <div class="p-photo">YANGSHIN<img class="hover-img" src="양신파마.jpg"></div>
+            <div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div>
+        </div>
+        <div class="p-card">
+            <div class="p-photo">ZZINBBANG<img class="hover-img" src="찐빵투어.jpg"></div>
+            <div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div>
+        </div>
+        <div class="p-card">
+            <div class="p-photo">KIM BUJANG<img class="hover-img" src="김부장공인중개사.jpg"></div>
+            <div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div>
+        </div>
+    </div>
+</section>
+<section id="contact">
+    <div class="contact-title">CONTACT US</div>
+    <div class="contact-wrap">
+        <div class="map-box">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3234.562!2d128.59467!3d35.84378!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3565df5b3e8ef3cd%3A0x44dc41f0bf7f3e35!2z64-Z6rWt66eI7Iqk7IKs7Jq07IKwIDYw!5e0!3m2!1sko!2skr!4v1741100000000!5m2!1sko!2skr" style="border:0; filter: invert(90%) hue-rotate(180deg);" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <div class="address-box">
+            <div class="addr-item"><span class="addr-label">ADDRESS</span>대구광역시 남구 현충로 60,<br>405호·406호</div>
+            <div class="addr-item"><span class="addr-label">TEL</span>053-721-8578</div>
+            <div class="addr-item"><a href="https://map.kakao.com/link/search/대구광역시 남구 현충로 60" target="_blank" style="color:#00ffff; font-size:14px; text-decoration:none; border:1px solid #00ffff; padding:8px 20px; border-radius:20px; display:inline-block; margin-top:10px;">🗺 카카오맵으로 보기</a></div>
+            <div class="addr-item" style="margin-top:30px; opacity:0.4; font-size:12px;">© 2026 WithMed Group | AI Medical Network</div>
+        </div>
+    </div>
+</section>
 </body>
 </html>
