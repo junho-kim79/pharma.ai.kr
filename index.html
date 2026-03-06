@@ -8,27 +8,47 @@
 <style>
     body,html{ margin:0; padding:0; background:#000; font-family:'Noto Serif KR',serif; color:#fff; scroll-behavior:smooth; overflow-x:hidden; }
 
-    /* 주식 티커 */
     #ticker { background:#0a0a0a; border-bottom:1px solid #1a1a1a; padding:8px 0; overflow:hidden; position:fixed; top:0; width:100%; z-index:200; }
     .ticker-wrap { display:flex; gap:60px; animation:tickerMove 30s linear infinite; white-space:nowrap; }
     .ticker-item { font-size:12px; font-family:'Cormorant Garamond',serif; letter-spacing:1px; }
     .ticker-item .t-name { color:#555; margin-right:8px; }
     .ticker-item .t-price { color:#fff; margin-right:6px; }
-    .up { color:#ff4466; } .down { color:#4488ff; }
+    .up{color:#ff4466;} .down{color:#4488ff;}
     @keyframes tickerMove { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
-    #topNav { position:fixed; top:35px; left:50%; transform:translateX(-50%); display:flex; gap:25px; font-size:12px; letter-spacing:3px; z-index:100; background:rgba(0,0,0,0.6); padding:10px 22px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); font-family:'Cormorant Garamond',serif; }
-    #topNav a { color:#aaa; text-decoration:none; transition:0.3s; font-weight:600; }
+    #topNav { position:fixed; top:36px; left:50%; transform:translateX(-50%); display:flex; gap:22px; font-size:11px; letter-spacing:2px; z-index:100; background:rgba(0,0,0,0.6); padding:10px 20px; border-radius:30px; backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.1); font-family:'Cormorant Garamond',serif; }
+    #topNav a { color:#aaa; text-decoration:none; transition:0.3s; font-weight:600; cursor:pointer; }
     #topNav a:hover { color:#00ffff; }
-    #callBtn { position:fixed; right:30px; bottom:30px; background:#00ffff; color:#000; padding:12px 20px; border-radius:30px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 0 20px rgba(0,255,255,0.4); transition:0.3s; font-family:'Noto Serif KR',serif; letter-spacing:1px; }
+    #callBtn { position:fixed; right:30px; bottom:30px; background:#00ffff; color:#000; padding:12px 20px; border-radius:30px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 0 20px rgba(0,255,255,0.4); transition:0.3s; font-family:'Noto Serif KR',serif; }
     #callBtn:hover { transform:scale(1.05); background:#fff; }
-    #musicBtn { position:fixed; left:30px; bottom:30px; background:rgba(0,0,0,0.7); color:#00ffff; padding:10px 16px; border-radius:30px; font-size:12px; font-weight:700; border:1px solid #00ffff; cursor:pointer; transition:0.3s; backdrop-filter:blur(10px); z-index:100; font-family:'Cormorant Garamond',serif; letter-spacing:1px; }
+    #musicBtn { position:fixed; left:30px; bottom:30px; background:rgba(0,0,0,0.7); color:#00ffff; padding:10px 16px; border-radius:30px; font-size:12px; font-weight:700; border:1px solid #00ffff; cursor:pointer; transition:0.3s; backdrop-filter:blur(10px); z-index:100; font-family:'Cormorant Garamond',serif; }
     #musicBtn:hover { background:#00ffff; color:#000; }
 
-    /* 날씨 */
-    #weatherWidget { position:fixed; right:30px; top:55px; z-index:99; background:rgba(0,0,0,0.6); border:1px solid #1a1a1a; border-radius:16px; padding:10px 16px; backdrop-filter:blur(10px); text-align:center; font-size:12px; color:#aaa; min-width:100px; }
+    #weatherWidget { position:fixed; right:30px; top:52px; z-index:99; background:rgba(0,0,0,0.6); border:1px solid #1a1a1a; border-radius:16px; padding:10px 16px; backdrop-filter:blur(10px); text-align:center; font-size:12px; color:#aaa; min-width:90px; }
     #weatherWidget .w-temp { font-size:22px; font-weight:700; color:#fff; font-family:'Cormorant Garamond',serif; }
     #weatherWidget .w-desc { font-size:11px; color:#555; margin-top:2px; }
+
+    /* 체크리스트 모달 */
+    #checkModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; backdrop-filter:blur(10px); overflow-y:auto; padding:40px 20px; }
+    #checkModal.active { display:flex; align-items:flex-start; justify-content:center; }
+    .modal-box { background:#0a0a0a; border:1px solid #222; border-radius:24px; max-width:700px; width:100%; padding:50px 40px; position:relative; margin:auto; }
+    .modal-close { position:absolute; top:20px; right:24px; font-size:24px; color:#555; cursor:pointer; transition:0.2s; background:none; border:none; }
+    .modal-close:hover { color:#fff; }
+    .modal-title { font-size:28px; font-weight:900; margin-bottom:6px; }
+    .modal-sub { font-size:13px; color:#555; margin-bottom:40px; }
+    .checklist-category { margin-bottom:28px; }
+    .checklist-cat-title { font-size:10px; font-weight:800; letter-spacing:3px; color:#00ffff; font-family:'Cormorant Garamond',serif; margin-bottom:12px; }
+    .checklist-item { display:flex; align-items:center; gap:14px; padding:12px 16px; background:#111; border:1px solid #1a1a1a; border-radius:10px; margin-bottom:8px; cursor:pointer; transition:0.3s; }
+    .checklist-item:hover { border-color:#333; background:#161616; }
+    .checklist-item.done { border-color:#00ffff22; background:#00ffff08; }
+    .checklist-item.done .check-label { color:#444; text-decoration:line-through; }
+    .check-box { width:20px; height:20px; border:2px solid #333; border-radius:5px; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:0.3s; font-size:12px; color:#000; }
+    .checklist-item.done .check-box { background:#00ffff; border-color:#00ffff; }
+    .check-label { font-size:14px; color:#ccc; }
+    .modal-progress { margin-bottom:30px; }
+    .progress-bar { height:4px; background:#1a1a1a; border-radius:2px; margin-top:8px; }
+    .progress-fill { height:100%; background:#00ffff; border-radius:2px; transition:0.4s; }
+    .progress-text { font-size:12px; color:#555; font-family:'Cormorant Garamond',serif; }
 
     #introSection { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; padding-top:80px; }
     .intro-text-wrap { position:absolute; text-align:center; opacity:0; filter:blur(10px); animation:introFade 18s infinite; z-index:3; width:100%; }
@@ -50,7 +70,6 @@
     @keyframes crossWave { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.3;} 40%{transform:translateY(-25px) rotate(60deg) scale(1.1);opacity:0.7;} 50%{transform:translateY(-30px) rotate(90deg) scale(1.2);opacity:1;filter:drop-shadow(0 0 10px #00ffff);} }
     @keyframes hexWave { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.3;} 50%{transform:translateY(-30px) rotate(-60deg) scale(1.2);opacity:1;background:#00ffff;filter:drop-shadow(0 0 10px #00ffff);} }
 
-    /* 파트너 */
     #partnership { padding:120px 20px; text-align:center; border-top:1px solid #111; background:#000; }
     .p-card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:60px; }
     .p-card { width:240px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
@@ -66,7 +85,6 @@
     .p-name { font-size:18px; font-weight:700; margin:0 0 5px 0; }
     .p-desc { font-size:13px; color:#888; line-height:1.5; }
 
-    /* 뉴스 */
     #newsSection { padding:120px 20px; background:#050505; border-top:1px solid #111; }
     .news-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; max-width:1200px; margin:60px auto 0; }
     .news-card { background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; transition:0.4s; cursor:pointer; overflow:hidden; display:flex; flex-direction:column; }
@@ -88,47 +106,30 @@
     .dot-ai{background:#00ffff;} .dot-estate{background:#ffcc00;} .dot-policy{background:#ff5050;} .dot-finance{background:#aaa;} .dot-us{background:#4488ff;} .dot-kr{background:#ff4466;}
     @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
 
-    /* 경매 */
     #auctionSection { padding:100px 20px; background:#000; border-top:1px solid #111; text-align:center; }
-    .auction-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:50px; max-width:900px; margin-left:auto; margin-right:auto; }
-    .auction-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; width:280px; padding:40px 30px; border-radius:24px; text-decoration:none; transition:0.4s; position:relative; overflow:hidden; gap:14px; }
+    .auction-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:50px; max-width:1000px; margin-left:auto; margin-right:auto; }
+    .auction-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; width:260px; padding:36px 28px; border-radius:24px; text-decoration:none; transition:0.4s; position:relative; overflow:hidden; gap:12px; }
     .auction-btn::before { content:''; position:absolute; inset:0; opacity:0; transition:0.4s; }
     .auction-btn:hover { transform:translateY(-8px); }
     .auction-btn:hover::before { opacity:1; }
-    .auction-btn.court { background:#0a0a14; border:1px solid #334; box-shadow:0 0 30px rgba(60,80,180,0.15); }
+    .auction-btn.court { background:#0a0a14; border:1px solid #334; }
     .auction-btn.court:hover { border-color:#4466ff; box-shadow:0 20px 50px rgba(60,80,255,0.25); }
     .auction-btn.court::before { background:radial-gradient(circle at 50% 0%,rgba(60,80,255,0.08),transparent 70%); }
-    .auction-btn.lock { background:#0a1410; border:1px solid #343; box-shadow:0 0 30px rgba(60,180,80,0.15); }
+    .auction-btn.lock { background:#0a1410; border:1px solid #343; }
     .auction-btn.lock:hover { border-color:#44ff88; box-shadow:0 20px 50px rgba(60,255,100,0.25); }
     .auction-btn.lock::before { background:radial-gradient(circle at 50% 0%,rgba(60,255,100,0.08),transparent 70%); }
-    .auction-btn.drug { background:#0a0a14; border:1px solid #433; box-shadow:0 0 30px rgba(180,60,60,0.15); }
+    .auction-btn.drug { background:#0a0a14; border:1px solid #433; }
     .auction-btn.drug:hover { border-color:#ff6644; box-shadow:0 20px 50px rgba(255,80,60,0.25); }
     .auction-btn.drug::before { background:radial-gradient(circle at 50% 0%,rgba(255,80,60,0.08),transparent 70%); }
-    .auction-icon { font-size:2.5rem; }
-    .auction-label { font-size:11px; font-weight:800; letter-spacing:3px; font-family:'Cormorant Garamond',serif; }
+    .auction-icon { font-size:2.2rem; }
+    .auction-label { font-size:10px; font-weight:800; letter-spacing:3px; font-family:'Cormorant Garamond',serif; }
     .auction-label.court-label{color:#4466ff;} .auction-label.lock-label{color:#44ff88;} .auction-label.drug-label{color:#ff6644;}
-    .auction-title { font-size:20px; font-weight:800; color:#fff; }
+    .auction-title { font-size:18px; font-weight:800; color:#fff; }
     .auction-desc { font-size:12px; color:#666; line-height:1.6; }
-    .auction-arrow { font-size:11px; letter-spacing:2px; margin-top:4px; font-family:'Cormorant Garamond',serif; }
+    .auction-arrow { font-size:11px; letter-spacing:2px; font-family:'Cormorant Garamond',serif; }
     .auction-arrow.court-arrow{color:#4466ff;} .auction-arrow.lock-arrow{color:#44ff88;} .auction-arrow.drug-arrow{color:#ff6644;}
 
-    /* 체크리스트 */
-    #checklistSection { padding:100px 20px; background:#050505; border-top:1px solid #111; text-align:center; }
-    .checklist-wrap { max-width:700px; margin:50px auto 0; text-align:left; }
-    .checklist-category { margin-bottom:30px; }
-    .checklist-cat-title { font-size:11px; font-weight:800; letter-spacing:3px; color:#00ffff; font-family:'Cormorant Garamond',serif; margin-bottom:15px; }
-    .checklist-item { display:flex; align-items:center; gap:14px; padding:12px 16px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:10px; margin-bottom:8px; cursor:pointer; transition:0.3s; }
-    .checklist-item:hover { border-color:#333; background:#0f0f0f; }
-    .checklist-item.done { border-color:#00ffff22; background:#00ffff08; }
-    .checklist-item.done .check-label { color:#555; text-decoration:line-through; }
-    .check-box { width:20px; height:20px; border:2px solid #333; border-radius:5px; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:0.3s; }
-    .checklist-item.done .check-box { background:#00ffff; border-color:#00ffff; }
-    .check-box::after { content:'✓'; font-size:12px; color:#000; display:none; }
-    .checklist-item.done .check-box::after { display:block; }
-    .check-label { font-size:14px; color:#ccc; }
-
-    /* 콘택트 */
-    #contact { padding:100px 20px; text-align:center; background:#000; border-top:1px solid #111; display:flex; flex-direction:column; align-items:center; }
+    #contact { padding:100px 20px; text-align:center; background:#050505; border-top:1px solid #111; display:flex; flex-direction:column; align-items:center; }
     .contact-title { font-size:32px; font-weight:800; letter-spacing:4px; margin-bottom:40px; font-family:'Cormorant Garamond',serif; }
     .contact-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:40px; max-width:1200px; width:100%; align-items:flex-start; }
     .map-box { width:100%; max-width:600px; border:1px solid #222; border-radius:20px; overflow:hidden; }
@@ -137,10 +138,9 @@
     .address-box:hover { border-color:#00ffff; background:rgba(0,255,255,0.02); }
     .addr-item { margin:15px 0; font-size:16px; color:#ccc; }
     .addr-label { color:#00ffff; font-weight:700; display:block; margin-bottom:5px; font-family:'Cormorant Garamond',serif; letter-spacing:2px; }
-    .globe-wrap { margin-top:60px; text-align:center; }
 
     @media (max-width:768px) {
-        #topNav { gap:10px; padding:8px 12px; font-size:10px; }
+        #topNav { gap:8px; padding:8px 10px; font-size:9px; }
         .p-card { width:160px; } .p-photo { height:180px; }
         .news-grid { grid-template-columns:1fr; }
         .auction-btn { width:100%; max-width:340px; }
@@ -149,6 +149,7 @@
         #callBtn { padding:10px 15px; font-size:13px; right:15px; bottom:15px; }
         #musicBtn { left:15px; bottom:15px; }
         #weatherWidget { right:15px; top:50px; }
+        .modal-box { padding:30px 20px; }
     }
 </style>
 </head>
@@ -156,26 +157,36 @@
 
 <audio id="bgm" src="BGM.mp3" loop preload="auto"></audio>
 
-<!-- 주식 티커 -->
-<div id="ticker">
-    <div class="ticker-wrap" id="tickerWrap"></div>
+<!-- 체크리스트 모달 -->
+<div id="checkModal">
+    <div class="modal-box">
+        <button class="modal-close" onclick="closeChecklist()">✕</button>
+        <div class="modal-title">의원 개원 체크리스트</div>
+        <div class="modal-sub">클릭하여 완료 체크하세요</div>
+        <div class="modal-progress">
+            <div class="progress-text" id="progressText">0 / 20 완료</div>
+            <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+        </div>
+        <div id="checklistWrap"></div>
+    </div>
 </div>
+
+<div id="ticker"><div class="ticker-wrap" id="tickerWrap"></div></div>
 
 <div id="topNav">
     <a href="#introSection">HOME</a>
     <a href="#partnership">NETWORK</a>
     <a href="#newsSection">NEWS</a>
     <a href="#auctionSection">AUCTION</a>
-    <a href="#checklistSection">CHECKLIST</a>
+    <a onclick="openChecklist()">CHECKLIST</a>
     <a href="https://m.blog.naver.com/jjbbtour" target="_blank">TOUR</a>
     <a href="#contact">CONTACT</a>
 </div>
 
-<!-- 날씨 위젯 -->
 <div id="weatherWidget">
     <div id="wIcon">🌤</div>
     <div class="w-temp" id="wTemp">--°</div>
-    <div class="w-desc" id="wDesc">대구</div>
+    <div class="w-desc">대구</div>
 </div>
 
 <a href="tel:053-721-8578" id="callBtn">☎ 053-721-8578</a>
@@ -240,7 +251,7 @@
 </section>
 
 <section id="auctionSection">
-    <h2 style="color:#ffcc00;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">REAL ESTATE TOOL</h2>
+    <h2 style="color:#ffcc00;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">QUICK LINKS</h2>
     <h3 style="font-size:40px;font-weight:900;margin-top:10px;">바로가기</h3>
     <p style="color:#555;font-size:14px;margin-top:10px;">개원 및 업무에 필요한 사이트를 바로 이용하세요</p>
     <div class="auction-wrap">
@@ -268,13 +279,6 @@
     </div>
 </section>
 
-<section id="checklistSection">
-    <h2 style="color:#ffcc00;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">OPENING GUIDE</h2>
-    <h3 style="font-size:40px;font-weight:900;margin-top:10px;">의원 개원 체크리스트</h3>
-    <p style="color:#555;font-size:14px;margin-top:10px;">클릭하여 완료 체크하세요</p>
-    <div class="checklist-wrap" id="checklistWrap"></div>
-</section>
-
 <section id="contact">
     <div class="contact-title">CONTACT US</div>
     <div class="contact-wrap">
@@ -288,31 +292,24 @@
             <div class="addr-item" style="margin-top:30px;opacity:0.4;font-size:12px;">© 2026 WithMed Group | AI Medical Network</div>
         </div>
     </div>
-    <div class="globe-wrap">
-        <p style="color:#333;font-size:11px;letter-spacing:2px;margin-bottom:20px;font-family:'Cormorant Garamond',serif;">VISITORS AROUND THE WORLD</p>
-        <script type="text/javascript" src="//ra.revolvermaps.com/0/0/8.js?i=5f8t8t8t8t8&amp;m=7&amp;c=00ffff&amp;cr1=ff4466&amp;f=arial&amp;l=33" async="async"></script>
-    </div>
 </section>
 
 <script>
 // 주식 티커
 const stocks = [
-    {name:'KOSPI', price:'2,612', change:'+0.8%', up:true},
-    {name:'KOSDAQ', price:'742', change:'+1.2%', up:true},
-    {name:'NASDAQ', price:'17,842', change:'-0.3%', up:false},
-    {name:'S&P500', price:'5,123', change:'+0.1%', up:true},
-    {name:'삼성전자', price:'72,400', change:'+1.5%', up:true},
-    {name:'TESLA', price:'172.3', change:'-2.1%', up:false},
-    {name:'NVIDIA', price:'824.5', change:'+3.2%', up:true},
-    {name:'USD/KRW', price:'1,326', change:'+0.2%', up:true},
+    {name:'KOSPI',price:'2,612',change:'+0.8%',up:true},
+    {name:'KOSDAQ',price:'742',change:'+1.2%',up:true},
+    {name:'NASDAQ',price:'17,842',change:'-0.3%',up:false},
+    {name:'S&P500',price:'5,123',change:'+0.1%',up:true},
+    {name:'삼성전자',price:'72,400',change:'+1.5%',up:true},
+    {name:'TESLA',price:'172.3',change:'-2.1%',up:false},
+    {name:'NVIDIA',price:'824.5',change:'+3.2%',up:true},
+    {name:'USD/KRW',price:'1,326',change:'+0.2%',up:true},
 ];
-function buildTicker(){
-    const doubled = [...stocks, ...stocks];
-    return doubled.map(s=>`<span class="ticker-item"><span class="t-name">${s.name}</span><span class="t-price">${s.price}</span><span class="${s.up?'up':'down'}">${s.change}</span></span>`).join('');
-}
-document.getElementById('tickerWrap').innerHTML = buildTicker();
+const doubled = [...stocks,...stocks];
+document.getElementById('tickerWrap').innerHTML = doubled.map(s=>`<span class="ticker-item"><span class="t-name">${s.name}</span><span class="t-price">${s.price}</span><span class="${s.up?'up':'down'}">${s.change}</span></span>`).join('');
 
-// 날씨 (Open-Meteo 무료 API - 대구)
+// 날씨
 async function loadWeather(){
     try {
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.8714&longitude=128.6014&current_weather=true');
@@ -320,66 +317,30 @@ async function loadWeather(){
         const w = data.current_weather;
         const icons = {0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',61:'🌧',71:'🌨',80:'🌦',95:'⛈'};
         document.getElementById('wTemp').textContent = Math.round(w.temperature)+'°';
-        document.getElementById('wIcon').textContent = icons[w.weathercode] || '🌤';
-    } catch(e) {}
+        document.getElementById('wIcon').textContent = icons[w.weathercode]||'🌤';
+    } catch(e){}
 }
 loadWeather();
 
 // 뉴스
 const CATEGORIES = [
-    { id:'ai', label:'AI & DIGITAL HEALTH', dotClass:'dot-ai', catClass:'cat-ai', queries:['의료 AI','스마트병원','디지털헬스케어','의료IT','AI진단'], searchUrl:'https://search.naver.com/search.naver?where=news&query=의료+AI' },
-    { id:'estate', label:'REAL ESTATE', dotClass:'dot-estate', catClass:'cat-estate', queries:['병의원 개원','의원 임대','개원 부동산','의료상가','클리닉 개원'], searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+개원+부동산' },
-    { id:'policy', label:'PHARMA POLICY', dotClass:'dot-policy', catClass:'cat-policy', queries:['약가인하','제약정책','건강보험 급여','의약품 허가','처방약 정책'], searchUrl:'https://search.naver.com/search.naver?where=news&query=제약+약가+정책' },
-    { id:'finance', label:'MEDICAL FINANCE', dotClass:'dot-finance', catClass:'cat-finance', queries:['병의원 세무','의사 절세','개원자금','의원 수익','의사 자산관리'], searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+세무+절세' },
-    { id:'us', label:'US MARKET', dotClass:'dot-us', catClass:'cat-us', queries:['나스닥','S&P500','미국주식','빅테크','미국증시'], searchUrl:'https://finance.naver.com/world/' },
-    { id:'kr', label:'KR MARKET', dotClass:'dot-kr', catClass:'cat-kr', queries:['코스피','코스닥','국내증시','삼성전자','바이오주'], searchUrl:'https://finance.naver.com/sise/' }
+    {id:'ai',label:'AI & DIGITAL HEALTH',dotClass:'dot-ai',catClass:'cat-ai',queries:['의료 AI','스마트병원','디지털헬스케어','의료IT','AI진단'],searchUrl:'https://search.naver.com/search.naver?where=news&query=의료+AI'},
+    {id:'estate',label:'REAL ESTATE',dotClass:'dot-estate',catClass:'cat-estate',queries:['병의원 개원','의원 임대','개원 부동산','의료상가','클리닉 개원'],searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+개원+부동산'},
+    {id:'policy',label:'PHARMA POLICY',dotClass:'dot-policy',catClass:'cat-policy',queries:['약가인하','제약정책','건강보험 급여','의약품 허가','처방약 정책'],searchUrl:'https://search.naver.com/search.naver?where=news&query=제약+약가+정책'},
+    {id:'finance',label:'MEDICAL FINANCE',dotClass:'dot-finance',catClass:'cat-finance',queries:['병의원 세무','의사 절세','개원자금','의원 수익','의사 자산관리'],searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+세무+절세'},
+    {id:'us',label:'US MARKET',dotClass:'dot-us',catClass:'cat-us',queries:['나스닥','S&P500','미국주식','빅테크','미국증시'],searchUrl:'https://finance.naver.com/world/'},
+    {id:'kr',label:'KR MARKET',dotClass:'dot-kr',catClass:'cat-kr',queries:['코스피','코스닥','국내증시','삼성전자','바이오주'],searchUrl:'https://finance.naver.com/sise/'}
 ];
-function shuffle(arr){ return [...arr].sort(()=>Math.random()-0.5); }
+function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5);}
 function buildCard(cat){
-    const headlines = shuffle(cat.queries).slice(0,3);
-    const items = headlines.map(q=>`<li onclick="event.stopPropagation();window.open('https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(q)}')">${q} 최신 동향</li>`).join('');
+    const items = shuffle(cat.queries).slice(0,3).map(q=>`<li onclick="event.stopPropagation();window.open('https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(q)}')">${q} 최신 동향</li>`).join('');
     return `<div class="news-card ${cat.id}" onclick="window.open('${cat.searchUrl}')">
         <div class="news-card-top"><span class="news-cat ${cat.catClass}">${cat.label}</span><ul class="news-headlines">${items}</ul></div>
         <div class="news-card-bottom"><div class="news-footer"><a class="news-more" href="${cat.searchUrl}" target="_blank" onclick="event.stopPropagation()">MORE NEWS →</a><div class="news-dot ${cat.dotClass}"></div></div></div>
     </div>`;
 }
-function renderNews(){ document.getElementById('newsGrid').innerHTML = CATEGORIES.map(buildCard).join(''); }
+function renderNews(){document.getElementById('newsGrid').innerHTML=CATEGORIES.map(buildCard).join('');}
 renderNews();
-setInterval(renderNews, 5*60*1000);
+setInterval(renderNews,5*60*1000);
 
-// 체크리스트
-const CHECKLIST = [
-    { cat:'📋 사전 준비', items:['진료과목 및 표방과목 결정','개원 지역 및 상권 분석','경쟁 의원 현황 파악','개원 예산 수립'] },
-    { cat:'🏢 입지 및 공간', items:['건물 계약 및 임대차 협의','인테리어 시공 업체 선정','의료기기 배치 설계','약국 협의 및 위치 확인'] },
-    { cat:'📄 인허가 및 신고', items:['의료기관 개설 신고','건강보험 요양기관 지정 신청','사업자등록 및 세무 등록','의료폐기물 처리업체 계약'] },
-    { cat:'💊 의약품 및 유통', items:['의약품 도매상 계약','초도 의약품 발주','소모품 및 의료소재 구비','원무 및 EMR 시스템 설치'] },
-    { cat:'📣 홍보 및 마케팅', items:['병원 홈페이지 및 SNS 개설','지역사회 홍보 계획 수립','개원 현수막 및 안내물 제작','온라인 지도 등록 (네이버·카카오)'] },
-];
-function buildChecklist(){
-    return CHECKLIST.map(cat=>`
-        <div class="checklist-category">
-            <div class="checklist-cat-title">${cat.cat}</div>
-            ${cat.items.map((item,i)=>`
-                <div class="checklist-item" onclick="this.classList.toggle('done')">
-                    <div class="check-box"></div>
-                    <span class="check-label">${item}</span>
-                </div>`).join('')}
-        </div>`).join('');
-}
-document.getElementById('checklistWrap').innerHTML = buildChecklist();
-
-// 배경음악
-const bgm = document.getElementById('bgm');
-const btn = document.getElementById('musicBtn');
-let playing = false;
-function toggleMusic(){
-    if(playing){ bgm.pause(); btn.textContent='♪ MUSIC ON'; playing=false; }
-    else { bgm.play(); btn.textContent='♪ MUSIC OFF'; playing=true; }
-}
-document.addEventListener('click', function startBgm(){
-    if(!playing){ bgm.play(); btn.textContent='♪ MUSIC OFF'; playing=true; }
-    document.removeEventListener('click', startBgm);
-}, {once:true});
-</script>
-</body>
-</html>
+// 체크리스
