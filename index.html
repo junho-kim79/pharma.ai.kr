@@ -360,21 +360,31 @@ function showNextCompany(){
     if(currentCompany > 0){
         const prev = companies[currentCompany-1];
         prev.classList.remove('show');
-        setTimeout(()=>{ prev.classList.remove('active'); }, 600);
-    }
-    if(currentCompany < companies.length){
+        setTimeout(()=>{
+            prev.classList.remove('active');
+            // 이전꺼 완전히 사라진 후 다음꺼 등장
+            if(currentCompany < companies.length){
+                const curr = companies[currentCompany];
+                curr.classList.add('active');
+                curr.style.color = colors[currentCompany];
+                setTimeout(()=>{ curr.classList.add('show'); }, 50);
+                currentCompany++;
+                setTimeout(showNextCompany, 2200);
+            } else {
+                setTimeout(()=>{
+                    currentCompany = 0;
+                    companyList.classList.remove('visible');
+                    setTimeout(()=>{ companyList.classList.add('visible'); showNextCompany(); }, 800);
+                }, 800);
+            }
+        }, 700);
+    } else {
         const curr = companies[currentCompany];
         curr.classList.add('active');
         curr.style.color = colors[currentCompany];
         setTimeout(()=>{ curr.classList.add('show'); }, 50);
         currentCompany++;
-        setTimeout(showNextCompany, 2500);
-    } else {
-        setTimeout(()=>{
-            currentCompany = 0;
-            companyList.classList.remove('visible');
-            setTimeout(()=>{ companyList.classList.add('visible'); showNextCompany(); }, 800);
-        }, 1000);
+        setTimeout(showNextCompany, 2200);
     }
 }
 
