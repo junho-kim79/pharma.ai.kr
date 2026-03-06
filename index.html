@@ -8,10 +8,10 @@
 <style>
     body,html{ margin:0; padding:0; background:#000; font-family:'Noto Serif KR',serif; color:#fff; scroll-behavior:smooth; overflow-x:hidden; }
 
-    #ticker { background:#0a0a0a; border-bottom:1px solid #1a1a1a; padding:8px 0; overflow:hidden; position:fixed; top:0; width:100%; z-index:200; }
+    #ticker { background:#111; border-bottom:1px solid #333; padding:9px 0; overflow:hidden; position:fixed; top:0; width:100%; z-index:200; }
     .ticker-wrap { display:flex; gap:60px; animation:tickerMove 30s linear infinite; white-space:nowrap; }
-    .ticker-item { font-size:12px; font-family:'Cormorant Garamond',serif; letter-spacing:1px; }
-    .ticker-item .t-name { color:#555; margin-right:8px; }
+    .ticker-item { font-size:13px; font-family:'Noto Serif KR',serif; letter-spacing:1px; }
+    .ticker-item .t-name { color:#888; margin-right:8px; }
     .ticker-item .t-price { color:#fff; margin-right:6px; }
     .up{color:#ff4466;} .down{color:#4488ff;}
     @keyframes tickerMove { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
@@ -28,10 +28,9 @@
     #weatherWidget .w-temp { font-size:22px; font-weight:700; color:#fff; font-family:'Cormorant Garamond',serif; }
     #weatherWidget .w-desc { font-size:11px; color:#555; margin-top:2px; }
 
-    /* 인트로 */
     #introSection { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; }
 
-    /* 브랜드 헤더 - 처음엔 중앙, 올라가서 고정 */
+    /* 브랜드 헤더 */
     #brandHeader {
         position:absolute;
         top:50%;
@@ -41,59 +40,29 @@
         z-index:5;
         transition: top 1.2s cubic-bezier(0.4,0,0.2,1), transform 1.2s cubic-bezier(0.4,0,0.2,1);
         pointer-events:none;
+        width:100%;
     }
     #brandHeader.fixed {
-        top:140px;
+        top:160px;
         transform:translate(-50%, 0);
     }
-    #brandHeader .brand-ai {
-        font-size:4rem;
-        font-weight:900;
-        letter-spacing:10px;
-        font-family:'Cormorant Garamond',serif;
-        opacity:0;
-        transition:opacity 0.8s;
-    }
+    #brandHeader .brand-ai { font-size:4rem; font-weight:900; letter-spacing:10px; font-family:'Cormorant Garamond',serif; opacity:0; transition:opacity 0.8s; }
     #brandHeader.visible .brand-ai { opacity:1; }
-    #brandHeader .brand-sub {
-        font-size:1.4rem;
-        letter-spacing:8px;
-        color:#00ffff;
-        font-family:'Cormorant Garamond',serif;
-        margin-top:8px;
-        opacity:0;
-        transition:opacity 0.8s 0.3s;
-    }
+    #brandHeader .brand-sub { font-size:1.4rem; letter-spacing:8px; color:#00ffff; font-family:'Cormorant Garamond',serif; margin-top:8px; opacity:0; transition:opacity 0.8s 0.3s; }
     #brandHeader.visible .brand-sub { opacity:1; }
-    #brandHeader .brand-slogan1 {
-        font-size:0.95rem;
-        font-weight:700;
-        opacity:0;
-        margin-top:14px;
-        transition:opacity 0.8s 0.6s;
-    }
+    #brandHeader .brand-slogan1 { font-size:0.95rem; font-weight:700; opacity:0; margin-top:14px; transition:opacity 0.8s 0.6s; }
     #brandHeader.visible .brand-slogan1 { opacity:0.8; }
-    #brandHeader .brand-slogan2 {
-        font-size:0.8rem;
-        opacity:0;
-        margin-top:6px;
-        transition:opacity 0.8s 0.9s;
-    }
+    #brandHeader .brand-slogan2 { font-size:0.8rem; opacity:0; margin-top:6px; transition:opacity 0.8s 0.9s; }
     #brandHeader.visible .brand-slogan2 { opacity:0.4; }
-    #brandHeader .brand-slogan3 {
-        font-size:0.75rem;
-        opacity:0;
-        margin-top:4px;
-        transition:opacity 0.8s 1.1s;
-    }
+    #brandHeader .brand-slogan3 { font-size:0.75rem; opacity:0; margin-top:4px; transition:opacity 0.8s 1.1s; }
     #brandHeader.visible .brand-slogan3 { opacity:0.35; }
 
-    /* 회사명 */
+    /* 회사명 - 브랜드 헤더 아래에 위치 */
     #companyList {
         position:absolute;
-        top:50%;
+        bottom:160px;
         left:50%;
-        transform:translate(-50%, -50%);
+        transform:translateX(-50%);
         text-align:center;
         z-index:4;
         opacity:0;
@@ -101,30 +70,12 @@
         width:100%;
     }
     #companyList.visible { opacity:1; }
-    .company-item {
-        font-size:2.8rem;
-        font-weight:900;
-        opacity:0;
-        transform:translateY(20px);
-        transition:opacity 0.6s, transform 0.6s;
-        margin:6px 0;
-        display:none;
-    }
-    .company-item.active {
-        display:block;
-    }
-    .company-item.show {
-        opacity:1;
-        transform:translateY(0);
-    }
-    .company-sub {
-        font-size:0.9rem;
-        opacity:0.5;
-        letter-spacing:2px;
-        margin-top:4px;
-    }
+    .company-item { font-size:2.8rem; font-weight:900; opacity:0; transform:translateY(20px); transition:opacity 0.6s, transform 0.6s; margin:0; display:none; }
+    .company-item.active { display:block; }
+    .company-item.show { opacity:1; transform:translateY(0); }
+    .company-sub { font-size:0.9rem; opacity:0.5; letter-spacing:2px; margin-top:4px; }
 
-    #loadingWave { display:flex; gap:18px; position:absolute; bottom:80px; align-items:center; z-index:3; }
+    #loadingWave { display:flex; gap:18px; position:absolute; bottom:60px; align-items:center; z-index:3; }
     .shape { opacity:0.3; display:flex; align-items:center; justify-content:center; }
     .shape:not(.triangle):not(.cross):not(.hexagon) { width:30px; height:30px; background:#fff; }
     .s-circle { border-radius:50%; animation:circleWave 2.2s infinite ease-in-out; }
@@ -199,14 +150,13 @@
     .auction-arrow { font-size:11px; letter-spacing:2px; font-family:'Cormorant Garamond',serif; }
     .auction-arrow.court-arrow{color:#4466ff;} .auction-arrow.lock-arrow{color:#44ff88;} .auction-arrow.drug-arrow{color:#ff6644;}
 
-    /* 체크리스트 모달 */
     #checkModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; backdrop-filter:blur(10px); overflow-y:auto; padding:40px 20px; }
     #checkModal.active { display:flex; align-items:flex-start; justify-content:center; }
     .modal-box { background:#0a0a0a; border:1px solid #222; border-radius:24px; max-width:700px; width:100%; padding:50px 40px; position:relative; margin:auto; }
-    .modal-close { position:absolute; top:20px; right:24px; font-size:24px; color:#555; cursor:pointer; transition:0.2s; background:none; border:none; color:#555; }
+    .modal-close { position:absolute; top:20px; right:24px; font-size:24px; cursor:pointer; background:none; border:none; color:#555; transition:0.2s; }
     .modal-close:hover { color:#fff; }
     .modal-title { font-size:28px; font-weight:900; margin-bottom:6px; }
-    .modal-sub { font-size:13px; color:#555; margin-bottom:30px; }
+    .modal-sub { font-size:13px; color:#555; margin-bottom:20px; }
     .progress-text { font-size:12px; color:#555; font-family:'Cormorant Garamond',serif; margin-bottom:8px; }
     .progress-bar { height:4px; background:#1a1a1a; border-radius:2px; margin-bottom:30px; }
     .progress-fill { height:100%; background:#00ffff; border-radius:2px; transition:0.4s; }
@@ -250,7 +200,6 @@
 
 <audio id="bgm" src="BGM.mp3" loop preload="auto"></audio>
 
-<!-- 체크리스트 모달 -->
 <div id="checkModal">
     <div class="modal-box">
         <button class="modal-close" onclick="closeChecklist()">✕</button>
@@ -284,7 +233,6 @@
 <button id="musicBtn" onclick="toggleMusic()">♪ MUSIC ON</button>
 
 <section id="introSection">
-    <!-- 브랜드 헤더 -->
     <div id="brandHeader">
         <div class="brand-ai">AI</div>
         <div class="brand-sub">MEDICAL NETWORK</div>
@@ -293,28 +241,12 @@
         <div class="brand-slogan3">온라인부터 지역사회 밀착 광고까지</div>
     </div>
 
-    <!-- 회사명 리스트 -->
     <div id="companyList">
-        <div class="company-item" data-color="#00ffff">
-            <div>위드메드</div>
-            <div class="company-sub">종합병원 네트워크 플랫폼</div>
-        </div>
-        <div class="company-item" data-color="#a0ff40">
-            <div>임강약품</div>
-            <div class="company-sub">의약품 유통 파트너</div>
-        </div>
-        <div class="company-item" data-color="#ff8040">
-            <div>양신파마</div>
-            <div class="company-sub">로컬 병원 전문 파트너</div>
-        </div>
-        <div class="company-item" data-color="#ffcc00">
-            <div>찐빵투어</div>
-            <div class="company-sub">의사 전용 프리미엄 여행</div>
-        </div>
-        <div class="company-item" data-color="#fff">
-            <div>김부장공인중개사</div>
-            <div class="company-sub">의사 개원 전문 부동산 컨설팅</div>
-        </div>
+        <div class="company-item" data-idx="0"><div>위드메드</div><div class="company-sub">종합병원 네트워크 플랫폼</div></div>
+        <div class="company-item" data-idx="1"><div>임강약품</div><div class="company-sub">의약품 유통 파트너</div></div>
+        <div class="company-item" data-idx="2"><div>양신파마</div><div class="company-sub">로컬 병원 전문 파트너</div></div>
+        <div class="company-item" data-idx="3"><div>찐빵투어</div><div class="company-sub">의사 전용 프리미엄 여행</div></div>
+        <div class="company-item" data-idx="4"><div>김부장공인중개사</div><div class="company-sub">의사 개원 전문 부동산 컨설팅</div></div>
     </div>
 
     <div id="loadingWave">
@@ -331,26 +263,11 @@
     <h2 style="color:#00ffff;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">THE EXPERTS</h2>
     <h3 style="font-size:40px;margin-top:10px;font-weight:900;">각 분야 최고의 파트너</h3>
     <div class="p-card-container">
-        <div class="p-card">
-            <div class="p-photo"><video autoplay muted loop playsinline src="detail.mp4"></video><img src="위드메드.jpg" alt="위드메드"></div>
-            <div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo"><video autoplay muted loop playsinline src="drug.mp4"></video><img src="임강약품.jpg" alt="임강약품"></div>
-            <div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo"><video autoplay muted loop playsinline src="SMALL1.mp4"></video><img src="양신.jpg" alt="양신파마"></div>
-            <div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo"><video autoplay muted loop playsinline src="GOLF2.mp4"></video><img src="찐빵투어.jpg" alt="찐빵투어"></div>
-            <div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div>
-        </div>
-        <div class="p-card">
-            <div class="p-photo"><video autoplay muted loop playsinline src="estate.mp4"></video><img src="김부장공인중개사.jpg" alt="김부장공인중개사"></div>
-            <div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div>
-        </div>
+        <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="detail.mp4"></video><img src="위드메드.jpg" alt="위드메드"></div><div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div></div>
+        <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="drug.mp4"></video><img src="임강약품.jpg" alt="임강약품"></div><div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div></div>
+        <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="SMALL1.mp4"></video><img src="양신.jpg" alt="양신파마"></div><div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div></div>
+        <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="GOLF2.mp4"></video><img src="찐빵투어.jpg" alt="찐빵투어"></div><div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div></div>
+        <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="estate.mp4"></video><img src="김부장공인중개사.jpg" alt="김부장공인중개사"></div><div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div></div>
     </div>
 </section>
 
@@ -368,22 +285,19 @@
     <p style="color:#555;font-size:14px;margin-top:10px;">개원 및 업무에 필요한 사이트를 바로 이용하세요</p>
     <div class="auction-wrap">
         <a href="https://www.courtauction.go.kr" target="_blank" class="auction-btn court">
-            <div class="auction-icon">⚖️</div>
-            <div class="auction-label court-label">COURT AUCTION</div>
+            <div class="auction-icon">⚖️</div><div class="auction-label court-label">COURT AUCTION</div>
             <div class="auction-title">대법원 법원경매</div>
             <div class="auction-desc">공식 법원경매 정보<br>물건 검색 및 입찰 안내</div>
             <div class="auction-arrow court-arrow">VISIT SITE →</div>
         </a>
         <a href="https://www.kmrak.com" target="_blank" class="auction-btn lock">
-            <div class="auction-icon">🔑</div>
-            <div class="auction-label lock-label">AUCTION PLATFORM</div>
+            <div class="auction-icon">🔑</div><div class="auction-label lock-label">AUCTION PLATFORM</div>
             <div class="auction-title">경매락</div>
             <div class="auction-desc">스마트 경매 분석 플랫폼<br>권리분석 · 시세 · 수익률</div>
             <div class="auction-arrow lock-arrow">VISIT SITE →</div>
         </a>
         <a href="https://nedrug.mfds.go.kr" target="_blank" class="auction-btn drug">
-            <div class="auction-icon">💊</div>
-            <div class="auction-label drug-label">DRUG INFO</div>
+            <div class="auction-icon">💊</div><div class="auction-label drug-label">DRUG INFO</div>
             <div class="auction-title">의약품안전나라</div>
             <div class="auction-desc">의약품 허가·안전 정보<br>품목 검색 및 안전 정보</div>
             <div class="auction-arrow drug-arrow">VISIT SITE →</div>
@@ -407,7 +321,6 @@
 </section>
 
 <script>
-// 주식 티커
 const stocks = [
     {name:'KOSPI',price:'2,612',change:'+0.8%',up:true},
     {name:'KOSDAQ',price:'742',change:'+1.2%',up:true},
@@ -420,7 +333,6 @@ const stocks = [
 ];
 document.getElementById('tickerWrap').innerHTML = [...stocks,...stocks].map(s=>`<span class="ticker-item"><span class="t-name">${s.name}</span><span class="t-price">${s.price}</span><span class="${s.up?'up':'down'}">${s.change}</span></span>`).join('');
 
-// 날씨
 async function loadWeather(){
     try{
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.8714&longitude=128.6014&current_weather=true');
@@ -438,23 +350,11 @@ const brandHeader = document.getElementById('brandHeader');
 const companyList = document.getElementById('companyList');
 const companies = document.querySelectorAll('.company-item');
 const colors = ['#00ffff','#a0ff40','#ff8040','#ffcc00','#fff'];
-
 let currentCompany = 0;
-let introComplete = false;
 
-// 1. 브랜드 헤더 표시
 setTimeout(()=>{ brandHeader.classList.add('visible'); }, 300);
-
-// 2. 2.5초 후 위로 올라가면서 고정
-setTimeout(()=>{
-    brandHeader.classList.add('fixed');
-}, 2500);
-
-// 3. 3.5초 후 회사명 순서대로 등장
-setTimeout(()=>{
-    companyList.classList.add('visible');
-    showNextCompany();
-}, 3500);
+setTimeout(()=>{ brandHeader.classList.add('fixed'); }, 2500);
+setTimeout(()=>{ companyList.classList.add('visible'); showNextCompany(); }, 3800);
 
 function showNextCompany(){
     if(currentCompany > 0){
@@ -470,7 +370,6 @@ function showNextCompany(){
         currentCompany++;
         setTimeout(showNextCompany, 2500);
     } else {
-        // 모든 회사 소개 완료 - 회사명 숨기고 반복
         setTimeout(()=>{
             currentCompany = 0;
             companyList.classList.remove('visible');
@@ -479,7 +378,6 @@ function showNextCompany(){
     }
 }
 
-// 뉴스
 const CATEGORIES = [
     {id:'ai',label:'AI & DIGITAL HEALTH',dotClass:'dot-ai',catClass:'cat-ai',queries:['의료 AI','스마트병원','디지털헬스케어','의료IT','AI진단'],searchUrl:'https://search.naver.com/search.naver?where=news&query=의료+AI'},
     {id:'estate',label:'REAL ESTATE',dotClass:'dot-estate',catClass:'cat-estate',queries:['병의원 개원','의원 임대','개원 부동산','의료상가','클리닉 개원'],searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+개원+부동산'},
@@ -491,16 +389,12 @@ const CATEGORIES = [
 function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5);}
 function buildCard(cat){
     const items = shuffle(cat.queries).slice(0,3).map(q=>`<li onclick="event.stopPropagation();window.open('https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(q)}')">${q} 최신 동향</li>`).join('');
-    return `<div class="news-card ${cat.id}" onclick="window.open('${cat.searchUrl}')">
-        <div class="news-card-top"><span class="news-cat ${cat.catClass}">${cat.label}</span><ul class="news-headlines">${items}</ul></div>
-        <div class="news-card-bottom"><div class="news-footer"><a class="news-more" href="${cat.searchUrl}" target="_blank" onclick="event.stopPropagation()">MORE NEWS →</a><div class="news-dot ${cat.dotClass}"></div></div></div>
-    </div>`;
+    return `<div class="news-card ${cat.id}" onclick="window.open('${cat.searchUrl}')"><div class="news-card-top"><span class="news-cat ${cat.catClass}">${cat.label}</span><ul class="news-headlines">${items}</ul></div><div class="news-card-bottom"><div class="news-footer"><a class="news-more" href="${cat.searchUrl}" target="_blank" onclick="event.stopPropagation()">MORE NEWS →</a><div class="news-dot ${cat.dotClass}"></div></div></div></div>`;
 }
 function renderNews(){document.getElementById('newsGrid').innerHTML=CATEGORIES.map(buildCard).join('');}
 renderNews();
 setInterval(renderNews,5*60*1000);
 
-// 체크리스트
 const CHECKLIST = [
     {cat:'📋 사전 준비',items:['진료과목 및 표방과목 결정','개원 지역 및 상권 분석','경쟁 의원 현황 파악','개원 예산 수립']},
     {cat:'🏢 입지 및 공간',items:['건물 계약 및 임대차 협의','인테리어 시공 업체 선정','의료기기 배치 설계','약국 협의 및 위치 확인']},
@@ -517,18 +411,13 @@ function updateProgress(){
 document.getElementById('checklistWrap').innerHTML = CHECKLIST.map(cat=>`
     <div class="checklist-category">
         <div class="checklist-cat-title">${cat.cat}</div>
-        ${cat.items.map(item=>`
-            <div class="checklist-item" onclick="this.classList.toggle('done');updateProgress()">
-                <div class="check-box">✓</div>
-                <span class="check-label">${item}</span>
-            </div>`).join('')}
+        ${cat.items.map(item=>`<div class="checklist-item" onclick="this.classList.toggle('done');updateProgress()"><div class="check-box">✓</div><span class="check-label">${item}</span></div>`).join('')}
     </div>`).join('');
 
 function openChecklist(){ document.getElementById('checkModal').classList.add('active'); document.body.style.overflow='hidden'; }
 function closeChecklist(){ document.getElementById('checkModal').classList.remove('active'); document.body.style.overflow=''; }
 document.getElementById('checkModal').addEventListener('click',function(e){ if(e.target===this) closeChecklist(); });
 
-// 배경음악
 const bgm = document.getElementById('bgm');
 const btn = document.getElementById('musicBtn');
 let playing = false;
