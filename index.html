@@ -4,19 +4,20 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WithMed Group | AI Medical Network</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-    body,html{ margin:0; padding:0; background:#000; font-family: 'Pretendard', sans-serif; color:#fff; scroll-behavior:smooth; overflow-x:hidden; }
-    #topNav { position:fixed; top:25px; left:50%; transform:translateX(-50%); display:flex; gap:30px; font-size:13px; letter-spacing:2px; z-index:100; background: rgba(0,0,0,0.6); padding: 12px 25px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); }
-    #topNav a { color:#aaa; text-decoration:none; transition: 0.3s; font-weight: 500; }
+    body,html{ margin:0; padding:0; background:#000; font-family: 'Noto Serif KR', serif; color:#fff; scroll-behavior:smooth; overflow-x:hidden; }
+    #topNav { position:fixed; top:25px; left:50%; transform:translateX(-50%); display:flex; gap:30px; font-size:12px; letter-spacing:3px; z-index:100; background: rgba(0,0,0,0.6); padding: 12px 25px; border-radius: 30px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1); font-family:'Cormorant Garamond', serif; }
+    #topNav a { color:#aaa; text-decoration:none; transition: 0.3s; font-weight: 600; }
     #topNav a:hover { color:#00ffff; }
-    #callBtn { position:fixed; right:30px; bottom:30px; background:#00ffff; color:#000; padding:12px 20px; border-radius:30px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 0 20px rgba(0,255,255,0.4); transition: 0.3s; }
+    #callBtn { position:fixed; right:30px; bottom:30px; background:#00ffff; color:#000; padding:12px 20px; border-radius:30px; font-weight:700; text-decoration:none; z-index:100; box-shadow:0 0 20px rgba(0,255,255,0.4); transition: 0.3s; font-family:'Cormorant Garamond', serif; letter-spacing:1px; }
     #callBtn:hover { transform: scale(1.05); background:#fff; }
-    #musicBtn { position:fixed; left:30px; bottom:30px; background:rgba(0,0,0,0.7); color:#00ffff; padding:10px 16px; border-radius:30px; font-size:12px; font-weight:700; border:1px solid #00ffff; cursor:pointer; transition:0.3s; backdrop-filter:blur(10px); z-index:100; }
+    #musicBtn { position:fixed; left:30px; bottom:30px; background:rgba(0,0,0,0.7); color:#00ffff; padding:10px 16px; border-radius:30px; font-size:12px; font-weight:700; border:1px solid #00ffff; cursor:pointer; transition:0.3s; backdrop-filter:blur(10px); z-index:100; font-family:'Cormorant Garamond', serif; letter-spacing:1px; }
     #musicBtn:hover { background:#00ffff; color:#000; }
     #introSection { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; }
-    .intro-text-wrap { position:absolute; text-align:center; opacity:0; filter:blur(10px); animation: introFade 31s infinite; z-index:3; width:100%; }
-    @keyframes introFade { 0% { opacity:0; filter:blur(10px); transform:translateY(20px); } 5%,15% { opacity:1; filter:blur(0); transform:translateY(0); } 20%,100% { opacity:0; filter:blur(10px); } }
-    .i1{animation-delay:0s;} .i2{animation-delay:5s;color:#00ffff;} .i3{animation-delay:10s;color:#a0ff40;} .i4{animation-delay:15s;color:#ff8040;} .i5{animation-delay:20s;color:#ffcc00;} .i6{animation-delay:25s;}
+    .intro-text-wrap { position:absolute; text-align:center; opacity:0; filter:blur(10px); animation: introFade 18s infinite; z-index:3; width:100%; }
+    @keyframes introFade { 0% { opacity:0; filter:blur(10px); transform:translateY(20px); } 8%,22% { opacity:1; filter:blur(0); transform:translateY(0); } 30%,100% { opacity:0; filter:blur(10px); } }
+    .i1{animation-delay:0s;} .i2{animation-delay:3s;color:#00ffff;} .i3{animation-delay:6s;color:#a0ff40;} .i4{animation-delay:9s;color:#ff8040;} .i5{animation-delay:12s;color:#ffcc00;} .i6{animation-delay:15s;}
     #loadingWave { display:flex; gap:18px; position:absolute; bottom:100px; align-items:center; z-index:3; }
     .shape { opacity:0.3; display:flex; align-items:center; justify-content:center; }
     .shape:not(.triangle):not(.cross):not(.hexagon) { width:30px; height:30px; background:#fff; }
@@ -37,11 +38,12 @@
     .p-card { width:240px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
     .p-card:hover { transform:translateY(-12px); border-color:#00ffff; box-shadow:0 20px 50px rgba(0,255,255,0.2); }
     .p-photo { height:280px; position:relative; overflow:hidden; }
-    .p-photo img { width:100%; height:100%; object-fit:cover; display:block; transition:0.6s; }
-    .p-photo video { width:100%; height:100%; object-fit:cover; display:block; }
-    .p-card:hover .p-photo img { transform:scale(1.08); }
-    .p-content { padding:20px; text-align:left; }
-    .p-tag { font-size:11px; font-weight:800; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:10px; }
+    .p-photo video { width:100%; height:100%; object-fit:cover; display:block; position:absolute; top:0; left:0; transition:opacity 0.5s; }
+    .p-photo img { width:100%; height:100%; object-fit:cover; display:block; position:absolute; top:0; left:0; opacity:0; transition:opacity 0.5s; }
+    .p-card:hover .p-photo video { opacity:0; }
+    .p-card:hover .p-photo img { opacity:1; }
+    .p-content { padding:20px; text-align:left; position:relative; z-index:1; }
+    .p-tag { font-size:10px; font-weight:800; padding:3px 8px; border-radius:4px; display:inline-block; margin-bottom:10px; font-family:'Cormorant Garamond', serif; letter-spacing:2px; }
     .tag-wm{background:#fff;color:#000;} .tag-ik{background:#00ffff;color:#000;} .tag-ys{background:#a0ff40;color:#000;} .tag-zb{background:#ff8040;color:#000;} .tag-kb{background:#ffcc00;color:#000;}
     .p-name { font-size:18px; font-weight:700; margin:0 0 5px 0; }
     .p-desc { font-size:13px; color:#888; line-height:1.5; }
@@ -52,7 +54,7 @@
     .news-card-top { padding:28px 28px 0; }
     .news-card-bottom { padding:0 28px 24px; margin-top:auto; }
     .news-card.ai{border-top:3px solid #00ffff;} .news-card.estate{border-top:3px solid #ffcc00;} .news-card.policy{border-top:3px solid #ff5050;} .news-card.finance{border-top:3px solid #fff;} .news-card.us{border-top:3px solid #4488ff;} .news-card.kr{border-top:3px solid #ff4466;}
-    .news-cat { font-size:10px; font-weight:800; letter-spacing:3px; margin-bottom:14px; display:block; }
+    .news-cat { font-size:10px; font-weight:800; letter-spacing:3px; margin-bottom:14px; display:block; font-family:'Cormorant Garamond', serif; }
     .cat-ai{color:#00ffff;} .cat-estate{color:#ffcc00;} .cat-policy{color:#ff5050;} .cat-finance{color:#aaa;} .cat-us{color:#4488ff;} .cat-kr{color:#ff4466;}
     .news-headlines { list-style:none; padding:0; margin:0 0 16px; }
     .news-headlines li { font-size:13px; color:#ccc; line-height:1.6; padding:8px 0; border-bottom:1px solid #1a1a1a; cursor:pointer; transition:0.2s; display:flex; align-items:flex-start; gap:8px; }
@@ -60,7 +62,7 @@
     .news-headlines li:hover { color:#fff; padding-left:4px; }
     .news-headlines li::before { content:'›'; color:#444; flex-shrink:0; }
     .news-footer { display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid #111; }
-    .news-more { font-size:11px; color:#555; text-decoration:none; letter-spacing:1px; transition:0.2s; }
+    .news-more { font-size:11px; color:#555; text-decoration:none; letter-spacing:1px; transition:0.2s; font-family:'Cormorant Garamond', serif; }
     .news-more:hover { color:#00ffff; }
     .news-dot { width:6px; height:6px; border-radius:50%; animation:blink 2s infinite; }
     .dot-ai{background:#00ffff;} .dot-estate{background:#ffcc00;} .dot-policy{background:#ff5050;} .dot-finance{background:#aaa;} .dot-us{background:#4488ff;} .dot-kr{background:#ff4466;}
@@ -78,23 +80,23 @@
     .auction-btn.lock:hover { border-color:#44ff88; box-shadow:0 20px 50px rgba(60,255,100,0.25); }
     .auction-btn.lock::before { background:radial-gradient(circle at 50% 0%, rgba(60,255,100,0.08), transparent 70%); }
     .auction-icon { font-size:2.5rem; }
-    .auction-label { font-size:11px; font-weight:800; letter-spacing:3px; }
+    .auction-label { font-size:11px; font-weight:800; letter-spacing:3px; font-family:'Cormorant Garamond', serif; }
     .auction-label.court-label { color:#4466ff; }
     .auction-label.lock-label { color:#44ff88; }
     .auction-title { font-size:20px; font-weight:800; color:#fff; }
     .auction-desc { font-size:12px; color:#666; line-height:1.6; }
-    .auction-arrow { font-size:11px; letter-spacing:2px; margin-top:4px; }
+    .auction-arrow { font-size:11px; letter-spacing:2px; margin-top:4px; font-family:'Cormorant Garamond', serif; }
     .auction-arrow.court-arrow { color:#4466ff; }
     .auction-arrow.lock-arrow { color:#44ff88; }
     #contact { padding:100px 20px; text-align:center; background:#050505; border-top:1px solid #111; display:flex; flex-direction:column; align-items:center; }
-    .contact-title { font-size:32px; font-weight:800; letter-spacing:2px; margin-bottom:40px; }
+    .contact-title { font-size:32px; font-weight:800; letter-spacing:4px; margin-bottom:40px; font-family:'Cormorant Garamond', serif; }
     .contact-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:40px; max-width:1200px; width:100%; align-items:flex-start; }
     .map-box { width:100%; max-width:600px; border:1px solid #222; border-radius:20px; overflow:hidden; }
     .map-box iframe { width:100%; height:400px; display:block; border:none; }
     .address-box { flex:1; text-align:center; border:1px solid #222; padding:40px; border-radius:20px; transition:0.3s; max-width:450px; }
     .address-box:hover { border-color:#00ffff; background:rgba(0,255,255,0.02); }
     .addr-item { margin:15px 0; font-size:16px; color:#ccc; }
-    .addr-label { color:#00ffff; font-weight:700; display:block; margin-bottom:5px; }
+    .addr-label { color:#00ffff; font-weight:700; display:block; margin-bottom:5px; font-family:'Cormorant Garamond', serif; letter-spacing:2px; }
     @media (max-width:768px) {
         #topNav { gap:12px; padding:10px 15px; font-size:11px; }
         .p-card { width:160px; } .p-photo { height:180px; }
@@ -123,15 +125,15 @@
 <button id="musicBtn" onclick="toggleMusic()">♪ MUSIC ON</button>
 
 <section id="introSection">
-    <div class="intro-text-wrap i1"><div style="font-size:3rem;font-weight:800;">위드메드</div><p>종합병원 네트워크 플랫폼</p></div>
-    <div class="intro-text-wrap i2"><div style="font-size:3rem;font-weight:800;">임강약품</div><p>의약품 유통 파트너</p></div>
-    <div class="intro-text-wrap i3"><div style="font-size:3rem;font-weight:800;">양신파마</div><p>로컬 병원 전문 파트너</p></div>
-    <div class="intro-text-wrap i4"><div style="font-size:3rem;font-weight:800;">찐빵투어</div><p>의사 전용 프리미엄 여행</p></div>
-    <div class="intro-text-wrap i5"><div style="font-size:3rem;font-weight:800;">김부장공인중개사</div><p>의사전용 개원 도우미</p></div>
+    <div class="intro-text-wrap i1"><div style="font-size:3rem;font-weight:900;">위드메드</div><p style="font-size:1rem;letter-spacing:3px;opacity:0.7;">종합병원 네트워크 플랫폼</p></div>
+    <div class="intro-text-wrap i2"><div style="font-size:3rem;font-weight:900;">임강약품</div><p style="font-size:1rem;letter-spacing:3px;opacity:0.7;">의약품 유통 파트너</p></div>
+    <div class="intro-text-wrap i3"><div style="font-size:3rem;font-weight:900;">양신파마</div><p style="font-size:1rem;letter-spacing:3px;opacity:0.7;">로컬 병원 전문 파트너</p></div>
+    <div class="intro-text-wrap i4"><div style="font-size:3rem;font-weight:900;">찐빵투어</div><p style="font-size:1rem;letter-spacing:3px;opacity:0.7;">의사 전용 프리미엄 여행</p></div>
+    <div class="intro-text-wrap i5"><div style="font-size:3rem;font-weight:900;">김부장공인중개사</div><p style="font-size:1rem;letter-spacing:3px;opacity:0.7;">의사전용 개원 도우미</p></div>
     <div class="intro-text-wrap i6">
-        <div style="font-size:4rem;font-weight:900;letter-spacing:10px;">AI</div>
-        <div style="font-size:1.5rem;letter-spacing:5px;color:#00ffff;">MEDICAL NETWORK</div>
-        <p style="margin-top:20px;opacity:0.6;">병원·유통·로컬·의사 라이프를 연결합니다</p>
+        <div style="font-size:4rem;font-weight:900;letter-spacing:10px;font-family:'Cormorant Garamond',serif;">AI</div>
+        <div style="font-size:1.5rem;letter-spacing:8px;color:#00ffff;font-family:'Cormorant Garamond',serif;">MEDICAL NETWORK</div>
+        <p style="margin-top:20px;opacity:0.5;letter-spacing:2px;font-size:0.85rem;">병원 · 유통 · 로컬 · 의사 라이프를 연결합니다</p>
     </div>
     <div id="loadingWave">
         <div class="shape triangle" style="animation-delay:0s;"></div>
@@ -144,33 +146,58 @@
 </section>
 
 <section id="partnership">
-    <h2 style="color:#00ffff;letter-spacing:5px;font-size:13px;">THE EXPERTS</h2>
-    <h3 style="font-size:40px;margin-top:10px;font-weight:800;">각 분야 최고의 파트너</h3>
+    <h2 style="color:#00ffff;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">THE EXPERTS</h2>
+    <h3 style="font-size:40px;margin-top:10px;font-weight:900;">각 분야 최고의 파트너</h3>
     <div class="p-card-container">
-        <div class="p-card"><div class="p-photo"><img src="위드메드.jpg" alt="위드메드"></div><div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div></div>
-        <div class="p-card"><div class="p-photo"><img src="임강약품.jpg" alt="임강약품"></div><div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div></div>
-        <div class="p-card"><div class="p-photo"><img src="양신파마.jpg" alt="양신파마"></div><div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div></div>
         <div class="p-card">
             <div class="p-photo">
+                <video autoplay muted loop playsinline src="detail.mp4"></video>
+                <img src="위드메드.jpg" alt="위드메드">
+            </div>
+            <div class="p-content"><span class="p-tag tag-wm">WITHMED</span><h4 class="p-name">위드메드</h4><p class="p-desc">종합병원 네트워크 플랫폼</p></div>
+        </div>
+        <div class="p-card">
+            <div class="p-photo">
+                <video autoplay muted loop playsinline src="drug.mp4"></video>
+                <img src="임강약품.jpg" alt="임강약품">
+            </div>
+            <div class="p-content"><span class="p-tag tag-ik">IMKANG</span><h4 class="p-name">임강약품</h4><p class="p-desc">의약품 유통 파트너</p></div>
+        </div>
+        <div class="p-card">
+            <div class="p-photo">
+                <video autoplay muted loop playsinline src="SMALL1.mp4"></video>
+                <img src="양신.jpg" alt="양신파마">
+            </div>
+            <div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div>
+        </div>
+        <div class="p-card">
+            <div class="p-photo">
+                <video autoplay muted loop playsinline src="GOLF2.mp4"></video>
                 <img src="찐빵투어.jpg" alt="찐빵투어">
             </div>
             <div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div>
         </div>
-        <div class="p-card"><div class="p-photo"><img src="김부장공인중개사.jpg" alt="김부장공인중개사"></div><div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div></div>
+        <div class="p-card">
+            <div class="p-photo">
+                <video autoplay muted loop playsinline src="estate.mp4"></video>
+                <img src="김부장공인중개사.jpg" alt="김부장공인중개사">
+            </div>
+            <div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div>
+        </div>
     </div>
 </section>
 
 <section id="newsSection">
     <div style="text-align:center;">
-        <h2 style="color:#a0ff40;letter-spacing:5px;font-size:13px;">REAL-TIME INSIGHT</h2>
-        <h3 style="font-size:40px;font-weight:800;margin-top:10px;">비즈니스 브리핑</h3>
+        <h2 style="color:#a0ff40;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">REAL-TIME INSIGHT</h2>
+        <h3 style="font-size:40px;font-weight:900;margin-top:10px;">비즈니스 브리핑</h3>
     </div>
     <div class="news-grid" id="newsGrid"></div>
 </section>
 
 <section id="auctionSection">
-    <h2 style="color:#ffcc00;letter-spacing:5px;font-size:13px;">REAL ESTATE TOOL</h2>
-    <h3 style="font-size:40px;font-weight:800;margin-top:10px;">법원경매 바로가기</h3>
+    <h2 style="color:#ffcc00;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">REAL ESTATE TOOL</h2>
+    <h3 style="font-size:40px;font-weight:900;margin-top:10px;">법원경매 바로가기</h3>
     <p style="color:#555;font-size:14px;margin-top:10px;">개원 입지 분석을 위한 법원경매 정보를 바로 확인하세요</p>
     <div class="auction-wrap">
         <a href="https://www.courtauction.go.kr" target="_blank" class="auction-btn court">
