@@ -2,547 +2,156 @@
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pharma AI | 제약 영업 AI 비서</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans KR',sans-serif;background:#f2f2f7;color:#1c1c1e;min-height:100vh;}
+body,html{margin:0;padding:0;background:#000;font-family:'Noto Serif KR',serif;color:#fff;scroll-behavior:smooth;overflow-x:hidden;}
 
-/* ── 공통 ── */
-.screen{display:none;min-height:100vh;}
-.screen.active{display:flex;}
+/* 티커 */
+#ticker{background:#111;border-bottom:1px solid #333;padding:9px 0;overflow:hidden;position:fixed;top:0;width:100%;z-index:200;}
+.ticker-wrap{display:flex;gap:60px;animation:tickerMove 30s linear infinite;white-space:nowrap;}
+.ticker-item{font-size:13px;letter-spacing:1px;}
+.ticker-item .t-name{color:#888;margin-right:8px;}
+.ticker-item .t-price{color:#fff;margin-right:6px;}
+.up{color:#ff4466;}.down{color:#4488ff;}
+@keyframes tickerMove{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
 
-/* ── 랜딩 화면 ── */
-#landingScreen{flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:linear-gradient(160deg,#e8f0fe 0%,#f2f2f7 60%);}
-.landing-logo{font-size:3rem;font-weight:900;letter-spacing:-2px;margin-bottom:8px;color:#1c1c1e;}
-.landing-logo span{color:#007aff;}
-.landing-tagline{font-size:13px;color:#8e8e93;letter-spacing:3px;margin-bottom:50px;}
-.landing-slogan{font-size:16px;color:#3a3a3c;text-align:center;line-height:1.9;margin-bottom:50px;max-width:320px;}
-.landing-slogan strong{color:#1c1c1e;display:block;font-size:20px;margin-bottom:10px;font-weight:800;}
+/* 네비 */
+#topNav{position:fixed;top:36px;left:50%;transform:translateX(-50%);display:flex;gap:22px;font-size:11px;letter-spacing:2px;z-index:100;background:rgba(0,0,0,0.6);padding:10px 20px;border-radius:30px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);font-family:'Cormorant Garamond',serif;}
+#topNav a{color:#aaa;text-decoration:none;transition:0.3s;font-weight:600;cursor:pointer;}
+#topNav a:hover{color:#00ffff;}
 
-.role-select{width:100%;max-width:340px;display:flex;flex-direction:column;gap:12px;margin-bottom:32px;}
-.role-btn{padding:18px;border-radius:16px;border:2px solid transparent;background:#fff;cursor:pointer;display:flex;align-items:center;gap:16px;transition:0.25s;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.role-btn:hover{border-color:#007aff;box-shadow:0 4px 16px rgba(0,122,255,0.12);}
-.role-btn.selected{border-color:#007aff;background:#f0f7ff;box-shadow:0 4px 16px rgba(0,122,255,0.15);}
-.role-icon{font-size:2rem;width:48px;text-align:center;}
-.role-info h3{font-size:15px;font-weight:700;margin-bottom:3px;color:#1c1c1e;}
-.role-info p{font-size:12px;color:#8e8e93;}
+/* 앱 시작 버튼 */
+#appStartBtn{position:fixed;right:24px;top:48px;z-index:101;background:#00ffff;color:#000;padding:10px 20px;border-radius:24px;font-size:13px;font-weight:900;border:none;cursor:pointer;font-family:'Noto Serif KR',serif;letter-spacing:1px;box-shadow:0 0 20px rgba(0,255,255,0.4);transition:0.3s;}
+#appStartBtn:hover{transform:scale(1.05);background:#fff;}
 
-.google-btn{width:100%;max-width:340px;padding:16px;border-radius:14px;background:#1c1c1e;color:#fff;font-size:15px;font-weight:700;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;transition:0.3s;opacity:0.3;pointer-events:none;}
-.google-btn.ready{opacity:1;pointer-events:all;}
-.google-btn:hover{background:#3a3a3c;}
-.google-logo{width:20px;height:20px;}
+/* 히어로 */
+#hero{height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;position:relative;overflow:hidden;}
+#hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(0,255,255,0.05) 0%,transparent 70%);}
+.hero-label{font-size:11px;letter-spacing:6px;color:#00ffff;font-family:'Cormorant Garamond',serif;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.3s forwards;}
+.hero-title{font-size:clamp(2.2rem,6vw,4.5rem);font-weight:900;line-height:1.15;margin-bottom:20px;opacity:0;animation:fadeUp 0.8s 0.6s forwards;}
+.hero-title span{color:#00ffff;}
+.hero-sub{font-size:clamp(14px,2vw,18px);color:#666;line-height:1.8;margin-bottom:50px;max-width:500px;opacity:0;animation:fadeUp 0.8s 0.9s forwards;}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp 0.8s 1.2s forwards;}
+.btn-primary{background:#00ffff;color:#000;padding:16px 32px;border-radius:30px;font-size:15px;font-weight:900;border:none;cursor:pointer;font-family:'Noto Serif KR',serif;transition:0.3s;box-shadow:0 0 30px rgba(0,255,255,0.3);}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 10px 40px rgba(0,255,255,0.4);}
+.btn-secondary{background:transparent;color:#fff;padding:16px 32px;border-radius:30px;font-size:15px;font-weight:700;border:1px solid #333;cursor:pointer;font-family:'Noto Serif KR',serif;transition:0.3s;}
+.btn-secondary:hover{border-color:#fff;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── 대시보드 ── */
-#dashScreen{flex-direction:column;background:#f2f2f7;}
+/* 기능 소개 */
+#features{padding:100px 20px;background:#000;}
+.section-label{text-align:center;font-size:11px;letter-spacing:6px;color:#00ffff;font-family:'Cormorant Garamond',serif;margin-bottom:14px;}
+.section-title{text-align:center;font-size:clamp(1.8rem,4vw,3rem);font-weight:900;margin-bottom:60px;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;max-width:1000px;margin:0 auto;}
+.feature-card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:20px;padding:30px;transition:0.3s;}
+.feature-card:hover{border-color:#00ffff;transform:translateY(-6px);}
+.feature-icon{font-size:2.5rem;margin-bottom:16px;}
+.feature-title{font-size:18px;font-weight:700;margin-bottom:10px;}
+.feature-desc{font-size:13px;color:#666;line-height:1.7;}
 
-.top-bar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(242,242,247,0.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,0,0,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 16px;z-index:100;}
-.top-bar-logo{font-size:18px;font-weight:900;letter-spacing:-1px;color:#1c1c1e;}
-.top-bar-logo span{color:#007aff;}
-.top-bar-right{display:flex;align-items:center;gap:12px;}
-.user-avatar{width:30px;height:30px;border-radius:50%;border:2px solid #007aff;}
-.logout-btn{font-size:12px;color:#8e8e93;cursor:pointer;background:none;border:none;}
+/* 슬로건 섹션 */
+#slogan{padding:100px 20px;text-align:center;background:#050505;border-top:1px solid #111;}
+.slogan-text{font-size:clamp(1.4rem,3.5vw,2.8rem);font-weight:900;line-height:1.6;max-width:700px;margin:0 auto 40px;}
+.slogan-text span{color:#00ffff;}
 
-.dash-content{margin-top:56px;margin-bottom:70px;padding:20px 16px;overflow-y:auto;}
+/* CTA 섹션 */
+#cta{padding:100px 20px;text-align:center;background:#000;border-top:1px solid #111;}
+.cta-title{font-size:clamp(1.6rem,4vw,3rem);font-weight:900;margin-bottom:16px;}
+.cta-sub{font-size:15px;color:#666;margin-bottom:40px;}
 
-/* 인사말 */
-.greeting{margin-bottom:20px;}
-.greeting-name{font-size:22px;font-weight:800;color:#1c1c1e;}
-.greeting-sub{font-size:13px;color:#8e8e93;margin-top:4px;}
-
-/* 요약 카드 */
-.summary-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px;}
-.s-card{background:#fff;border-radius:16px;padding:14px 10px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.s-card .s-num{font-size:26px;font-weight:900;color:#007aff;}
-.s-card .s-label{font-size:11px;color:#8e8e93;margin-top:4px;}
-
-/* 탭 메뉴 */
-.tab-menu{display:flex;gap:8px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px;}
-.tab-menu::-webkit-scrollbar{display:none;}
-.tab-btn{padding:8px 16px;border-radius:20px;border:none;background:#fff;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer;white-space:nowrap;transition:0.2s;box-shadow:0 1px 4px rgba(0,0,0,0.06);}
-.tab-btn.active{background:#007aff;color:#fff;font-weight:700;}
-
-/* 탭 패널 */
-.tab-panel{display:none;}
-.tab-panel.active{display:block;}
-
-/* CRM */
-.crm-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.crm-header h3{font-size:16px;font-weight:700;color:#1c1c1e;}
-.add-btn{background:#007aff;color:#fff;border:none;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:700;cursor:pointer;}
-
-.crm-card{background:#fff;border-radius:16px;padding:16px;margin-bottom:10px;cursor:pointer;transition:0.2s;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.crm-card:active{transform:scale(0.98);}
-.crm-card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;}
-.crm-name{font-size:16px;font-weight:700;color:#1c1c1e;}
-.crm-type{font-size:11px;padding:3px 8px;border-radius:10px;font-weight:700;}
-.type-hospital{background:#e3f0ff;color:#007aff;}
-.type-pharmacy{background:#e6faf0;color:#34c759;}
-.crm-info{font-size:13px;color:#6d6d72;line-height:1.8;}
-.crm-tag{display:inline-block;background:#f2f2f7;padding:3px 8px;border-radius:6px;font-size:11px;color:#8e8e93;margin:4px 4px 0 0;}
-.crm-visit{font-size:11px;color:#c7c7cc;margin-top:8px;}
-
-/* 실적 */
-.goal-card{background:#fff;border-radius:16px;padding:20px;margin-bottom:12px;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.goal-title{font-size:13px;color:#8e8e93;margin-bottom:12px;font-weight:600;}
-.goal-num{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:10px;}
-.goal-current{font-size:32px;font-weight:900;color:#007aff;}
-.goal-target{font-size:13px;color:#c7c7cc;}
-.progress-bar{height:8px;background:#f2f2f7;border-radius:4px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,#007aff,#34c759);border-radius:4px;transition:width 1s ease;}
-.goal-pct{font-size:12px;color:#8e8e93;margin-top:6px;text-align:right;}
-
-/* 소부모 */
-.sobumo-card{background:#fff5ee;border:1px solid #ffd4b0;border-radius:16px;padding:20px;margin-bottom:16px;}
-.sobumo-title{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
-.sobumo-title h3{font-size:16px;font-weight:700;color:#1c1c1e;}
-.sobumo-title span{font-size:20px;}
-.sobumo-form{display:flex;flex-direction:column;gap:10px;}
-.sobumo-input{background:#fff;border:1px solid #e5e5ea;border-radius:10px;padding:12px;font-size:14px;color:#1c1c1e;font-family:'Noto Sans KR',sans-serif;}
-.sobumo-input::placeholder{color:#c7c7cc;}
-.sobumo-submit{background:#E8732A;color:#fff;border:none;padding:14px;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Noto Sans KR',sans-serif;}
-
-/* 바텀 네비 */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;height:65px;background:rgba(242,242,247,0.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-top:1px solid rgba(0,0,0,0.08);display:flex;z-index:100;}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;transition:0.2s;}
-.nav-item .nav-icon{font-size:20px;}
-.nav-item .nav-label{font-size:10px;color:#c7c7cc;font-weight:500;}
-.nav-item.active .nav-label{color:#007aff;}
-
-/* 모달 */
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:200;backdrop-filter:blur(4px);}
-.modal-overlay.active{display:flex;align-items:flex-end;}
-.modal-box{background:#f2f2f7;border-radius:24px 24px 0 0;padding:24px;width:100%;max-height:85vh;overflow-y:auto;}
-.modal-handle{width:40px;height:4px;background:#c7c7cc;border-radius:2px;margin:0 auto 20px;}
-.modal-title{font-size:18px;font-weight:700;margin-bottom:20px;color:#1c1c1e;}
-.form-group{margin-bottom:12px;}
-.form-label{font-size:12px;color:#8e8e93;margin-bottom:6px;display:block;font-weight:600;}
-.form-input{width:100%;background:#fff;border:1px solid #e5e5ea;border-radius:10px;padding:12px;font-size:14px;color:#1c1c1e;font-family:'Noto Sans KR',sans-serif;}
-.form-input::placeholder{color:#c7c7cc;}
-.form-submit{width:100%;background:#007aff;color:#fff;border:none;padding:16px;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;font-family:'Noto Sans KR',sans-serif;}
-.modal-close{float:right;background:none;border:none;color:#8e8e93;font-size:20px;cursor:pointer;margin-top:-4px;}
-
-/* 지도 */
-.map-notice{background:#fff;border-radius:16px;padding:30px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.05);}
-.map-notice .map-icon{font-size:3rem;margin-bottom:16px;}
-.map-notice h3{font-size:18px;font-weight:700;margin-bottom:8px;color:#1c1c1e;}
-.map-notice p{font-size:13px;color:#8e8e93;line-height:1.7;margin-bottom:20px;}
-.map-btn{background:#007aff;color:#fff;border:none;padding:14px 28px;border-radius:12px;font-size:14px;font-weight:700;cursor:pointer;}
-
-@media(min-width:480px){
-  #landingScreen{padding:60px 40px;}
-  .role-select,.google-btn{max-width:400px;}
-}
+/* 푸터 */
+footer{padding:40px 20px;text-align:center;border-top:1px solid #111;font-size:12px;color:#333;}
+footer a{color:#555;text-decoration:none;margin:0 10px;}
+footer a:hover{color:#00ffff;}
 </style>
 </head>
 <body>
 
-<!-- ── 랜딩 / 로그인 화면 ── -->
-<div id="landingScreen" class="screen active">
-  <div class="landing-logo">Pharma<span>AI</span></div>
-  <div class="landing-tagline">AI SALES ASSISTANT</div>
-  <div class="landing-slogan">
-    <strong>"영업은 발로 하는 것이 아니라<br>데이터로 하는 것이다."</strong>
-    제약 영업사원을 위한 AI 비서
+<div id="ticker"><div class="ticker-wrap" id="tickerWrap"></div></div>
+
+<nav id="topNav">
+  <a href="#hero">HOME</a>
+  <a href="#features">기능</a>
+  <a href="#slogan">소개</a>
+  <a href="#cta">시작하기</a>
+</nav>
+
+<button id="appStartBtn" onclick="window.open('app/index.html','_blank')">앱 시작하기 →</button>
+
+<!-- 히어로 -->
+<section id="hero">
+  <div class="hero-label">AI PHARMA SALES ASSISTANT</div>
+  <h1 class="hero-title">"영업은 발로 하는 것이 아니라<br><span>데이터로</span> 하는 것이다."</h1>
+  <p class="hero-sub">제약 영업사원을 위한 AI 비서.<br>거래처 관리부터 실적 분석까지, 스마트하게.</p>
+  <div class="hero-cta">
+    <button class="btn-primary" onclick="window.open('app/index.html','_blank')">무료로 시작하기</button>
+    <button class="btn-secondary" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">기능 살펴보기</button>
   </div>
+</section>
 
-  <div class="role-select">
-    <div class="role-btn" id="roleMs" onclick="selectRole('ms')">
-      <div class="role-icon">💊</div>
-      <div class="role-info">
-        <h3>영업사원 (MR)</h3>
-        <p>병원·약국 방문 관리 및 실적 관리</p>
-      </div>
+<!-- 기능 -->
+<section id="features">
+  <div class="section-label">CORE FEATURES</div>
+  <h2 class="section-title">4가지 핵심 기능</h2>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">📍</div>
+      <div class="feature-title">지도 기반 관리</div>
+      <div class="feature-desc">현재 위치 중심으로 주변 병원·약국을 지도에서 확인. 동선을 최적화하고 방문 누락을 방지합니다.</div>
     </div>
-    <div class="role-btn" id="roleHosp" onclick="selectRole('hospital')">
-      <div class="role-icon">🏥</div>
-      <div class="role-info">
-        <h3>병원 / 약국</h3>
-        <p>담당 MR 확인 및 심부름 요청</p>
-      </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <div class="feature-title">CRM 메모장</div>
+      <div class="feature-desc">원장님 성향·관심사·처방 패턴·가족 정보를 기록. 방문 전 브리핑으로 유대감을 높입니다.</div>
     </div>
-  </div>
-
-  <button class="google-btn" id="googleBtn" onclick="signInWithGoogle()">
-    <svg class="google-logo" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
-    Google로 시작하기
-  </button>
-</div>
-
-<!-- ── 대시보드 ── -->
-<div id="dashScreen" class="screen">
-  <div class="top-bar">
-    <div class="top-bar-logo">Pharma<span>AI</span></div>
-    <div class="top-bar-right">
-      <img class="user-avatar" id="userAvatar" src="" alt="">
-      <button class="logout-btn" onclick="signOut()">로그아웃</button>
+    <div class="feature-card">
+      <div class="feature-icon">📊</div>
+      <div class="feature-title">실적 관리</div>
+      <div class="feature-desc">주간·월간 방문 목표 대비 달성률을 시각화. 스스로 동기부여하고 성과를 분석합니다.</div>
     </div>
-  </div>
-
-  <div class="dash-content">
-    <div class="greeting">
-      <div class="greeting-name" id="greetingName">안녕하세요 👋</div>
-      <div class="greeting-sub" id="greetingDate"></div>
-    </div>
-
-    <div class="summary-cards">
-      <div class="s-card">
-        <div class="s-num" id="visitToday">0</div>
-        <div class="s-label">오늘 방문</div>
-      </div>
-      <div class="s-card">
-        <div class="s-num" id="visitWeek">0</div>
-        <div class="s-label">이번주</div>
-      </div>
-      <div class="s-card">
-        <div class="s-num" id="crmCount">0</div>
-        <div class="s-label">거래처</div>
-      </div>
-    </div>
-
-    <div class="tab-menu">
-      <button class="tab-btn active" onclick="switchTab('crm')">📋 거래처</button>
-      <button class="tab-btn" onclick="switchTab('goal')">📊 실적</button>
-      <button class="tab-btn" onclick="switchTab('map')">📍 지도</button>
-      <button class="tab-btn" onclick="switchTab('sobumo')">🤝 소부모</button>
-    </div>
-
-    <!-- CRM 탭 -->
-    <div class="tab-panel active" id="tab-crm">
-      <div class="crm-header">
-        <h3>거래처 관리</h3>
-        <button class="add-btn" onclick="openAddModal()">+ 추가</button>
-      </div>
-      <div id="crmList">
-        <!-- 샘플 데이터 -->
-        <div class="crm-card" onclick="openCrmDetail(0)">
-          <div class="crm-card-top">
-            <div class="crm-name">연세내과의원</div>
-            <span class="crm-type type-hospital">병원</span>
-          </div>
-          <div class="crm-info">
-            👨‍⚕️ 원장: 김철수 원장님<br>
-            📍 대구 남구 현충로 45<br>
-            💊 주력: 고혈압, 당뇨
-          </div>
-          <div>
-            <span class="crm-tag">골프관심</span>
-            <span class="crm-tag">화요일방문</span>
-            <span class="crm-tag">커피블랙</span>
-          </div>
-          <div class="crm-visit">마지막 방문: 2026-03-05</div>
-        </div>
-        <div class="crm-card" onclick="openCrmDetail(1)">
-          <div class="crm-card-top">
-            <div class="crm-name">현충약국</div>
-            <span class="crm-type type-pharmacy">약국</span>
-          </div>
-          <div class="crm-info">
-            👩‍⚕️ 약사: 박영희 약사님<br>
-            📍 대구 남구 현충로 60<br>
-            💊 주력: 일반의약품
-          </div>
-          <div>
-            <span class="crm-tag">오전방문</span>
-            <span class="crm-tag">친절함</span>
-          </div>
-          <div class="crm-visit">마지막 방문: 2026-03-06</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 실적 탭 -->
-    <div class="tab-panel" id="tab-goal">
-      <div class="goal-card">
-        <div class="goal-title">📅 이번 주 방문 목표</div>
-        <div class="goal-num">
-          <div class="goal-current">12</div>
-          <div class="goal-target">목표 20건</div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:60%"></div></div>
-        <div class="goal-pct">60% 달성</div>
-      </div>
-      <div class="goal-card">
-        <div class="goal-title">📆 이번 달 방문 목표</div>
-        <div class="goal-num">
-          <div class="goal-current">38</div>
-          <div class="goal-target">목표 80건</div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:47.5%"></div></div>
-        <div class="goal-pct">47.5% 달성</div>
-      </div>
-      <div class="goal-card">
-        <div class="goal-title">🏆 이번 달 처방 실적</div>
-        <div class="goal-num">
-          <div class="goal-current" style="color:#a0ff40;">85%</div>
-          <div class="goal-target">목표 100%</div>
-        </div>
-        <div class="progress-bar"><div class="progress-fill" style="width:85%;background:linear-gradient(90deg,#a0ff40,#00ffff)"></div></div>
-        <div class="goal-pct">잘 하고 있어요! 💪</div>
-      </div>
-    </div>
-
-    <!-- 지도 탭 -->
-    <div class="tab-panel" id="tab-map">
-      <div class="map-notice">
-        <div class="map-icon">📍</div>
-        <h3>주변 거래처 지도</h3>
-        <p>현재 위치 기반으로 주변 병원·약국을 지도에서 확인하세요. 거래처 추가 시 자동으로 마커가 표시됩니다.</p>
-        <button class="map-btn" onclick="openMap()">🗺 지도 열기</button>
-      </div>
-    </div>
-
-    <!-- 소부모 탭 -->
-    <div class="tab-panel" id="tab-sobumo">
-      <div class="sobumo-card">
-        <div class="sobumo-title">
-          <span>🤝</span>
-          <h3>소부모 심부름 요청</h3>
-        </div>
-        <div class="sobumo-form">
-          <input class="sobumo-input" placeholder="병원/약국명" id="sbHospital">
-          <input class="sobumo-input" placeholder="심부름 내용 (예: 처방전 전달)" id="sbTask">
-          <input class="sobumo-input" placeholder="주소" id="sbAddress">
-          <input class="sobumo-input" placeholder="연락처" id="sbPhone">
-          <button class="sobumo-submit" onclick="submitSobumo()">요청하기</button>
-        </div>
-      </div>
+    <div class="feature-card">
+      <div class="feature-icon">🤝</div>
+      <div class="feature-title">소부모 연동</div>
+      <div class="feature-desc">병원 심부름·서류 전달이 필요할 때 소부모 서비스를 앱 안에서 바로 요청합니다.</div>
     </div>
   </div>
+</section>
 
-  <div class="bottom-nav">
-    <div class="nav-item active" onclick="switchTab('crm');setNavActive(this)">
-      <div class="nav-icon">📋</div>
-      <div class="nav-label">거래처</div>
-    </div>
-    <div class="nav-item" onclick="switchTab('goal');setNavActive(this)">
-      <div class="nav-icon">📊</div>
-      <div class="nav-label">실적</div>
-    </div>
-    <div class="nav-item" onclick="switchTab('map');setNavActive(this)">
-      <div class="nav-icon">📍</div>
-      <div class="nav-label">지도</div>
-    </div>
-    <div class="nav-item" onclick="switchTab('sobumo');setNavActive(this)">
-      <div class="nav-icon">🤝</div>
-      <div class="nav-label">소부모</div>
-    </div>
+<!-- 슬로건 -->
+<section id="slogan">
+  <p class="slogan-text">20년 경험의 제약 영업 전문가가<br>직접 만든 <span>영업사원을 위한 앱</span></p>
+  <p style="color:#555;font-size:14px;">pharma.ai.kr · sobumo.com · allai.ai.kr</p>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-title">지금 바로 시작하세요</div>
+  <div class="cta-sub">구글 계정만 있으면 됩니다. 무료.</div>
+  <button class="btn-primary" onclick="window.open('app/index.html','_blank')">앱 시작하기 →</button>
+</section>
+
+<footer>
+  <div style="margin-bottom:10px;">
+    <a href="https://sobumo.com" target="_blank">sobumo.com</a>
+    <a href="https://allai.ai.kr" target="_blank">allai.ai.kr</a>
   </div>
-</div>
-
-<!-- 거래처 추가 모달 -->
-<div class="modal-overlay" id="addModal">
-  <div class="modal-box">
-    <div class="modal-handle"></div>
-    <button class="modal-close" onclick="closeAddModal()">✕</button>
-    <div class="modal-title">거래처 추가</div>
-    <div class="form-group">
-      <label class="form-label">병원/약국명 *</label>
-      <input class="form-input" id="addName" placeholder="예: 연세내과의원">
-    </div>
-    <div class="form-group">
-      <label class="form-label">유형</label>
-      <select class="form-input" id="addType">
-        <option value="hospital">병원</option>
-        <option value="pharmacy">약국</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label class="form-label">원장/약사명</label>
-      <input class="form-input" id="addDoctor" placeholder="예: 김철수 원장님">
-    </div>
-    <div class="form-group">
-      <label class="form-label">주소</label>
-      <input class="form-input" id="addAddress" placeholder="예: 대구 남구 현충로 45">
-    </div>
-    <div class="form-group">
-      <label class="form-label">메모 (성향, 관심사, 처방 패턴 등)</label>
-      <textarea class="form-input" id="addMemo" rows="3" placeholder="예: 골프 관심 많음, 화요일 오전 방문 선호, 커피 블랙"></textarea>
-    </div>
-    <button class="form-submit" onclick="saveCrm()">저장하기</button>
-  </div>
-</div>
-
-<!-- Firebase SDK -->
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut as fbSignOut }
-  from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { getFirestore, collection, addDoc, getDocs, query, where, orderBy }
-  from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyCaWfA3WrSyMo4ugq71iBAVZJBFqIyqVwM",
-  authDomain: "pharma-ai-b590d.firebaseapp.com",
-  projectId: "pharma-ai-b590d",
-  storageBucket: "pharma-ai-b590d.firebasestorage.app",
-  messagingSenderId: "186561280218",
-  appId: "1:186561280218:web:16b2f1477660a5b8608de3",
-  measurementId: "G-2FS1MRBTWQ"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-const provider = new GoogleAuthProvider();
-
-let currentUser = null;
-let crmData = [];
-
-// 로그인 상태 감지
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    currentUser = user;
-    showDashboard(user);
-    loadCrm(user.uid);
-  } else {
-    showLanding();
-  }
-});
-
-// 구글 로그인
-window.signInWithGoogle = async () => {
-  try {
-    await signInWithPopup(auth, provider);
-  } catch(e) {
-    alert('로그인 실패: ' + e.message);
-  }
-};
-
-// 로그아웃
-window.signOut = async () => {
-  await fbSignOut(auth);
-};
-
-// 대시보드 표시
-function showDashboard(user) {
-  document.getElementById('landingScreen').classList.remove('active');
-  document.getElementById('dashScreen').classList.add('active');
-  document.getElementById('userAvatar').src = user.photoURL || '';
-  const name = user.displayName ? user.displayName.split(' ')[0] : '원장님';
-  document.getElementById('greetingName').textContent = name + '님, 안녕하세요 👋';
-  const now = new Date();
-  const days = ['일','월','화','수','목','금','토'];
-  document.getElementById('greetingDate').textContent =
-    `${now.getMonth()+1}월 ${now.getDate()}일 (${days[now.getDay()]}) · 오늘도 파이팅!`;
-}
-
-// 랜딩 표시
-function showLanding() {
-  document.getElementById('dashScreen').classList.remove('active');
-  document.getElementById('landingScreen').classList.add('active');
-}
-
-// CRM 불러오기
-async function loadCrm(uid) {
-  try {
-    const q = query(collection(db, 'crm'), where('uid', '==', uid));
-    const snap = await getDocs(q);
-    crmData = [];
-    snap.forEach(doc => crmData.push({id: doc.id, ...doc.data()}));
-    renderCrm();
-    document.getElementById('crmCount').textContent = crmData.length + 2; // +2 샘플
-  } catch(e) {}
-}
-
-// CRM 렌더링
-function renderCrm() {
-  const list = document.getElementById('crmList');
-  const userCards = crmData.map((c,i) => `
-    <div class="crm-card">
-      <div class="crm-card-top">
-        <div class="crm-name">${c.name}</div>
-        <span class="crm-type ${c.type==='hospital'?'type-hospital':'type-pharmacy'}">${c.type==='hospital'?'병원':'약국'}</span>
-      </div>
-      <div class="crm-info">
-        ${c.doctor ? `👨‍⚕️ ${c.doctor}<br>` : ''}
-        ${c.address ? `📍 ${c.address}` : ''}
-      </div>
-      ${c.memo ? `<div class="crm-tag">${c.memo}</div>` : ''}
-    </div>`).join('');
-
-  // 샘플 카드 유지 + 사용자 카드 추가
-  const sampleCards = list.querySelectorAll('.crm-card');
-  list.innerHTML = userCards + Array.from(sampleCards).map(c=>c.outerHTML).join('');
-}
-
-// CRM 저장
-window.saveCrm = async () => {
-  const name = document.getElementById('addName').value.trim();
-  if (!name) { alert('병원/약국명을 입력하세요'); return; }
-  try {
-    await addDoc(collection(db, 'crm'), {
-      uid: currentUser.uid,
-      name,
-      type: document.getElementById('addType').value,
-      doctor: document.getElementById('addDoctor').value,
-      address: document.getElementById('addAddress').value,
-      memo: document.getElementById('addMemo').value,
-      createdAt: new Date()
-    });
-    closeAddModal();
-    loadCrm(currentUser.uid);
-    alert('저장됐습니다!');
-  } catch(e) {
-    alert('저장 실패: ' + e.message);
-  }
-};
-
-// 소부모 요청
-window.submitSobumo = () => {
-  const h = document.getElementById('sbHospital').value;
-  const t = document.getElementById('sbTask').value;
-  if (!h || !t) { alert('병원명과 심부름 내용을 입력하세요'); return; }
-  alert(`✅ 요청 완료!\n\n${h}\n${t}\n\nsobumo.com으로 전달됐습니다.`);
-  document.getElementById('sbHospital').value = '';
-  document.getElementById('sbTask').value = '';
-  document.getElementById('sbAddress').value = '';
-  document.getElementById('sbPhone').value = '';
-};
-
-// 지도
-window.openMap = () => {
-  window.open('https://map.kakao.com', '_blank');
-};
-</script>
+  © 2026 Pharma AI | pharma.ai.kr
+</footer>
 
 <script>
-// 역할 선택
-let selectedRole = null;
-window.selectRole = (role) => {
-  selectedRole = role;
-  document.getElementById('roleMs').classList.toggle('selected', role==='ms');
-  document.getElementById('roleHosp').classList.toggle('selected', role==='hospital');
-  document.getElementById('googleBtn').classList.add('ready');
-};
-
-// 탭 전환
-window.switchTab = (tab) => {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-'+tab).classList.add('active');
-  const btns = document.querySelectorAll('.tab-btn');
-  const map = {crm:0, goal:1, map:2, sobumo:3};
-  btns[map[tab]].classList.add('active');
-};
-
-// 바텀 네비
-window.setNavActive = (el) => {
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  el.classList.add('active');
-};
-
-// 모달
-window.openAddModal = () => document.getElementById('addModal').classList.add('active');
-window.closeAddModal = () => document.getElementById('addModal').classList.remove('active');
-document.getElementById('addModal').addEventListener('click', function(e){
-  if(e.target===this) closeAddModal();
-});
-
-// 날짜
-const now = new Date();
-const days = ['일','월','화','수','목','금','토'];
+const stocks=[
+  {name:'KOSPI',price:'2,612',change:'+0.8%',up:true},
+  {name:'KOSDAQ',price:'742',change:'+1.2%',up:true},
+  {name:'NASDAQ',price:'17,842',change:'-0.3%',up:false},
+  {name:'S&P500',price:'5,123',change:'+0.1%',up:true},
+  {name:'삼성전자',price:'72,400',change:'+1.5%',up:true},
+  {name:'TESLA',price:'172.3',change:'-2.1%',up:false},
+  {name:'NVIDIA',price:'824.5',change:'+3.2%',up:true},
+  {name:'USD/KRW',price:'1,326',change:'+0.2%',up:true},
+];
+document.getElementById('tickerWrap').innerHTML=[...stocks,...stocks].map(s=>`<span class="ticker-item"><span class="t-name">${s.name}</span><span class="t-price">${s.price}</span><span class="${s.up?'up':'down'}">${s.change}</span></span>`).join('');
 </script>
 </body>
 </html>
