@@ -68,8 +68,8 @@
 
     /* ── PARTNERSHIP ── */
     #partnership { padding:120px 20px; text-align:center; border-top:1px solid #111; background:#000; }
-    .p-card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:60px; }
-    .p-card { width:240px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
+    .p-card-container { display:grid; grid-template-columns:repeat(3,220px); gap:25px; margin-top:60px; justify-content:center; }
+    .p-card { width:100%; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
     .p-card:hover { transform:translateY(-12px); border-color:#00ffff; box-shadow:0 20px 50px rgba(0,255,255,0.2); }
     /* 소부모 카드 호버는 오렌지 */
     .p-card.sobumo-card:hover { border-color:#E8732A; box-shadow:0 20px 50px rgba(232,115,42,0.35); }
