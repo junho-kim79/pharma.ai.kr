@@ -30,22 +30,8 @@
 
     #introSection { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; overflow:hidden; }
 
-    /* 브랜드 헤더 */
-    #brandHeader {
-        position:absolute;
-        top:50%;
-        left:50%;
-        transform:translate(-50%, -50%);
-        text-align:center;
-        z-index:5;
-        transition: top 1.2s cubic-bezier(0.4,0,0.2,1), transform 1.2s cubic-bezier(0.4,0,0.2,1);
-        pointer-events:none;
-        width:100%;
-    }
-    #brandHeader.fixed {
-        top:160px;
-        transform:translate(-50%, 0);
-    }
+    #brandHeader { position:absolute; top:50%; left:50%; transform:translate(-50%, -50%); text-align:center; z-index:5; transition: top 1.2s cubic-bezier(0.4,0,0.2,1), transform 1.2s cubic-bezier(0.4,0,0.2,1); pointer-events:none; width:100%; }
+    #brandHeader.fixed { top:160px; transform:translate(-50%, 0); }
     #brandHeader .brand-ai { font-size:4rem; font-weight:900; letter-spacing:10px; font-family:'Cormorant Garamond',serif; opacity:0; transition:opacity 0.8s; }
     #brandHeader.visible .brand-ai { opacity:1; }
     #brandHeader .brand-sub { font-size:1.4rem; letter-spacing:8px; color:#00ffff; font-family:'Cormorant Garamond',serif; margin-top:8px; opacity:0; transition:opacity 0.8s 0.3s; }
@@ -57,18 +43,7 @@
     #brandHeader .brand-slogan3 { font-size:0.75rem; opacity:0; margin-top:4px; transition:opacity 0.8s 1.1s; }
     #brandHeader.visible .brand-slogan3 { opacity:0.35; }
 
-    /* 회사명 - 브랜드 헤더 아래에 위치 */
-    #companyList {
-        position:absolute;
-        bottom:160px;
-        left:50%;
-        transform:translateX(-50%);
-        text-align:center;
-        z-index:4;
-        opacity:0;
-        transition:opacity 0.5s;
-        width:100%;
-    }
+    #companyList { position:absolute; bottom:160px; left:50%; transform:translateX(-50%); text-align:center; z-index:4; opacity:0; transition:opacity 0.5s; width:100%; }
     #companyList.visible { opacity:1; }
     .company-item { font-size:2.8rem; font-weight:900; opacity:0; transform:translateY(20px); transition:opacity 0.6s, transform 0.6s; margin:0; display:none; }
     .company-item.active { display:block; }
@@ -91,10 +66,13 @@
     @keyframes crossWave { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.3;} 40%{transform:translateY(-25px) rotate(60deg) scale(1.1);opacity:0.7;} 50%{transform:translateY(-30px) rotate(90deg) scale(1.2);opacity:1;filter:drop-shadow(0 0 10px #00ffff);} }
     @keyframes hexWave { 0%,100%{transform:translateY(0) rotate(0deg) scale(1);opacity:0.3;} 50%{transform:translateY(-30px) rotate(-60deg) scale(1.2);opacity:1;background:#00ffff;filter:drop-shadow(0 0 10px #00ffff);} }
 
+    /* ── PARTNERSHIP ── */
     #partnership { padding:120px 20px; text-align:center; border-top:1px solid #111; background:#000; }
     .p-card-container { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:60px; }
     .p-card { width:240px; background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; overflow:hidden; transition:0.4s; cursor:pointer; }
     .p-card:hover { transform:translateY(-12px); border-color:#00ffff; box-shadow:0 20px 50px rgba(0,255,255,0.2); }
+    /* 소부모 카드 호버는 오렌지 */
+    .p-card.sobumo-card:hover { border-color:#E8732A; box-shadow:0 20px 50px rgba(232,115,42,0.35); }
     .p-photo { height:280px; position:relative; overflow:hidden; }
     .p-photo video { width:100%; height:100%; object-fit:cover; display:block; position:absolute; top:0; left:0; transition:opacity 0.5s; }
     .p-photo img { width:100%; height:100%; object-fit:cover; display:block; position:absolute; top:0; left:0; opacity:0; transition:opacity 0.5s; }
@@ -106,27 +84,77 @@
     .p-name { font-size:18px; font-weight:700; margin:0 0 5px 0; }
     .p-desc { font-size:13px; color:#888; line-height:1.5; }
 
+    /* ── NEWS SECTION (업그레이드) ── */
     #newsSection { padding:120px 20px; background:#050505; border-top:1px solid #111; }
-    .news-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px; max-width:1200px; margin:60px auto 0; }
-    .news-card { background:#0a0a0a; border:1px solid #1a1a1a; border-radius:20px; transition:0.4s; cursor:pointer; overflow:hidden; display:flex; flex-direction:column; }
-    .news-card:hover { transform:translateY(-6px); background:#0f0f0f; }
-    .news-card-top { padding:28px 28px 0; }
-    .news-card-bottom { padding:0 28px 24px; margin-top:auto; }
-    .news-card.ai{border-top:3px solid #00ffff;} .news-card.estate{border-top:3px solid #ffcc00;} .news-card.policy{border-top:3px solid #ff5050;} .news-card.finance{border-top:3px solid #fff;} .news-card.us{border-top:3px solid #4488ff;} .news-card.kr{border-top:3px solid #ff4466;}
-    .news-cat { font-size:10px; font-weight:800; letter-spacing:3px; margin-bottom:14px; display:block; font-family:'Cormorant Garamond',serif; }
-    .cat-ai{color:#00ffff;} .cat-estate{color:#ffcc00;} .cat-policy{color:#ff5050;} .cat-finance{color:#aaa;} .cat-us{color:#4488ff;} .cat-kr{color:#ff4466;}
-    .news-headlines { list-style:none; padding:0; margin:0 0 16px; }
-    .news-headlines li { font-size:13px; color:#ccc; line-height:1.6; padding:8px 0; border-bottom:1px solid #1a1a1a; cursor:pointer; transition:0.2s; display:flex; align-items:flex-start; gap:8px; }
-    .news-headlines li:last-child { border-bottom:none; }
-    .news-headlines li:hover { color:#fff; padding-left:4px; }
-    .news-headlines li::before { content:'›'; color:#444; flex-shrink:0; }
-    .news-footer { display:flex; justify-content:space-between; align-items:center; padding-top:14px; border-top:1px solid #111; }
-    .news-more { font-size:11px; color:#555; text-decoration:none; letter-spacing:1px; transition:0.2s; font-family:'Cormorant Garamond',serif; }
-    .news-more:hover { color:#00ffff; }
-    .news-dot { width:6px; height:6px; border-radius:50%; animation:blink 2s infinite; }
-    .dot-ai{background:#00ffff;} .dot-estate{background:#ffcc00;} .dot-policy{background:#ff5050;} .dot-finance{background:#aaa;} .dot-us{background:#4488ff;} .dot-kr{background:#ff4466;}
-    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+    .news-section-head { text-align:center; margin-bottom:70px; }
+    .news-eye { color:#a0ff40; letter-spacing:6px; font-size:12px; font-family:'Cormorant Garamond',serif; display:block; margin-bottom:14px; }
+    .news-h2 { font-size:44px; font-weight:900; margin:0; letter-spacing:-0.02em; }
 
+    .news-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1200px; margin:0 auto; }
+
+    .news-card { background:#0a0a0a; border-radius:22px; overflow:hidden; cursor:pointer; position:relative; transform-style:preserve-3d; transition:box-shadow 0.4s ease; border:1px solid #1a1a1a; will-change:transform; }
+    .news-card .glare { position:absolute; inset:0; border-radius:22px; pointer-events:none; z-index:3; opacity:0; transition:opacity 0.3s; background:radial-gradient(circle at 50% 50%,rgba(255,255,255,0.06) 0%,transparent 65%); }
+    .news-card:hover .glare { opacity:1; }
+
+    .news-card.ai    { border-top:3px solid #00ffff; }
+    .news-card.estate{ border-top:3px solid #ffcc00; }
+    .news-card.policy{ border-top:3px solid #ff5050; }
+    .news-card.finance{border-top:3px solid #aaa; }
+    .news-card.us    { border-top:3px solid #4488ff; }
+    .news-card.kr    { border-top:3px solid #ff4466; }
+
+    .news-card.ai:hover    { box-shadow:0 28px 60px rgba(0,255,255,0.18); border-color:rgba(0,255,255,0.3); }
+    .news-card.estate:hover{ box-shadow:0 28px 60px rgba(255,204,0,0.18); border-color:rgba(255,204,0,0.3); }
+    .news-card.policy:hover{ box-shadow:0 28px 60px rgba(255,80,80,0.18); border-color:rgba(255,80,80,0.3); }
+    .news-card.finance:hover{box-shadow:0 28px 60px rgba(180,180,180,0.12); border-color:rgba(180,180,180,0.3); }
+    .news-card.us:hover    { box-shadow:0 28px 60px rgba(68,136,255,0.18); border-color:rgba(68,136,255,0.3); }
+    .news-card.kr:hover    { box-shadow:0 28px 60px rgba(255,68,102,0.18); border-color:rgba(255,68,102,0.3); }
+
+    .card-inner { padding:30px 28px 24px; position:relative; z-index:4; }
+
+    .news-cat { font-size:22px; font-weight:900; letter-spacing:2px; margin-bottom:22px; display:flex; align-items:center; gap:10px; font-family:'Noto Serif KR',serif; line-height:1.2; }
+    .cat-dot { width:7px; height:7px; border-radius:50%; animation:catblink 2s infinite; flex-shrink:0; }
+    @keyframes catblink { 0%,100%{opacity:1;} 50%{opacity:0.2;} }
+
+    .cat-ai     { color:#00ffff; } .cat-ai .cat-dot     { background:#00ffff; }
+    .cat-estate { color:#ffcc00; } .cat-estate .cat-dot { background:#ffcc00; }
+    .cat-policy { color:#ff5050; } .cat-policy .cat-dot { background:#ff5050; }
+    .cat-finance{ color:#aaa;   }  .cat-finance .cat-dot{ background:#aaa; }
+    .cat-us     { color:#4488ff; } .cat-us .cat-dot     { background:#4488ff; }
+    .cat-kr     { color:#ff4466; } .cat-kr .cat-dot     { background:#ff4466; }
+
+    .news-headlines { list-style:none; padding:0; margin:0 0 20px; }
+    .news-headlines li { font-size:16px; color:#bbb; line-height:1.7; padding:12px 0; border-bottom:1px solid #1c1c1c; cursor:pointer; transition:all 0.25s ease; display:flex; align-items:flex-start; gap:10px; position:relative; overflow:hidden; }
+    .news-headlines li:last-child { border-bottom:none; }
+    .news-headlines li .arrow { color:#333; flex-shrink:0; font-size:1.1em; transition:all 0.25s ease; margin-top:1px; }
+    .news-headlines li:hover { color:#fff; padding-left:6px; }
+    .news-card.ai     .news-headlines li:hover .arrow { color:#00ffff; }
+    .news-card.estate .news-headlines li:hover .arrow { color:#ffcc00; }
+    .news-card.policy .news-headlines li:hover .arrow { color:#ff5050; }
+    .news-card.finance .news-headlines li:hover .arrow{ color:#aaa; }
+    .news-card.us     .news-headlines li:hover .arrow { color:#4488ff; }
+    .news-card.kr     .news-headlines li:hover .arrow { color:#ff4466; }
+
+    .news-headlines li .ripple { position:absolute; border-radius:50%; transform:scale(0); animation:rippleAnim 0.6s linear; pointer-events:none; opacity:0.15; }
+    @keyframes rippleAnim { to { transform:scale(4); opacity:0; } }
+
+    .news-footer { display:flex; justify-content:space-between; align-items:center; padding-top:16px; border-top:1px solid #141414; }
+    .news-more { font-size:11px; color:#444; text-decoration:none; letter-spacing:2px; transition:all 0.25s; font-family:'Cormorant Garamond',serif; display:flex; align-items:center; gap:6px; }
+    .news-more .more-arrow { transition:transform 0.25s; }
+    .news-more:hover .more-arrow { transform:translateX(4px); }
+    .news-card.ai     .news-more:hover { color:#00ffff; }
+    .news-card.estate .news-more:hover { color:#ffcc00; }
+    .news-card.policy .news-more:hover { color:#ff5050; }
+    .news-card.finance .news-more:hover{ color:#aaa; }
+    .news-card.us     .news-more:hover { color:#4488ff; }
+    .news-card.kr     .news-more:hover { color:#ff4466; }
+
+    .news-dot { width:7px; height:7px; border-radius:50%; animation:catblink 2s infinite; }
+    .dot-ai    { background:#00ffff; } .dot-estate{ background:#ffcc00; }
+    .dot-policy{ background:#ff5050; } .dot-finance{ background:#aaa; }
+    .dot-us    { background:#4488ff; } .dot-kr    { background:#ff4466; }
+
+    /* ── AUCTION ── */
     #auctionSection { padding:100px 20px; background:#000; border-top:1px solid #111; text-align:center; }
     .auction-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:25px; margin-top:50px; max-width:1000px; margin-left:auto; margin-right:auto; }
     .auction-btn { display:flex; flex-direction:column; align-items:center; justify-content:center; width:260px; padding:36px 28px; border-radius:24px; text-decoration:none; transition:0.4s; position:relative; overflow:hidden; gap:12px; }
@@ -150,6 +178,7 @@
     .auction-arrow { font-size:11px; letter-spacing:2px; font-family:'Cormorant Garamond',serif; }
     .auction-arrow.court-arrow{color:#4466ff;} .auction-arrow.lock-arrow{color:#44ff88;} .auction-arrow.drug-arrow{color:#ff6644;}
 
+    /* ── CHECKLIST MODAL ── */
     #checkModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:1000; backdrop-filter:blur(10px); overflow-y:auto; padding:40px 20px; }
     #checkModal.active { display:flex; align-items:flex-start; justify-content:center; }
     .modal-box { background:#0a0a0a; border:1px solid #222; border-radius:24px; max-width:700px; width:100%; padding:50px 40px; position:relative; margin:auto; }
@@ -170,6 +199,7 @@
     .checklist-item.done .check-box { background:#00ffff; border-color:#00ffff; color:#000; }
     .check-label { font-size:14px; color:#ccc; }
 
+    /* ── CONTACT ── */
     #contact { padding:100px 20px; text-align:center; background:#050505; border-top:1px solid #111; display:flex; flex-direction:column; align-items:center; }
     .contact-title { font-size:32px; font-weight:800; letter-spacing:4px; margin-bottom:40px; font-family:'Cormorant Garamond',serif; }
     .contact-wrap { display:flex; flex-wrap:wrap; justify-content:center; gap:40px; max-width:1200px; width:100%; align-items:flex-start; }
@@ -232,6 +262,7 @@
 <a href="tel:053-721-8578" id="callBtn">☎ 053-721-8578</a>
 <button id="musicBtn" onclick="toggleMusic()">♪ MUSIC ON</button>
 
+<!-- INTRO -->
 <section id="introSection">
     <div id="brandHeader">
         <div class="brand-ai">AI</div>
@@ -240,15 +271,14 @@
         <div class="brand-slogan2">각 분야 전문가가 하나의 팀으로 움직입니다</div>
         <div class="brand-slogan3">온라인부터 지역사회 밀착 광고까지</div>
     </div>
-
     <div id="companyList">
         <div class="company-item" data-idx="0"><div>위드메드</div><div class="company-sub">종합병원 네트워크 플랫폼</div></div>
         <div class="company-item" data-idx="1"><div>임강약품</div><div class="company-sub">의약품 유통 파트너</div></div>
         <div class="company-item" data-idx="2"><div>양신파마</div><div class="company-sub">로컬 병원 전문 파트너</div></div>
         <div class="company-item" data-idx="3"><div>찐빵투어</div><div class="company-sub">의사 전용 프리미엄 여행</div></div>
         <div class="company-item" data-idx="4"><div>김부장공인중개사</div><div class="company-sub">의사 개원 전문 부동산 컨설팅</div></div>
+        <div class="company-item" data-idx="5"><div>소부모</div><div class="company-sub">어르신 활동가 · 사회적기업 프로젝트</div></div>
     </div>
-
     <div id="loadingWave">
         <div class="shape triangle" style="animation-delay:0s;"></div>
         <div class="shape s-circle" style="animation-delay:0.3s;"></div>
@@ -259,6 +289,7 @@
     </div>
 </section>
 
+<!-- PARTNERSHIP -->
 <section id="partnership">
     <h2 style="color:#00ffff;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">THE EXPERTS</h2>
     <h3 style="font-size:40px;margin-top:10px;font-weight:900;">각 분야 최고의 파트너</h3>
@@ -268,17 +299,32 @@
         <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="SMALL1.mp4"></video><img src="양신.jpg" alt="양신파마"></div><div class="p-content"><span class="p-tag tag-ys">YANGSHIN</span><h4 class="p-name">양신파마</h4><p class="p-desc">로컬 병원 전문 파트너</p></div></div>
         <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="GOLF2.mp4"></video><img src="찐빵투어.jpg" alt="찐빵투어"></div><div class="p-content"><span class="p-tag tag-zb">ZZINBBANG</span><h4 class="p-name">찐빵투어</h4><p class="p-desc">의사 전용 프리미엄 여행</p></div></div>
         <div class="p-card"><div class="p-photo"><video autoplay muted loop playsinline src="estate.mp4"></video><img src="김부장공인중개사.jpg" alt="김부장공인중개사"></div><div class="p-content"><span class="p-tag tag-kb">KIM BUJANG</span><h4 class="p-name">김부장공인중개사</h4><p class="p-desc">의사 개원 전문 부동산 컨설팅</p></div></div>
+        <!-- 소부모 카드 -->
+        <div class="p-card sobumo-card" onclick="window.open('https://www.sobumo.com')">
+            <div class="p-photo" style="background:linear-gradient(135deg,#3A2210 0%,#C4714A 60%,#F0895A 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;">
+                <div style="font-family:'Noto Serif KR',serif;font-size:2.8rem;font-weight:900;color:white;letter-spacing:-0.02em;">소부모</div>
+                <div style="font-size:0.7rem;color:rgba(255,255,255,0.55);letter-spacing:4px;">SOBUMO.COM</div>
+                <div style="font-size:1.8rem;margin-top:6px;">🤝</div>
+            </div>
+            <div class="p-content">
+                <span class="p-tag" style="background:#E8732A;color:white;">SOBUMO</span>
+                <h4 class="p-name">소부모</h4>
+                <p class="p-desc">어르신 활동가 · 지역 생활 심부름<br>대구 사회적기업 프로젝트</p>
+            </div>
+        </div>
     </div>
 </section>
 
+<!-- NEWS -->
 <section id="newsSection">
-    <div style="text-align:center;">
-        <h2 style="color:#a0ff40;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">REAL-TIME INSIGHT</h2>
-        <h3 style="font-size:40px;font-weight:900;margin-top:10px;">비즈니스 브리핑</h3>
+    <div class="news-section-head">
+        <span class="news-eye">REAL-TIME INSIGHT</span>
+        <h3 class="news-h2">비즈니스 브리핑</h3>
     </div>
     <div class="news-grid" id="newsGrid"></div>
 </section>
 
+<!-- AUCTION -->
 <section id="auctionSection">
     <h2 style="color:#ffcc00;letter-spacing:6px;font-size:12px;font-family:'Cormorant Garamond',serif;">QUICK LINKS</h2>
     <h3 style="font-size:40px;font-weight:900;margin-top:10px;">바로가기</h3>
@@ -305,6 +351,7 @@
     </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact">
     <div class="contact-title">CONTACT US</div>
     <div class="contact-wrap">
@@ -321,6 +368,7 @@
 </section>
 
 <script>
+/* ── 티커 ── */
 const stocks = [
     {name:'KOSPI',price:'2,612',change:'+0.8%',up:true},
     {name:'KOSDAQ',price:'742',change:'+1.2%',up:true},
@@ -333,6 +381,7 @@ const stocks = [
 ];
 document.getElementById('tickerWrap').innerHTML = [...stocks,...stocks].map(s=>`<span class="ticker-item"><span class="t-name">${s.name}</span><span class="t-price">${s.price}</span><span class="${s.up?'up':'down'}">${s.change}</span></span>`).join('');
 
+/* ── 날씨 ── */
 async function loadWeather(){
     try{
         const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=35.8714&longitude=128.6014&current_weather=true');
@@ -345,11 +394,11 @@ async function loadWeather(){
 }
 loadWeather();
 
-// 인트로 애니메이션
+/* ── 인트로 애니메이션 ── */
 const brandHeader = document.getElementById('brandHeader');
 const companyList = document.getElementById('companyList');
 const companies = document.querySelectorAll('.company-item');
-const colors = ['#00ffff','#a0ff40','#ff8040','#ffcc00','#fff'];
+const colors = ['#00ffff','#a0ff40','#ff8040','#ffcc00','#fff','#E8732A'];
 let currentCompany = 0;
 
 setTimeout(()=>{ brandHeader.classList.add('visible'); }, 300);
@@ -362,7 +411,6 @@ function showNextCompany(){
         prev.classList.remove('show');
         setTimeout(()=>{
             prev.classList.remove('active');
-            // 이전꺼 완전히 사라진 후 다음꺼 등장
             if(currentCompany < companies.length){
                 const curr = companies[currentCompany];
                 curr.classList.add('active');
@@ -388,23 +436,76 @@ function showNextCompany(){
     }
 }
 
+/* ── 뉴스 ── */
 const CATEGORIES = [
-    {id:'ai',label:'AI & DIGITAL HEALTH',dotClass:'dot-ai',catClass:'cat-ai',queries:['의료 AI','스마트병원','디지털헬스케어','의료IT','AI진단'],searchUrl:'https://search.naver.com/search.naver?where=news&query=의료+AI'},
-    {id:'estate',label:'REAL ESTATE',dotClass:'dot-estate',catClass:'cat-estate',queries:['병의원 개원','의원 임대','개원 부동산','의료상가','클리닉 개원'],searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+개원+부동산'},
-    {id:'policy',label:'PHARMA POLICY',dotClass:'dot-policy',catClass:'cat-policy',queries:['약가인하','제약정책','건강보험 급여','의약품 허가','처방약 정책'],searchUrl:'https://search.naver.com/search.naver?where=news&query=제약+약가+정책'},
-    {id:'finance',label:'MEDICAL FINANCE',dotClass:'dot-finance',catClass:'cat-finance',queries:['병의원 세무','의사 절세','개원자금','의원 수익','의사 자산관리'],searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+세무+절세'},
-    {id:'us',label:'US MARKET',dotClass:'dot-us',catClass:'cat-us',queries:['나스닥','S&P500','미국주식','빅테크','미국증시'],searchUrl:'https://finance.naver.com/world/'},
-    {id:'kr',label:'KR MARKET',dotClass:'dot-kr',catClass:'cat-kr',queries:['코스피','코스닥','국내증시','삼성전자','바이오주'],searchUrl:'https://finance.naver.com/sise/'}
+    {id:'ai',    label:'AI & DIGITAL HEALTH', dotClass:'dot-ai',    catClass:'cat-ai',    queries:['의료 AI','스마트병원','디지털헬스케어','의료IT','AI진단'],        searchUrl:'https://search.naver.com/search.naver?where=news&query=의료+AI'},
+    {id:'estate',label:'REAL ESTATE',         dotClass:'dot-estate', catClass:'cat-estate',queries:['병의원 개원','의원 임대','개원 부동산','의료상가','클리닉 개원'], searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+개원+부동산'},
+    {id:'policy',label:'PHARMA POLICY',       dotClass:'dot-policy', catClass:'cat-policy',queries:['약가인하','제약정책','건강보험 급여','의약품 허가','처방약 정책'], searchUrl:'https://search.naver.com/search.naver?where=news&query=제약+약가+정책'},
+    {id:'finance',label:'MEDICAL FINANCE',    dotClass:'dot-finance',catClass:'cat-finance',queries:['병의원 세무','의사 절세','개원자금','의원 수익','의사 자산관리'],searchUrl:'https://search.naver.com/search.naver?where=news&query=병의원+세무+절세'},
+    {id:'us',    label:'US MARKET',           dotClass:'dot-us',     catClass:'cat-us',    queries:['나스닥','S&P500','미국주식','빅테크','미국증시'],                searchUrl:'https://finance.naver.com/world/'},
+    {id:'kr',    label:'KR MARKET',           dotClass:'dot-kr',     catClass:'cat-kr',    queries:['코스피','코스닥','국내증시','삼성전자','바이오주'],               searchUrl:'https://finance.naver.com/sise/'}
 ];
-function shuffle(arr){return [...arr].sort(()=>Math.random()-0.5);}
+function shuffle(arr){ return [...arr].sort(()=>Math.random()-0.5); }
 function buildCard(cat){
-    const items = shuffle(cat.queries).slice(0,3).map(q=>`<li onclick="event.stopPropagation();window.open('https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(q)}')">${q} 최신 동향</li>`).join('');
-    return `<div class="news-card ${cat.id}" onclick="window.open('${cat.searchUrl}')"><div class="news-card-top"><span class="news-cat ${cat.catClass}">${cat.label}</span><ul class="news-headlines">${items}</ul></div><div class="news-card-bottom"><div class="news-footer"><a class="news-more" href="${cat.searchUrl}" target="_blank" onclick="event.stopPropagation()">MORE NEWS →</a><div class="news-dot ${cat.dotClass}"></div></div></div></div>`;
+    const items = shuffle(cat.queries).slice(0,3).map(q=>`
+        <li onclick="rippleClick(event,this);window.open('https://search.naver.com/search.naver?where=news&query=${encodeURIComponent(q)}')">
+            <span class="arrow">›</span>${q} 최신 동향
+        </li>`).join('');
+    return `
+    <div class="news-card ${cat.id}" onclick="window.open('${cat.searchUrl}')">
+        <div class="glare"></div>
+        <div class="card-inner">
+            <div class="news-cat ${cat.catClass}"><span class="cat-dot"></span>${cat.label}</div>
+            <ul class="news-headlines">${items}</ul>
+            <div class="news-footer">
+                <a class="news-more" href="${cat.searchUrl}" target="_blank" onclick="event.stopPropagation()">MORE NEWS <span class="more-arrow">→</span></a>
+                <div class="news-dot ${cat.dotClass}"></div>
+            </div>
+        </div>
+    </div>`;
 }
-function renderNews(){document.getElementById('newsGrid').innerHTML=CATEGORIES.map(buildCard).join('');}
+function renderNews(){
+    document.getElementById('newsGrid').innerHTML = CATEGORIES.map(buildCard).join('');
+    initTilt();
+}
 renderNews();
-setInterval(renderNews,5*60*1000);
+setInterval(renderNews, 5*60*1000);
 
+/* ── Ripple ── */
+function rippleClick(e, el){
+    e.stopPropagation();
+    const r = document.createElement('span');
+    r.className = 'ripple';
+    const size = Math.max(el.offsetWidth, el.offsetHeight) * 2;
+    const rect = el.getBoundingClientRect();
+    r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;background:#fff;position:absolute;`;
+    el.appendChild(r);
+    setTimeout(()=>r.remove(), 600);
+}
+
+/* ── 3D Tilt ── */
+function initTilt(){
+    document.querySelectorAll('.news-card').forEach(card => {
+        const glare = card.querySelector('.glare');
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            const dx = (e.clientX - rect.left - rect.width/2) / (rect.width/2);
+            const dy = (e.clientY - rect.top - rect.height/2) / (rect.height/2);
+            card.style.transform = `perspective(900px) rotateX(${-dy*8}deg) rotateY(${dx*8}deg) scale3d(1.03,1.03,1.03)`;
+            const gx = (e.clientX-rect.left)/rect.width*100;
+            const gy = (e.clientY-rect.top)/rect.height*100;
+            glare.style.background = `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,0.08) 0%, transparent 60%)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'perspective(900px) rotateX(0) rotateY(0) scale3d(1,1,1)';
+            card.style.transition = 'transform 0.5s ease, box-shadow 0.4s ease';
+            setTimeout(()=>{ card.style.transition = ''; }, 500);
+        });
+        card.addEventListener('mouseenter', () => { card.style.transition = 'none'; });
+    });
+}
+
+/* ── 체크리스트 ── */
 const CHECKLIST = [
     {cat:'📋 사전 준비',items:['진료과목 및 표방과목 결정','개원 지역 및 상권 분석','경쟁 의원 현황 파악','개원 예산 수립']},
     {cat:'🏢 입지 및 공간',items:['건물 계약 및 임대차 협의','인테리어 시공 업체 선정','의료기기 배치 설계','약국 협의 및 위치 확인']},
@@ -428,6 +529,7 @@ function openChecklist(){ document.getElementById('checkModal').classList.add('a
 function closeChecklist(){ document.getElementById('checkModal').classList.remove('active'); document.body.style.overflow=''; }
 document.getElementById('checkModal').addEventListener('click',function(e){ if(e.target===this) closeChecklist(); });
 
+/* ── BGM ── */
 const bgm = document.getElementById('bgm');
 const btn = document.getElementById('musicBtn');
 let playing = false;
