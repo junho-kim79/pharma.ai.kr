@@ -232,6 +232,68 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   .sw{padding:4rem 1.2rem;}
   .modal-slide{grid-template-columns:1fr;grid-template-rows:40% 60%;}
 }
+
+/* ── PRESENTATION MODE · 빔프로젝터 가독성 강화 ── */
+body{font-size:18px;}
+.s-ey{font-size:.82rem;color:var(--gold);}
+.s-title{font-size:clamp(3rem,6vw,4.4rem);}
+.product-card-name{font-size:2.7rem;}
+.product-card-sub{font-size:1.05rem;line-height:1.9;color:#26364f;}
+.product-pill{font-size:.82rem;padding:.42rem .9rem;}
+.product-card-cta{font-size:.9rem;}
+.si-title{font-size:3rem;}
+.si-easy-label{font-size:.82rem;}
+.si-easy-text{font-size:1.2rem;line-height:1.95;}
+.si-point-text{font-size:1.12rem;line-height:2;}
+.si-table{font-size:1rem;}
+.si-table th{font-size:1rem;padding:.9rem 1rem;}
+.si-table td{font-size:1rem;padding:.85rem 1rem;}
+.si-num-val{font-size:4rem;}
+.si-num-label{font-size:.95rem;}
+.modal-title{font-size:2rem;}
+.modal-slide-count{font-size:.92rem;color:var(--gold-lt);}
+.nav-links a,.nav-music{font-size:.72rem;}
+
+/* ── HEAVY GATE STYLE · 묵직한 대문 ── */
+#gate{background:radial-gradient(circle at center,#182f5a 0%,#0f2044 40%,#071126 100%);}
+.door-l,.door-r{
+  position:absolute;top:0;bottom:0;width:50%;
+  transition:transform 2.4s cubic-bezier(.86,0,.07,1);
+  display:flex;align-items:center;overflow:hidden;
+  box-shadow:inset 0 0 80px rgba(0,0,0,.45);
+}
+.door-l{background:linear-gradient(90deg,#071126 0%,#0f2044 65%,#142b55 100%);}
+.door-r{background:linear-gradient(270deg,#071126 0%,#0d1d3e 65%,#142b55 100%);}
+.door-seam{
+  width:2px;
+  background:linear-gradient(to bottom,transparent,var(--gold-lt) 20%,var(--gold) 50%,var(--gold-lt) 80%,transparent);
+  box-shadow:0 0 22px rgba(184,151,58,.65);
+}
+.gate-nm{text-shadow:0 8px 30px rgba(0,0,0,.45);}
+.gate-ey{font-size:.82rem;color:var(--gold-lt);letter-spacing:.5em;}
+.gate-hint{color:#4f6593;}
+.hero-sub{font-size:.95rem;letter-spacing:.38em;color:#5d76a8;}
+.hero-ey{font-size:.8rem;}
+.stat-n{font-size:3.4rem;}
+.stat-l{font-size:.72rem;}
+
+/* ── CARD READABILITY UPGRADE ── */
+.hosp-card,.app-card,.tool-card{
+  border-radius:16px;
+  transition:all .28s ease;
+}
+.hosp-card:hover,.app-card:hover,.tool-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(184,151,58,.45);
+  box-shadow:0 18px 50px rgba(15,32,68,.10);
+}
+.hosp-name{font-size:1.45rem;}
+.hosp-det,.app-desc,.tool-ds{font-size:1rem;line-height:1.9;color:#32445f;}
+.app-name{font-size:2rem;}
+.ms-item{font-size:.88rem;line-height:1.9;}
+.tool-ic{font-size:2rem;}
+.tool-nm{font-size:1rem;}
+
 </style>
 </head>
 <body>
@@ -503,10 +565,10 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   <nav>
     <div class="nav-logo">KJ</div>
     <ul class="nav-links">
+      <li><a href="#products">Products</a></li>
       <li><a href="#hospitals">Hospitals</a></li>
       <li><a href="#career">Career</a></li>
-      <li><a href="#apps">Apps</a></li>
-      <li><a href="#products">Products</a></li>
+      <li><a href="#apps">Digital</a></li>
       <li><a href="#tools">Tools</a></li>
     </ul>
     <button class="nav-music" id="navMusic">♪ ON</button>
@@ -515,18 +577,72 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   <!-- HERO -->
   <div class="hero">
     <div class="hero-geo"></div><div class="hero-grid"></div>
-    <div class="hero-ey">Pharmaceutical MR · Daegu · Gyeongbuk</div>
+    <div class="hero-ey">MEDICAL PORTFOLIO · DAEGU · GYEONGBUK</div>
     <div class="hero-name">KIM<br><span class="g">JUNHO</span></div>
-    <div class="hero-sub">대한민국 의료 전문 영업 · 20년 현장</div>
+    <div class="hero-sub">SINCE 2005 · MEDICAL REPRESENTATIVE</div>
     <div class="hero-stats">
       <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Years MR</div></div>
       <div class="stat-div"></div>
       <div class="stat"><div class="stat-n">4</div><div class="stat-l">Key Hospitals</div></div>
       <div class="stat-div"></div>
-      <div class="stat"><div class="stat-n">4</div><div class="stat-l">Live Projects</div></div>
+      <div class="stat"><div class="stat-n">2</div><div class="stat-l">Strategic Products</div></div>
     </div>
     <div class="scroll-cue"><span>scroll</span><div class="scroll-ln"></div></div>
   </div>
+
+
+  <!-- PRODUCTS -->
+  <div style="background:var(--bg2);">
+    <div class="sw" id="products">
+      <div class="s-ey">Strategic Products · 전략 제품</div>
+      <div class="s-title">제품 포트폴리오</div>
+      <div class="s-rule"></div>
+      <div class="product-grid">
+        <div class="product-card" id="combicin-card">
+          <img class="product-card-img" src="combicin_01.jpg" alt="콤비신"
+            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <div class="product-card-img-placeholder" style="display:none;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.1em;color:var(--gold);">COMBICIN</div>
+            <div style="font-size:.7rem;letter-spacing:.3em;color:#4a6090;">주 4.5g</div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-tag">Samsung Pharm · 항생제</div>
+            <div class="product-card-name">콤비신 주 4.5g</div>
+            <div class="product-card-sub">Piperacillin 3g + Sulbactam 1.5g<br>A.Baumannii 중심 광범위 항균제</div>
+            <div class="product-card-pills">
+              <span class="product-pill">CRAB 특화</span>
+              <span class="product-pill">6vial 전액급여</span>
+              <span class="product-pill">IDSA 가이드라인</span>
+              <span class="product-pill">타조신 대안</span>
+            </div>
+            <div class="product-card-cta">e-브로셔 보기</div>
+          </div>
+        </div>
+        <div class="product-card">
+          <div class="product-card-img-placeholder" style="display:flex;">
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.1em;color:var(--gold);">BRITON</div>
+            <div style="font-size:.9rem;letter-spacing:.3em;color:#4a6090;">브리턴주사</div>
+          </div>
+          <div class="product-card-body">
+            <div class="product-card-tag">Strategic Product</div>
+            <div class="product-card-name">브리턴주사</div>
+            <div class="product-card-sub">
+              제품 교육자료 및 핵심 비교 포인트를<br>
+              추후 브로셔 형태로 추가 예정
+            </div>
+            <div class="product-card-pills">
+              <span class="product-pill">제품교육</span>
+              <span class="product-pill">회의 발표용</span>
+              <span class="product-pill">업데이트 예정</span>
+            </div>
+            <div class="product-card-cta">준비 중</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 
   <!-- HOSPITALS -->
   <div class="sw" id="hospitals">
@@ -558,21 +674,21 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
 
   <!-- APP PROGRESS -->
   <div class="sw" id="apps">
-    <div class="s-ey">Development · 개발 현황</div>
-    <div class="s-title">앱 개발 진행</div>
+    <div class="s-ey">AI & Digital Tools</div>
+    <div class="s-title">디지털 프로젝트</div>
     <div class="s-rule"></div>
     <div class="app-grid">
       <div class="app-card">
         <div class="app-top"><div class="app-icon">💊</div><div class="app-badge badge-live">LIVE</div></div>
         <div class="app-name">ALLAI</div>
-        <div class="app-desc">MR 전용 의약품 정보 AI 앱. HIRA·MFDS API 연동.</div>
+        <div class="app-desc">현장 MR 업무 효율화를 위한<br>AI 기반 의약품 정보 플랫폼</div>
         <span class="app-url">allai.ai.kr</span>
-        <div class="prog-label"><span class="prog-phase">HIRA 공모전 출품 중</span><span class="prog-pct">85%</span></div>
+        <div class="prog-label"><span class="prog-phase">AI Platform</span><span class="prog-pct">85%</span></div>
         <div class="prog-track"><div class="prog-fill" data-pct="85"></div></div>
         <div class="ms-list">
-          <div class="ms-item done"><div class="ms-dot"></div>Google Play 클로즈드 테스트</div>
-          <div class="ms-item"><div class="ms-dot"></div>HIRA 공모전 제출 (~5/29)</div>
-          <div class="ms-item"><div class="ms-dot"></div>정식 출시</div>
+          <div class="ms-item done"><div class="ms-dot"></div>Google Play 테스트 진행</div>
+          <div class="ms-item"><div class="ms-dot"></div>HIRA · MFDS 데이터 연동</div>
+          <div class="ms-item"><div class="ms-dot"></div>병원 현장 활용 최적화</div>
         </div>
       </div>
       <div class="app-card">
@@ -614,37 +730,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     </div>
   </div>
 
-  <!-- PRODUCTS -->
-  <div style="background:var(--bg2);">
-    <div class="sw" id="products">
-      <div class="s-ey">Product · 제품 소개</div>
-      <div class="s-title">담당 제품</div>
-      <div class="s-rule"></div>
-      <div class="product-grid">
-        <div class="product-card" id="combicin-card">
-          <img class="product-card-img" src="combicin_01.jpg" alt="콤비신"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
-          <div class="product-card-img-placeholder" style="display:none;">
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.1em;color:var(--gold);">COMBICIN</div>
-            <div style="font-size:.7rem;letter-spacing:.3em;color:#4a6090;">주 4.5g</div>
-          </div>
-          <div class="product-card-body">
-            <div class="product-card-tag">Samsung Pharm · 항생제</div>
-            <div class="product-card-name">콤비신 주 4.5g</div>
-            <div class="product-card-sub">Piperacillin 3g + Sulbactam 1.5g<br>A.Baumannii 중심 광범위 항균제</div>
-            <div class="product-card-pills">
-              <span class="product-pill">CRAB 특화</span>
-              <span class="product-pill">6vial 전액급여</span>
-              <span class="product-pill">IDSA 가이드라인</span>
-              <span class="product-pill">타조신 대안</span>
-            </div>
-            <div class="product-card-cta">e-브로셔 보기</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <!-- TOOLS -->
   <div class="sw" id="tools">
     <div class="s-ey">Quick Links · 바로가기</div>
@@ -677,9 +762,13 @@ const pinErr=document.getElementById('pinErr');
 function updateDots(){dots.forEach((d,i)=>d.classList.toggle('filled',i<input.length));}
 function animateBars(){document.querySelectorAll('.prog-fill').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.pct+'%';},600);});}
 function openDoors(){
-  gate.classList.add('door-open');
-  main.classList.add('visible');
-  setTimeout(()=>{gate.style.display='none';animateBars();},1500);
+  pinErr.textContent='ACCESS VERIFIED';
+  pinErr.style.color='#b8973a';
+  setTimeout(()=>{
+    gate.classList.add('door-open');
+    main.classList.add('visible');
+  },500);
+  setTimeout(()=>{gate.style.display='none';animateBars();},2800);
 }
 function wrongPin(){
   document.getElementById('pinDots').classList.add('shake');
