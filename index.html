@@ -708,153 +708,57 @@ function openDoors(){
   nc.width=window.innerWidth;nc.height=window.innerHeight;
   const nx=nc.getContext('2d');
   const W=nc.width,H=nc.height;
-
-  // 도형 정의 — 화면 전체에 퍼지게
-  const shapes=[];
-  const types=['star','rect','circle','diamond','triangle'];
-  const colors=['rgba(200,255,80,','rgba(255,210,80,','rgba(80,210,255,','rgba(255,80,180,','rgba(255,255,255,'];
-  for(let i=0;i<20;i++){
-    shapes.push({
-      type:types[i%types.length],
-      x:W*0.08+Math.random()*W*0.84,
-      y:H*0.1+Math.random()*H*0.6,
-      size:Math.random()*20+10,
-      color:colors[Math.floor(Math.random()*colors.length)],
-      alpha:0,
-      vy:0,
-      rot:Math.random()*Math.PI*2,
-      rotSpeed:(Math.random()-0.5)*0.06,
-      delay:20+i*6,  // 하나씩 순서대로 등장
-    });
-  }
-
-  // 텍스트
+  let nf=0,total=90;
   let textAlpha=0,textSlide=0;
-  let nf=0,total=260;
-
-  function drawStar(x,y,r,rot){
-    nx.save();nx.translate(x,y);nx.rotate(rot);
-    nx.beginPath();
-    for(let i=0;i<5;i++){
-      const a=i*Math.PI*2/5-Math.PI/2,a2=a+Math.PI/5;
-      i===0?nx.moveTo(Math.cos(a)*r,Math.sin(a)*r):nx.lineTo(Math.cos(a)*r,Math.sin(a)*r);
-      nx.lineTo(Math.cos(a2)*r*0.42,Math.sin(a2)*r*0.42);
-    }
-    nx.closePath();nx.fill();nx.restore();
-  }
-  function drawDiamond(x,y,r,rot){
-    nx.save();nx.translate(x,y);nx.rotate(rot);
-    nx.beginPath();nx.moveTo(0,-r);nx.lineTo(r*0.6,0);nx.lineTo(0,r);nx.lineTo(-r*0.6,0);
-    nx.closePath();nx.fill();nx.restore();
-  }
-  function drawTriangle(x,y,r,rot){
-    nx.save();nx.translate(x,y);nx.rotate(rot);
-    nx.beginPath();nx.moveTo(0,-r);nx.lineTo(r*0.87,r*0.5);nx.lineTo(-r*0.87,r*0.5);
-    nx.closePath();nx.fill();nx.restore();
-  }
 
   function drawNoise(){
     nf++;
-
-    // ── 구간 정의 ──
-    // 0~30:   VHS 노이즈 강하게
-    // 30~160: 노이즈 줄어들며 도형 하나씩 팝업 (로딩)
-    // 130~170: 중앙에 KIM JUNHO 페이드인
-    // 170~220: 도형+텍스트 아래로 스윕 내려가며 문 열림
-    // 220~260: 페이드아웃
-
-    const noiseIntens = nf<30 ? nf/30 : nf<60 ? 1-(nf-30)/30*0.85 : nf<160 ? 0.15 : 0;
+    // 0~20: 노이즈 강하게 / 20~50: 줄어들며 텍스트 등장 / 50~90: 텍스트 아래로 내려가며 마무리
+    const noiseIntens=nf<20?nf/20:nf<50?1-(nf-20)/30:0;
 
     nx.clearRect(0,0,W,H);
     nx.fillStyle='rgba(8,8,8,0.97)';
     nx.fillRect(0,0,W,H);
 
-    // 노이즈
-    if(noiseIntens>0.04){
-      const id=nx.createImageData(W,H);
-      const d=id.data;
-      for(let i=0;i<d.length;i+=4){
-        if(Math.random()<noiseIntens*0.28){
-          const v=Math.random()>0.5?255:0;
-          d[i]=d[i+1]=d[i+2]=v;d[i+3]=Math.random()*150*noiseIntens;
-        }
-      }
-      nx.putImageData(id,0,0);
-      const bands=Math.floor(noiseIntens*8);
+    // 노이즈 — 가로 밴드만, 픽셀 연산 없음 (가볍게)
+    if(noiseIntens>0.05){
+      const bands=Math.floor(noiseIntens*14);
       for(let b=0;b<bands;b++){
-        const y=Math.random()*H,h=Math.random()*5+1;
-        nx.fillStyle=`rgba(200,255,80,${0.2*noiseIntens})`;
-        nx.fillRect((Math.random()-0.5)*25*noiseIntens,y,W,h);
+        const y=Math.random()*H,h=Math.random()*10+2;
+        const g=Math.random()>0.5?`rgba(200,255,80,${0.35*noiseIntens})`:`rgba(255,255,255,${0.15*noiseIntens})`;
+        nx.fillStyle=g;
+        nx.fillRect((Math.random()-0.5)*20*noiseIntens,y,W,h);
       }
-      if(noiseIntens>0.4){
-        nx.fillStyle=`rgba(255,0,0,${0.05*noiseIntens})`;nx.fillRect(-3,0,W,H);
-        nx.fillStyle=`rgba(0,0,255,${0.05*noiseIntens})`;nx.fillRect(3,0,W,H);
+      if(noiseIntens>0.5){
+        nx.fillStyle=`rgba(255,0,0,${0.07*noiseIntens})`;nx.fillRect(-4,0,W,H);
+        nx.fillStyle=`rgba(0,0,255,${0.07*noiseIntens})`;nx.fillRect(4,0,W,H);
       }
     }
 
-    // ── 도형 그리기 ──
-    const shapePhase = nf>169 ? (nf-170)/50 : 0; // 170프레임 이후 아래로
-    shapes.forEach(s=>{
-      if(nf<s.delay) return;
-      const age=nf-s.delay;
-      // 팝업 효과: 작게 시작해서 통통 튀며 등장
-      const popT=Math.min(1,age/15);
-      const pop=popT<0.6?popT/0.6:popT<0.8?1+(1-popT)/0.2*0.2:1;
-      s.alpha=Math.min(0.9,age/15);
-      s.rot+=s.rotSpeed;
+    // KIM JUNHO 텍스트 — 30프레임부터 등장
+    if(nf>29){
+      if(nf<50){ textAlpha=Math.min(1,(nf-30)/20); }
+      else { textAlpha=Math.max(0,1-(nf-50)/30); textSlide+=(H*0.3-textSlide)*0.08; }
 
-      // 아래로 흘러가기
-      if(shapePhase>0){
-        s.vy+=1.2;
-        s.y+=s.vy;
-        s.alpha=Math.max(0,s.alpha-0.03);
-      }
-
-      nx.fillStyle=s.color+s.alpha+')';
-      const sz=s.size*pop;
-      if(s.type==='star') drawStar(s.x,s.y,sz,s.rot);
-      else if(s.type==='rect'){nx.save();nx.translate(s.x,s.y);nx.rotate(s.rot);nx.fillRect(-sz/2,-sz/2,sz,sz);nx.restore();}
-      else if(s.type==='circle'){nx.beginPath();nx.arc(s.x,s.y,sz/2,0,Math.PI*2);nx.fill();}
-      else if(s.type==='diamond') drawDiamond(s.x,s.y,sz,s.rot);
-      else drawTriangle(s.x,s.y,sz,s.rot);
-    });
-
-    // ── KIM JUNHO 텍스트 ──
-    if(nf>129){
-      if(nf<160){ textAlpha=Math.min(1,(nf-130)/30); }
-      else if(nf<170){ textAlpha=1; }
-      else { textAlpha=Math.max(0,1-(nf-170)/40); textSlide+=(H*0.35-textSlide)*0.1; }
-
-      const fs=Math.min(Math.floor(W*0.09),100);
-      // 글로우
-      nx.save();nx.globalAlpha=textAlpha*0.25;
-      nx.fillStyle='#c8ff50';
-      nx.filter='blur(18px)';
-      nx.font=`bold ${fs}px 'Black Han Sans',sans-serif`;
-      nx.textAlign='center';
-      nx.fillText('KIM JUNHO',W/2,H/2+textSlide);
-      nx.restore();
+      const fs=Math.min(Math.floor(W*0.09),96);
       // 글리치
-      if(Math.random()<0.12){
-        nx.save();nx.globalAlpha=textAlpha*0.35;
+      if(Math.random()<0.1){
+        nx.save();nx.globalAlpha=textAlpha*0.4;
         nx.fillStyle='#ff3030';nx.font=`bold ${fs}px 'Black Han Sans',sans-serif`;nx.textAlign='center';
         nx.fillText('KIM JUNHO',W/2+5,H/2+textSlide);
-        nx.fillStyle='#3030ff';
-        nx.fillText('KIM JUNHO',W/2-5,H/2+textSlide);
+        nx.fillStyle='#3030ff';nx.fillText('KIM JUNHO',W/2-5,H/2+textSlide);
         nx.restore();
       }
       nx.save();nx.globalAlpha=textAlpha;
       nx.fillStyle='#c8ff50';
       nx.font=`bold ${fs}px 'Black Han Sans',sans-serif`;
       nx.textAlign='center';
-      nx.shadowColor='rgba(200,255,80,0.7)';nx.shadowBlur=16;
+      nx.shadowColor='rgba(200,255,80,0.8)';nx.shadowBlur=20;
       nx.fillText('KIM JUNHO',W/2,H/2+textSlide);
       nx.restore();
     }
 
-    // 문 열기
-    if(nf===170){ gate.classList.add('door-open'); main.classList.add('visible'); }
-
+    if(nf===30){ gate.classList.add('door-open'); main.classList.add('visible'); }
     if(nf<total){ requestAnimationFrame(drawNoise); }
     else{ nc.style.display='none'; gate.style.display='none'; animateBars(); startHero(); }
   }
