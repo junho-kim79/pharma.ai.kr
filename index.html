@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kim Junho | Pharmaceutical MR</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+KR:wght@300;400;500;700&family=Share+Tech+Mono&family=Black+Han+Sans&family=Noto+Serif+KR:wght@300;400&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
@@ -22,18 +22,49 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;overflow-x:hidden;}
 
 /* ── GATE ── */
-#gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:var(--navy);}
-.door-l,.door-r{position:absolute;top:0;bottom:0;width:50%;transition:transform 1.4s cubic-bezier(.77,0,.18,1);display:flex;align-items:center;overflow:hidden;}
-.door-l{left:0;background:var(--navy);justify-content:flex-end;padding-right:3rem;border-right:1px solid #1e3a6e;}
-.door-r{right:0;background:var(--navy3);justify-content:flex-start;padding-left:3rem;border-left:1px solid #1e3a6e;}
+#gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,#182f5a 0%,#0f2044 40%,#071126 100%);}
+.door-l,.door-r{
+  position:absolute;top:0;bottom:0;width:50%;
+  transition:transform 2.4s cubic-bezier(.86,0,.07,1);
+  display:flex;align-items:center;overflow:hidden;
+  box-shadow:inset 0 0 80px rgba(0,0,0,.45);
+}
+.door-l{
+  left:0;
+  background:linear-gradient(90deg,#071126 0%,#0f2044 65%,#142b55 100%);
+  justify-content:flex-end;padding-right:3rem;
+}
+.door-r{
+  right:0;
+  background:linear-gradient(270deg,#071126 0%,#0d1d3e 65%,#142b55 100%);
+  justify-content:flex-start;padding-left:3rem;
+}
 .door-wm{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,18vw,14rem);letter-spacing:.15em;color:var(--gold);opacity:.06;user-select:none;pointer-events:none;white-space:nowrap;}
-.door-seam{position:absolute;top:0;bottom:0;width:1px;background:linear-gradient(to bottom,transparent,var(--gold) 25%,var(--gold) 75%,transparent);opacity:.7;}
-.door-l .door-seam{right:0;}.door-r .door-seam{left:0;}
+
+/* ★ 문 이음새 선 — 굵고 선명하게 */
+.door-seam{
+  position:absolute;top:0;bottom:0;
+  width:4px;
+  background:linear-gradient(to bottom,
+    transparent 0%,
+    var(--gold-lt) 15%,
+    var(--gold) 40%,
+    #fff8e0 50%,
+    var(--gold) 60%,
+    var(--gold-lt) 85%,
+    transparent 100%
+  );
+  box-shadow:0 0 18px rgba(240,228,184,.8), 0 0 40px rgba(184,151,58,.5);
+  opacity:1;
+}
+.door-l .door-seam{right:0;}
+.door-r .door-seam{left:0;}
+
 .door-open .door-l{transform:translateX(-100%);}
 .door-open .door-r{transform:translateX(100%);}
 .gate-c{position:relative;z-index:10;display:flex;flex-direction:column;align-items:center;gap:1.6rem;text-align:center;}
-.gate-ey{font-size:.62rem;letter-spacing:.6em;color:var(--gold);text-transform:uppercase;}
-.gate-nm{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,5.5rem);letter-spacing:.1em;color:#fff;line-height:1;}
+.gate-ey{font-size:.82rem;letter-spacing:.5em;color:var(--gold-lt);text-transform:uppercase;}
+.gate-nm{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,9vw,5.5rem);letter-spacing:.1em;color:#fff;line-height:1;text-shadow:0 8px 30px rgba(0,0,0,.45);}
 .gate-rule{width:50px;height:1px;background:var(--gold);}
 .pin-dots{display:flex;gap:1rem;}
 .pin-dot{width:14px;height:14px;border-radius:50%;border:1.5px solid #2a4070;background:transparent;transition:all .2s;}
@@ -46,7 +77,8 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 .pin-err{font-size:.6rem;letter-spacing:.35em;color:#e05252;text-transform:uppercase;min-height:1rem;}
 .music-gate{background:transparent;border:1px solid #1e3a6e;color:#3a5080;font-size:.6rem;letter-spacing:.38em;text-transform:uppercase;padding:.45rem 1.2rem;border-radius:4px;cursor:pointer;transition:all .2s;font-family:'Noto Sans KR',sans-serif;}
 .music-gate:hover,.music-gate.on{border-color:var(--gold);color:var(--gold);}
-.gate-hint{font-size:.56rem;letter-spacing:.45em;color:#1e3a6e;text-transform:uppercase;}
+.gate-hint{font-size:.56rem;letter-spacing:.45em;color:#4f6593;text-transform:uppercase;}
+.gate-top-rule{width:60px;height:2px;background:linear-gradient(to right,transparent,var(--gold),transparent);margin-bottom:.5rem;}
 .shake{animation:shake .45s ease;}
 @keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-10px)}40%{transform:translateX(10px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 
@@ -58,47 +90,141 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1rem 3rem;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.2em;color:var(--navy);}
 .nav-links{display:flex;gap:2rem;list-style:none;}
-.nav-links a{font-size:.6rem;letter-spacing:.4em;color:var(--text3);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.nav-links a{font-size:.72rem;letter-spacing:.4em;color:var(--text3);text-decoration:none;text-transform:uppercase;transition:color .2s;}
 .nav-links a:hover{color:var(--navy);}
-.nav-music{background:none;border:none;font-size:.6rem;letter-spacing:.3em;color:var(--text3);text-transform:uppercase;cursor:pointer;transition:color .2s;font-family:'Noto Sans KR',sans-serif;}
+.nav-music{background:none;border:none;font-size:.72rem;letter-spacing:.3em;color:var(--text3);text-transform:uppercase;cursor:pointer;transition:color .2s;font-family:'Noto Sans KR',sans-serif;}
 .nav-music:hover,.nav-music.on{color:var(--gold);}
 
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;text-align:center;padding:7rem 2rem 5rem;overflow:hidden;background:var(--navy);}
-.hero-geo{position:absolute;inset:0;overflow:hidden;}
-.hero-geo::before{content:'';position:absolute;top:-30%;right:-15%;width:65%;padding-top:65%;border-radius:50%;background:#1a3260;opacity:.6;}
-.hero-geo::after{content:'';position:absolute;bottom:-20%;left:-10%;width:50%;padding-top:50%;border-radius:50%;background:#0d1d3e;opacity:.5;}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(184,151,58,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(184,151,58,.06) 1px,transparent 1px);background-size:60px 60px;}
-.hero-ey{position:relative;font-size:.66rem;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:1.5rem;opacity:0;animation:fadeUp .8s ease 1.5s forwards;}
-.hero-name{position:relative;font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,15vw,10rem);letter-spacing:.04em;line-height:.92;color:#fff;margin-bottom:.5rem;opacity:0;animation:fadeUp .8s ease 1.7s forwards;}
-.hero-name .g{color:var(--gold);}
-.hero-sub{position:relative;font-size:.72rem;letter-spacing:.45em;color:#4a6090;text-transform:uppercase;margin-bottom:3.5rem;opacity:0;animation:fadeUp .8s ease 1.9s forwards;}
-.hero-stats{position:relative;display:flex;align-items:center;gap:3rem;margin-bottom:4rem;opacity:0;animation:fadeUp .8s ease 2.1s forwards;}
-.stat{text-align:center;}
-.stat-n{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--gold);line-height:1;}
-.stat-l{font-size:.58rem;letter-spacing:.38em;color:#3a5580;text-transform:uppercase;margin-top:.3rem;}
-.stat-div{width:1px;height:40px;background:linear-gradient(to bottom,transparent,#2a4070,transparent);}
-.scroll-cue{position:relative;display:flex;flex-direction:column;align-items:center;gap:.6rem;opacity:0;animation:fadeUp .8s ease 2.3s forwards;}
-.scroll-cue span{font-size:.56rem;letter-spacing:.42em;color:#2a4070;text-transform:uppercase;}
-.scroll-ln{width:1px;height:36px;background:linear-gradient(to bottom,var(--gold),transparent);animation:pulseD 2s infinite 2.5s;}
-@keyframes pulseD{0%,100%{opacity:.4;transform:scaleY(.7) translateY(-4px)}50%{opacity:1;transform:scaleY(1) translateY(0)}}
+/* ── HERO VHS GLITCH ── */
+.hero{
+  min-height:100vh;
+  position:relative;
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+  background:#080808;
+}
+
+/* 파티클 캔버스 */
+#hero-canvas{position:absolute;inset:0;width:100%;height:100%;}
+
+/* 스캔라인 */
+.hero-scanline{
+  position:absolute;inset:0;pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,transparent,transparent 2px,
+    rgba(0,0,0,.18) 2px,rgba(0,0,0,.18) 4px
+  );
+  animation:scanroll 10s linear infinite;
+}
+@keyframes scanroll{from{background-position:0 0}to{background-position:0 80px}}
+
+/* 수평 이동 라인 */
+.hero-hline{
+  position:absolute;left:0;right:0;height:2px;
+  background:rgba(200,255,80,.18);
+  animation:hline 7s ease-in-out infinite;
+  pointer-events:none;
+}
+@keyframes hline{
+  0%{top:0;opacity:0}8%{opacity:1}88%{opacity:.7}100%{top:100%;opacity:0}
+}
+
+/* 좌측 글로우 */
+.hero-glow{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse at 28% 52%,rgba(30,60,0,.35) 0%,transparent 60%);
+}
+
+/* 콘텐츠 */
+.hero-content{position:relative;z-index:2;padding:0 8vw;}
+
+/* REC */
+.hero-rec{display:flex;align-items:center;gap:10px;margin-bottom:28px;animation:fadeUp .8s ease .2s both;}
+.hero-rec-dot{width:9px;height:9px;border-radius:50%;background:#ff2020;animation:blink 1s step-end infinite;}
+@keyframes blink{50%{opacity:0}}
+.hero-rec-text{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:4px;color:#ff2020;}
+.hero-rec-year{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:3px;color:rgba(200,255,80,.35);margin-left:16px;}
+
+/* 메인 타이틀 */
+.hero-title{
+  font-family:'Black Han Sans',sans-serif;
+  font-size:clamp(52px,12vw,120px);
+  line-height:.9;color:#c8ff50;letter-spacing:3px;
+  text-shadow:3px 0 #ff3030,-3px 0 #3030ff;
+  animation:glitch 5s infinite, fadeUp .8s ease .35s both;
+  margin-bottom:22px;
+}
+@keyframes glitch{
+  0%,85%,100%{text-shadow:3px 0 #ff3030,-3px 0 #3030ff;transform:none;clip-path:none}
+  87%{text-shadow:-4px 0 #ff3030,4px 0 #3030ff;transform:translateX(3px) skewX(-1deg)}
+  89%{text-shadow:4px 0 #ff3030,-2px 0 #3030ff;transform:translateX(-2px);clip-path:inset(20% 0 50% 0)}
+  91%{text-shadow:3px 0 #ff3030,-3px 0 #3030ff;transform:none;clip-path:none}
+  93%{text-shadow:-2px 0 #ff3030,2px 0 #3030ff;transform:translateX(1px) skewX(.5deg)}
+  95%{text-shadow:3px 0 #ff3030,-3px 0 #3030ff;transform:none}
+}
+
+/* 구분선 */
+.hero-rule{width:52px;height:1px;background:rgba(200,255,80,.4);margin-bottom:20px;animation:expandW .8s ease .5s both;}
+@keyframes expandW{from{width:0;opacity:0}to{width:52px;opacity:1}}
+
+/* 서브타이틀 */
+.hero-sub{
+  font-family:'Noto Serif KR',serif;font-weight:300;
+  font-size:clamp(11px,1.3vw,14px);
+  letter-spacing:5px;color:rgba(200,255,80,.45);
+  animation:fadeUp .8s ease .6s both;
+}
+
+/* 우측 상단 태그 */
+.hero-tag{
+  position:absolute;top:32px;right:5vw;
+  font-family:'Share Tech Mono',monospace;
+  font-size:10px;letter-spacing:3px;color:rgba(200,255,80,.2);
+  pointer-events:none;
+}
+
+/* 타임코드 */
+#hero-timecode{
+  position:absolute;bottom:32px;right:5vw;
+  font-family:'Share Tech Mono',monospace;
+  font-size:12px;letter-spacing:2px;color:rgba(200,255,80,.25);
+  pointer-events:none;
+}
+
+/* 스크롤 힌트 */
+.hero-scroll{
+  position:absolute;bottom:32px;left:8vw;
+  display:flex;align-items:center;gap:12px;
+}
+.hero-scroll-line{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,rgba(200,255,80,.35),transparent);
+  animation:scrollpulse 2s ease-in-out infinite;
+}
+@keyframes scrollpulse{0%,100%{opacity:.4;transform:scaleY(1)}50%{opacity:.9;transform:scaleY(.7) translateY(6px)}}
+.hero-scroll-text{
+  font-family:'Share Tech Mono',monospace;
+  font-size:9px;letter-spacing:4px;color:rgba(200,255,80,.2);
+}
+
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 
 /* SECTIONS */
 .sw{max-width:980px;margin:0 auto;padding:6rem 2rem;}
-.s-ey{font-size:.6rem;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:.8rem;}
+.s-ey{font-size:.82rem;letter-spacing:.55em;color:var(--gold);text-transform:uppercase;margin-bottom:.8rem;}
 .s-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.2rem);letter-spacing:.04em;line-height:1;color:var(--navy);margin-bottom:1.5rem;}
 .s-rule{width:40px;height:3px;background:var(--gold);margin-bottom:2.5rem;border-radius:2px;}
 
 /* HOSPITALS */
 .hosp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.5rem;}
-.hosp-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:1.8rem 1.6rem;transition:all .25s;position:relative;overflow:hidden;}
+.hosp-card{background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:1.8rem 1.6rem;transition:all .28s ease;position:relative;overflow:hidden;}
 .hosp-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s;}
-.hosp-card:hover{border-color:var(--border2);box-shadow:0 8px 32px rgba(15,32,68,.08);transform:translateY(-2px);}
+.hosp-card:hover{border-color:rgba(184,151,58,.45);box-shadow:0 18px 50px rgba(15,32,68,.10);transform:translateY(-4px);}
 .hosp-card:hover::before{transform:scaleX(1);}
 .hosp-type{font-size:.58rem;letter-spacing:.45em;color:var(--gold);text-transform:uppercase;margin-bottom:.7rem;font-weight:500;}
-.hosp-name{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;}
-.hosp-det{font-size:.72rem;color:var(--text3);line-height:1.9;}
+.hosp-name{font-size:1.45rem;font-weight:700;color:var(--navy);margin-bottom:.5rem;}
+.hosp-det{font-size:1rem;color:#32445f;line-height:1.9;}
 
 /* CAREER */
 .timeline{position:relative;padding-left:.5rem;}
@@ -107,20 +233,20 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .tl-item::before{content:'';position:absolute;left:-5px;top:8px;width:12px;height:12px;border-radius:50%;background:var(--gold);border:2px solid #fff;box-shadow:0 0 0 3px var(--gold-lt);}
 .tl-period{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.15em;color:var(--gold);margin-bottom:.3rem;}
 .tl-co{font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
-.tl-role{font-size:.75rem;color:var(--text2);line-height:1.9;}
+.tl-role{font-size:1rem;color:#32445f;line-height:1.9;}
 
 /* APP CARDS */
 .app-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:1.5rem;}
-.app-card{background:var(--bg);border:1.5px solid var(--border);border-radius:14px;padding:1.8rem;transition:all .25s;}
-.app-card:hover{box-shadow:0 8px 32px rgba(15,32,68,.1);transform:translateY(-2px);border-color:var(--border2);}
+.app-card{background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:1.8rem;transition:all .28s ease;}
+.app-card:hover{box-shadow:0 18px 50px rgba(15,32,68,.10);transform:translateY(-4px);border-color:rgba(184,151,58,.45);}
 .app-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;}
 .app-icon{font-size:2rem;}
 .app-badge{font-size:.55rem;letter-spacing:.25em;text-transform:uppercase;padding:.35rem .75rem;border-radius:20px;font-weight:700;}
 .badge-live{background:var(--green-bg);color:var(--green);}
 .badge-dev{background:var(--gold-bg);color:#7a6020;}
 .badge-plan{background:var(--bg3);color:var(--text3);}
-.app-name{font-family:'Bebas Neue',sans-serif;font-size:1.7rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.4rem;}
-.app-desc{font-size:.73rem;color:var(--text2);line-height:1.85;margin-bottom:1rem;}
+.app-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.4rem;}
+.app-desc{font-size:1rem;color:#32445f;line-height:1.9;margin-bottom:1rem;}
 .app-url{font-size:.6rem;letter-spacing:.18em;color:var(--text3);margin-bottom:1.5rem;display:block;}
 .prog-label{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:.5rem;}
 .prog-phase{font-size:.6rem;letter-spacing:.18em;color:var(--text3);text-transform:uppercase;}
@@ -128,7 +254,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .prog-track{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;margin-bottom:1.3rem;}
 .prog-fill{height:100%;background:linear-gradient(to right,var(--gold-lt),var(--gold));border-radius:2px;width:0;transition:width 1.4s cubic-bezier(.25,.46,.45,.94);}
 .ms-list{display:flex;flex-direction:column;gap:.55rem;}
-.ms-item{display:flex;align-items:center;gap:.7rem;font-size:.7rem;color:var(--text3);}
+.ms-item{display:flex;align-items:center;gap:.7rem;font-size:.88rem;color:var(--text3);line-height:1.9;}
 .ms-item.done{color:var(--text2);}
 .ms-dot{width:7px;height:7px;border-radius:50%;background:var(--border2);flex-shrink:0;}
 .ms-item.done .ms-dot{background:var(--gold);}
@@ -141,71 +267,58 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .product-card-img-placeholder{width:100%;height:200px;background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:.8rem;}
 .product-card-body{padding:1.5rem;}
 .product-card-tag{font-size:.55rem;letter-spacing:.4em;color:var(--gold);text-transform:uppercase;margin-bottom:.6rem;font-weight:700;}
-.product-card-name{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.4rem;line-height:1;}
-.product-card-sub{font-size:.72rem;color:var(--text2);line-height:1.7;margin-bottom:1rem;}
+.product-card-name{font-family:'Bebas Neue',sans-serif;font-size:2.7rem;letter-spacing:.06em;color:var(--navy);margin-bottom:.4rem;line-height:1;}
+.product-card-sub{font-size:1.05rem;color:#26364f;line-height:1.9;margin-bottom:1rem;}
 .product-card-pills{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.2rem;}
-.product-pill{font-size:.58rem;background:var(--gold-bg);border:1px solid rgba(184,151,58,.3);color:#7a6020;padding:.25rem .6rem;border-radius:12px;}
-.product-card-cta{display:flex;align-items:center;gap:.5rem;font-size:.65rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;font-weight:700;}
+.product-pill{font-size:.82rem;background:var(--gold-bg);border:1px solid rgba(184,151,58,.3);color:#7a6020;padding:.42rem .9rem;border-radius:12px;}
+.product-card-cta{display:flex;align-items:center;gap:.5rem;font-size:.9rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;font-weight:700;}
 .product-card-cta::after{content:'→';transition:transform .2s;}
 .product-card:hover .product-card-cta::after{transform:translateX(4px);}
 
-/* ── FULLSCREEN MODAL ── */
+/* MODAL */
 #modal{position:fixed;inset:0;z-index:300;background:rgba(10,16,30,.0);display:none;flex-direction:column;}
 #modal.open{display:flex;animation:modalIn .4s ease forwards;}
 @keyframes modalIn{from{background:rgba(10,16,30,0)}to{background:rgba(10,16,30,.96)}}
-
 .modal-header{display:flex;align-items:center;justify-content:space-between;padding:.8rem 2rem;background:var(--navy);border-bottom:1px solid #1e3a6e;flex-shrink:0;}
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.1em;color:#fff;}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.1em;color:#fff;}
 .modal-title span{color:var(--gold);}
 .modal-close{background:transparent;border:1px solid #2a4070;color:#8896b0;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.1rem;transition:all .2s;display:flex;align-items:center;justify-content:center;}
 .modal-close:hover{border-color:var(--gold);color:var(--gold);}
-.modal-slide-count{font-size:.62rem;letter-spacing:.3em;color:#3a5080;}
-
-/* 슬라이드 영역 */
+.modal-slide-count{font-size:.92rem;letter-spacing:.3em;color:var(--gold-lt);}
 .modal-body{flex:1;overflow:hidden;position:relative;}
 .modal-slides{display:flex;height:100%;transition:transform .55s cubic-bezier(.77,0,.18,1);}
 .modal-slide{min-width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
-
-/* 왼쪽: 원본 사진 */
 .slide-img-pane{position:relative;overflow:hidden;background:var(--navy3);}
 .slide-img-pane img{width:100%;height:100%;object-fit:contain;display:block;padding:1rem;}
 .slide-img-label{position:absolute;bottom:1rem;left:1rem;background:rgba(0,0,0,.6);color:rgba(255,255,255,.6);font-size:.55rem;letter-spacing:.3em;text-transform:uppercase;padding:.3rem .7rem;border-radius:3px;}
-
-/* 오른쪽: 설명 */
 .slide-info-pane{background:#fff;overflow-y:auto;padding:2.5rem 2rem;display:flex;flex-direction:column;gap:1.2rem;}
-.si-eyebrow{font-size:.58rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;font-weight:700;}
-.si-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:.05em;color:var(--navy);line-height:1.1;}
+.si-eyebrow{font-size:.82rem;letter-spacing:.5em;color:var(--gold);text-transform:uppercase;font-weight:700;}
+.si-title{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.05em;color:var(--navy);line-height:1.1;}
 .si-easy{background:var(--gold-bg);border-left:3px solid var(--gold);padding:.9rem 1.1rem;border-radius:0 8px 8px 0;}
-.si-easy-label{font-size:.55rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:.4rem;}
-.si-easy-text{font-size:.82rem;color:#5a4010;line-height:1.8;}
+.si-easy-label{font-size:.82rem;letter-spacing:.3em;color:var(--gold);text-transform:uppercase;font-weight:700;margin-bottom:.4rem;}
+.si-easy-text{font-size:1.2rem;color:#5a4010;line-height:1.95;}
 .si-points{display:flex;flex-direction:column;gap:.7rem;}
 .si-point{display:flex;gap:.8rem;align-items:flex-start;}
 .si-point-dot{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:.6rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:.15rem;font-weight:700;}
-.si-point-text{font-size:.78rem;color:var(--text2);line-height:1.85;}
+.si-point-text{font-size:1.12rem;color:var(--text2);line-height:2;}
 .si-point-text strong{color:var(--navy);}
 .si-point-text .hl{color:var(--gold);font-weight:700;}
 .si-point-text .hl-red{color:var(--red);font-weight:700;}
 .si-point-text .hl-green{color:var(--green);font-weight:700;}
-
-/* 비교 테이블 */
-.si-table{width:100%;border-collapse:collapse;font-size:.75rem;}
-.si-table th{background:var(--navy);color:#fff;padding:.6rem .9rem;text-align:center;font-size:.68rem;letter-spacing:.05em;}
-.si-table td{padding:.55rem .9rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text2);}
+.si-table{width:100%;border-collapse:collapse;font-size:1rem;}
+.si-table th{background:var(--navy);color:#fff;padding:.9rem 1rem;text-align:center;font-size:1rem;letter-spacing:.05em;}
+.si-table td{padding:.85rem 1rem;border-bottom:1px solid var(--border);text-align:center;color:var(--text2);}
 .si-table tr.highlight td{background:var(--gold-bg);font-weight:700;color:var(--navy);}
 .si-table .bad{color:var(--red);font-weight:700;}
 .si-table .good{color:var(--green);font-weight:700;}
-
-/* 수치 강조 카드 */
 .si-nums{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
 .si-num-box{text-align:center;padding:1rem;border-radius:8px;border:1.5px solid var(--border);}
 .si-num-box.danger{background:var(--red-bg);border-color:#ef9a9a;}
 .si-num-box.safe{background:var(--green-bg);border-color:#a5d6a7;}
-.si-num-val{font-family:'Bebas Neue',sans-serif;font-size:2.8rem;line-height:1;}
+.si-num-val{font-family:'Bebas Neue',sans-serif;font-size:4rem;line-height:1;}
 .si-num-box.danger .si-num-val{color:var(--red);}
 .si-num-box.safe .si-num-val{color:var(--green);}
-.si-num-label{font-size:.62rem;color:var(--text3);margin-top:.3rem;line-height:1.5;}
-
-/* 모달 네비 */
+.si-num-label{font-size:.95rem;color:var(--text3);margin-top:.3rem;line-height:1.5;}
 .modal-nav{display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:.8rem;background:var(--navy);border-top:1px solid #1e3a6e;flex-shrink:0;}
 .modal-arrow{background:transparent;border:1px solid #2a4070;color:#8896b0;width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:1.1rem;transition:all .2s;display:flex;align-items:center;justify-content:center;}
 .modal-arrow:hover{border-color:var(--gold);color:var(--gold);}
@@ -214,11 +327,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 
 /* TOOLS */
 .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;}
-.tool-card{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:1.4rem;text-decoration:none;color:inherit;display:block;transition:all .2s;position:relative;}
-.tool-card:hover{border-color:var(--gold);box-shadow:0 4px 20px rgba(184,151,58,.12);transform:translateY(-1px);}
-.tool-ic{font-size:1.6rem;margin-bottom:.8rem;display:block;}
-.tool-nm{font-size:.85rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
-.tool-ds{font-size:.68rem;color:var(--text3);line-height:1.7;}
+.tool-card{background:var(--bg);border:1.5px solid var(--border);border-radius:16px;padding:1.4rem;text-decoration:none;color:inherit;display:block;transition:all .28s ease;position:relative;}
+.tool-card:hover{border-color:rgba(184,151,58,.45);box-shadow:0 18px 50px rgba(15,32,68,.10);transform:translateY(-4px);}
+.tool-ic{font-size:2rem;margin-bottom:.8rem;display:block;}
+.tool-nm{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.3rem;}
+.tool-ds{font-size:1rem;color:#32445f;line-height:1.7;}
 .tool-arr{position:absolute;top:1.1rem;right:1.1rem;color:var(--border2);transition:all .2s;}
 .tool-card:hover .tool-arr{color:var(--gold);transform:translate(2px,-2px);}
 
@@ -231,82 +344,25 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   nav{padding:1rem 1.2rem;}.nav-links{display:none;}
   .sw{padding:4rem 1.2rem;}
   .modal-slide{grid-template-columns:1fr;grid-template-rows:40% 60%;}
+  .hero-content{padding:0 6vw;}
 }
-
-/* ── PRESENTATION MODE · 빔프로젝터 가독성 강화 ── */
-body{font-size:18px;}
-.s-ey{font-size:.82rem;color:var(--gold);}
-.s-title{font-size:clamp(3rem,6vw,4.4rem);}
-.product-card-name{font-size:2.7rem;}
-.product-card-sub{font-size:1.05rem;line-height:1.9;color:#26364f;}
-.product-pill{font-size:.82rem;padding:.42rem .9rem;}
-.product-card-cta{font-size:.9rem;}
-.si-title{font-size:3rem;}
-.si-easy-label{font-size:.82rem;}
-.si-easy-text{font-size:1.2rem;line-height:1.95;}
-.si-point-text{font-size:1.12rem;line-height:2;}
-.si-table{font-size:1rem;}
-.si-table th{font-size:1rem;padding:.9rem 1rem;}
-.si-table td{font-size:1rem;padding:.85rem 1rem;}
-.si-num-val{font-size:4rem;}
-.si-num-label{font-size:.95rem;}
-.modal-title{font-size:2rem;}
-.modal-slide-count{font-size:.92rem;color:var(--gold-lt);}
-.nav-links a,.nav-music{font-size:.72rem;}
-
-/* ── HEAVY GATE STYLE · 묵직한 대문 ── */
-#gate{background:radial-gradient(circle at center,#182f5a 0%,#0f2044 40%,#071126 100%);}
-.door-l,.door-r{
-  position:absolute;top:0;bottom:0;width:50%;
-  transition:transform 2.4s cubic-bezier(.86,0,.07,1);
-  display:flex;align-items:center;overflow:hidden;
-  box-shadow:inset 0 0 80px rgba(0,0,0,.45);
-}
-.door-l{background:linear-gradient(90deg,#071126 0%,#0f2044 65%,#142b55 100%);}
-.door-r{background:linear-gradient(270deg,#071126 0%,#0d1d3e 65%,#142b55 100%);}
-.door-seam{
-  width:2px;
-  background:linear-gradient(to bottom,transparent,var(--gold-lt) 20%,var(--gold) 50%,var(--gold-lt) 80%,transparent);
-  box-shadow:0 0 22px rgba(184,151,58,.65);
-}
-.gate-nm{text-shadow:0 8px 30px rgba(0,0,0,.45);}
-.gate-ey{font-size:.82rem;color:var(--gold-lt);letter-spacing:.5em;}
-.gate-hint{color:#4f6593;}
-.hero-sub{font-size:.95rem;letter-spacing:.38em;color:#5d76a8;}
-.hero-ey{font-size:.8rem;}
-.stat-n{font-size:3.4rem;}
-.stat-l{font-size:.72rem;}
-
-/* ── CARD READABILITY UPGRADE ── */
-.hosp-card,.app-card,.tool-card{
-  border-radius:16px;
-  transition:all .28s ease;
-}
-.hosp-card:hover,.app-card:hover,.tool-card:hover{
-  transform:translateY(-4px);
-  border-color:rgba(184,151,58,.45);
-  box-shadow:0 18px 50px rgba(15,32,68,.10);
-}
-.hosp-name{font-size:1.45rem;}
-.hosp-det,.app-desc,.tool-ds{font-size:1rem;line-height:1.9;color:#32445f;}
-.app-name{font-size:2rem;}
-.ms-item{font-size:.88rem;line-height:1.9;}
-.tool-ic{font-size:2rem;}
-.tool-nm{font-size:1rem;}
-
 </style>
 </head>
 <body>
 <audio id="bgm" src="BGM.mp3" loop preload="auto"></audio>
+
+<!-- VHS 노이즈 오버레이 -->
+<canvas id="vhs-noise" style="position:fixed;inset:0;z-index:500;pointer-events:none;display:none;width:100%;height:100%;opacity:0;"></canvas>
 
 <!-- GATE -->
 <div id="gate">
   <div class="door-l"><div class="door-wm">JUNHO</div><div class="door-seam"></div></div>
   <div class="door-r"><div class="door-wm">KIM</div><div class="door-seam"></div></div>
   <div class="gate-c">
-    <div class="gate-ey">Private Access</div>
-    <div class="gate-nm">KIM JUNHO</div>
+    <div class="gate-top-rule"></div>
+    <div class="gate-nm" style="font-size:clamp(2.8rem,10vw,6.5rem);letter-spacing:.18em;line-height:1.05;">PRIVATE<br>ACCESS</div>
     <div class="gate-rule"></div>
+    <div class="gate-ey" style="font-size:.72rem;letter-spacing:.55em;color:#2a4a7a;">· AUTHORIZED ONLY ·</div>
     <div class="pin-dots" id="pinDots">
       <div class="pin-dot" id="d0"></div><div class="pin-dot" id="d1"></div>
       <div class="pin-dot" id="d2"></div><div class="pin-dot" id="d3"></div>
@@ -323,31 +379,23 @@ body{font-size:18px;}
   </div>
 </div>
 
-<!-- FULLSCREEN MODAL -->
+<!-- MODAL -->
 <div id="modal">
   <div class="modal-header">
     <div class="modal-title">콤비신 주 4.5g &nbsp;<span>e-Brochure</span></div>
     <div style="display:flex;align-items:center;gap:1.5rem;">
-      <div class="modal-slide-count" id="mCount">1 / 7</div>
+      <div class="modal-slide-count" id="mCount">1 / 8</div>
       <button class="modal-close" id="modalClose">✕</button>
     </div>
   </div>
   <div class="modal-body">
     <div class="modal-slides" id="mSlides">
-
-      <!-- SLIDE 1: 표지 -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_01.jpg" alt="콤비신 표지">
-          <div class="slide-img-label">원본 브로셔 표지</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_01.jpg" alt="콤비신 표지"><div class="slide-img-label">원본 브로셔 표지</div></div>
         <div class="slide-info-pane">
           <div class="si-eyebrow">Samsung Pharm · 2025</div>
           <div class="si-title">콤비신 주 4.5g<br>Combicin Inj.</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 한마디로 말하면</div>
-            <div class="si-easy-text">병원에서 항생제도 안 듣는 가장 무서운 세균(CRAB)을 잡는 주사약입니다. 기존 약보다 핵심 성분이 <strong>3배 많고</strong>, 주사 횟수는 <strong>1/3로 줄었으며</strong>, 보험도 <strong>100%</strong> 됩니다.</div>
-          </div>
+          <div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">병원에서 항생제도 안 듣는 가장 무서운 세균(CRAB)을 잡는 주사약입니다. 기존 약보다 핵심 성분이 <strong>3배 많고</strong>, 주사 횟수는 <strong>1/3로 줄었으며</strong>, 보험도 <strong>100%</strong> 됩니다.</div></div>
           <div class="si-points">
             <div class="si-point"><div class="si-point-dot">1</div><div class="si-point-text">성분: Piperacillin Sodium <strong>3g</strong> + Sulbactam Sodium <strong>1.5g</strong></div></div>
             <div class="si-point"><div class="si-point-dot">2</div><div class="si-point-text"><span class="hl">A.Baumannii 중심</span>의 광범위 항균제 — 병원 내 가장 흔한 내성균 타깃</div></div>
@@ -356,203 +404,100 @@ body{font-size:18px;}
           </div>
         </div>
       </div>
-
-      <!-- SLIDE 2: 콤비신 vs 타조신 -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_02.jpg" alt="성분 설명">
-          <div class="slide-img-label">성분 구성</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_02.jpg" alt="성분 설명"><div class="slide-img-label">성분 구성</div></div>
         <div class="slide-info-pane">
-          <div class="si-eyebrow">핵심 비교</div>
-          <div class="si-title">콤비신 vs 타조신</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 한마디로 말하면</div>
-            <div class="si-easy-text">타조신은 세균과 직접 싸우는 성분(설박탐)이 <strong>없습니다</strong>. 콤비신은 <strong>1.5g</strong>이나 들어있어요. CRAB처럼 강한 세균엔 콤비신이 훨씬 유리합니다.</div>
-          </div>
-          <table class="si-table">
-            <thead>
-              <tr><th>구분</th><th>타조신 4.5g</th><th>콤비신 4.5g ★</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>Piperacillin</td><td>4g</td><td>3g</td></tr>
-              <tr><td>β-Lactamase 억제제</td><td>Tazobactam 0.5g</td><td class="good">Sulbactam 1.5g</td></tr>
-              <tr><td>A.baumannii 직접 항균</td><td class="bad">✕ 없음</td><td class="good">✓ 있음</td></tr>
-              <tr><td>신장 대사체 생성</td><td class="bad">✓ 생성 (M1)</td><td class="good">✕ 없음</td></tr>
-              <tr><td>신장 안전성</td><td class="bad">Ccr 20↓ 감소</td><td class="good">Ccr 10↓만 감소</td></tr>
-              <tr class="highlight"><td>CRAB 9g 설박탐 치료</td><td class="bad">불가 (설박탐 없음)</td><td class="good">6vial 전액 급여</td></tr>
-            </tbody>
-          </table>
+          <div class="si-eyebrow">핵심 비교</div><div class="si-title">콤비신 vs 타조신</div>
+          <div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">타조신은 세균과 직접 싸우는 성분(설박탐)이 <strong>없습니다</strong>. 콤비신은 <strong>1.5g</strong>이나 들어있어요.</div></div>
+          <table class="si-table"><thead><tr><th>구분</th><th>타조신 4.5g</th><th>콤비신 4.5g ★</th></tr></thead><tbody>
+            <tr><td>Piperacillin</td><td>4g</td><td>3g</td></tr>
+            <tr><td>β-Lactamase 억제제</td><td>Tazobactam 0.5g</td><td class="good">Sulbactam 1.5g</td></tr>
+            <tr><td>A.baumannii 직접 항균</td><td class="bad">✕ 없음</td><td class="good">✓ 있음</td></tr>
+            <tr><td>신장 안전성</td><td class="bad">Ccr 20↓ 감소</td><td class="good">Ccr 10↓만 감소</td></tr>
+            <tr class="highlight"><td>CRAB 9g 설박탐 치료</td><td class="bad">불가</td><td class="good">6vial 전액 급여</td></tr>
+          </tbody></table>
         </div>
       </div>
-
-      <!-- SLIDE 3: 주요 장점 -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_03.jpg" alt="주요 장점">
-          <div class="slide-img-label">주요 장점</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_03.jpg" alt="주요 장점"><div class="slide-img-label">주요 장점</div></div>
         <div class="slide-info-pane">
-          <div class="si-eyebrow">3가지 핵심 강점</div>
-          <div class="si-title">왜 콤비신인가</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 한마디로 말하면</div>
-            <div class="si-easy-text">CRAB 세균 치료, 기존 타조신 대체, 병원 내 폐렴 치료 — 이 세 가지 상황에서 모두 콤비신이 최선입니다.</div>
-          </div>
+          <div class="si-eyebrow">3가지 핵심 강점</div><div class="si-title">왜 콤비신인가</div>
+          <div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">CRAB 세균 치료, 기존 타조신 대체, 병원 내 폐렴 치료 — 이 세 가지 상황에서 모두 콤비신이 최선입니다.</div></div>
           <div class="si-points">
             <div class="si-point"><div class="si-point-dot">1</div><div class="si-point-text">CRAB 폐렴·균혈증·요로감염 → <span class="hl">하루 6vial, IDSA 가이드라인 충족, 전액 보험급여</span></div></div>
-            <div class="si-point"><div class="si-point-dot">2</div><div class="si-point-text">타조신 대안 → 임상 동등성 입증 + <span class="hl">신장 환자에게 더 안전</span> + 소화기 이상반응 낮음</div></div>
-            <div class="si-point"><div class="si-point-dot">3</div><div class="si-point-text">병원획득폐렴(HAP) 경험적 항생제 → A.baumannii가 <span class="hl">국내 HAP 제1원인균</span>, 설박탐이 직접 타깃</div></div>
+            <div class="si-point"><div class="si-point-dot">2</div><div class="si-point-text">타조신 대안 → 임상 동등성 입증 + <span class="hl">신장 환자에게 더 안전</span></div></div>
+            <div class="si-point"><div class="si-point-dot">3</div><div class="si-point-text">병원획득폐렴(HAP) → A.baumannii가 <span class="hl">국내 HAP 제1원인균</span>, 설박탐이 직접 타깃</div></div>
           </div>
         </div>
       </div>
-
-      <!-- SLIDE 4: CRAB 급여 비교 -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_04.jpg" alt="CRAB IDSA 가이드라인">
-          <div class="slide-img-label">CRAB 고용량 · IDSA 가이드라인</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_04.jpg" alt="CRAB 급여"><div class="slide-img-label">CRAB 고용량 · IDSA 가이드라인</div></div>
         <div class="slide-info-pane">
-          <div class="si-eyebrow">CRAB 치료 · 급여 비교</div>
-          <div class="si-title">18vial vs 6vial<br>급여 차이가 핵심</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 한마디로 말하면</div>
-            <div class="si-easy-text">타조신으로 CRAB을 치료하려면 설박탐이 없어서 <span style="color:var(--red);font-weight:700;">아예 불가능</span>합니다. 암피박탐 계열은 18vial이 필요한데 8vial 이후는 <span style="color:var(--red);font-weight:700;">비급여</span>. 콤비신은 6vial로 <span style="color:var(--green);font-weight:700;">전액 급여</span>.</div>
-          </div>
-          <table class="si-table">
-            <thead>
-              <tr><th>제품</th><th>설박탐/vial</th><th>9g 위한 vial</th><th>급여</th></tr>
-            </thead>
-            <tbody>
-              <tr><td>암피박탐·루카신·유박신</td><td>0.5g</td><td class="bad">18 vial</td><td class="bad">8vial만 급여<br>나머지 비급여</td></tr>
-              <tr><td>타조신</td><td class="bad">설박탐 없음</td><td class="bad">불가</td><td class="bad">CRAB 치료 불가</td></tr>
-              <tr class="highlight"><td>콤비신 4.5g ★</td><td class="good">1.5g</td><td class="good">6 vial</td><td class="good">전액 급여</td></tr>
-            </tbody>
-          </table>
-          <div class="si-points">
-            <div class="si-point"><div class="si-point-dot">★</div><div class="si-point-text">60kg 환자 예: 몸무게용(4vial) + 중증추가(2vial) = <span class="hl">6vial, 2vial tid</span></div></div>
-          </div>
+          <div class="si-eyebrow">CRAB 치료 · 급여 비교</div><div class="si-title">18vial vs 6vial<br>급여 차이가 핵심</div>
+          <div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">암피박탐 계열은 18vial 필요, 8vial 이후 <span style="color:var(--red);font-weight:700;">비급여</span>. 콤비신은 6vial로 <span style="color:var(--green);font-weight:700;">전액 급여</span>.</div></div>
+          <table class="si-table"><thead><tr><th>제품</th><th>설박탐/vial</th><th>9g 위한 vial</th><th>급여</th></tr></thead><tbody>
+            <tr><td>암피박탐 계열</td><td>0.5g</td><td class="bad">18 vial</td><td class="bad">8vial만 급여</td></tr>
+            <tr><td>타조신</td><td class="bad">없음</td><td class="bad">불가</td><td class="bad">CRAB 불가</td></tr>
+            <tr class="highlight"><td>콤비신 4.5g ★</td><td class="good">1.5g</td><td class="good">6 vial</td><td class="good">전액 급여</td></tr>
+          </tbody></table>
         </div>
       </div>
-
-      <!-- SLIDE 5: Pip·Taz 대안 임상 -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_05.jpg" alt="vial 비교표">
-          <div class="slide-img-label">CRAB 고용량 vial 비교</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_05.jpg" alt="vial 비교"><div class="slide-img-label">CRAB 고용량 vial 비교</div></div>
         <div class="slide-info-pane">
-          <div class="si-eyebrow">다기관 RCT · 임상 근거</div>
-          <div class="si-title">타조신과 동등한<br>치료 효과</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 한마디로 말하면</div>
-            <div class="si-easy-text">지역 획득 호흡기·요로 감염 환자 209명을 대상으로 직접 비교했더니, 콤비신과 타조신의 치료 효과가 <strong>통계적으로 차이 없었습니다</strong>. 효과는 같고 안전성은 콤비신이 낫습니다.</div>
-          </div>
+          <div class="si-eyebrow">다기관 RCT · 임상 근거</div><div class="si-title">타조신과 동등한<br>치료 효과</div>
+          <div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">209명 직접 비교 결과, 콤비신과 타조신의 치료 효과가 <strong>통계적으로 차이 없었습니다</strong>.</div></div>
           <div class="si-nums">
-            <div class="si-num-box" style="background:var(--gold-bg);border-color:rgba(184,151,58,.4);">
-              <div class="si-num-val" style="color:var(--gold);">77.67%</div>
-              <div class="si-num-label">콤비신 Cure rate<br>(n=103)</div>
-            </div>
-            <div class="si-num-box" style="background:var(--blue-bg);border-color:#90caf9;">
-              <div class="si-num-val" style="color:var(--blue);">75.47%</div>
-              <div class="si-num-label">타조신 Cure rate<br>(n=106)</div>
-            </div>
+            <div class="si-num-box" style="background:var(--gold-bg);border-color:rgba(184,151,58,.4);"><div class="si-num-val" style="color:var(--gold);">77.67%</div><div class="si-num-label">콤비신 Cure rate<br>(n=103)</div></div>
+            <div class="si-num-box" style="background:var(--blue-bg);border-color:#90caf9;"><div class="si-num-val" style="color:var(--blue);">75.47%</div><div class="si-num-label">타조신 Cure rate<br>(n=106)</div></div>
           </div>
           <div class="si-points">
             <div class="si-point"><div class="si-point-dot">P</div><div class="si-point-text">P값 = <strong>0.7080</strong> → 통계적 유의차 없음 = <span class="hl-green">동등한 효과</span></div></div>
-            <div class="si-point"><div class="si-point-dot">✓</div><div class="si-point-text">전체 Efficacy rate: 콤비신 <strong>93.20%</strong> vs 타조신 <strong>93.40%</strong> — 거의 동일</div></div>
           </div>
         </div>
       </div>
-
-      <!-- SLIDE 6: Safety -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_07.jpg" alt="Safety">
-          <div class="slide-img-label">안전성 비교</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_07.jpg" alt="Safety"><div class="slide-img-label">안전성 비교</div></div>
         <div class="slide-info-pane">
-          <div class="si-eyebrow">Safety · 안전성</div>
-          <div class="si-title">부작용은<br>콤비신이 훨씬 적다</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 한마디로 말하면</div>
-            <div class="si-easy-text">타조신은 설사 부작용이 <strong>11.3%</strong>인데 콤비신은 <strong>2.8%</strong>밖에 안 됩니다. 신장이 안 좋은 환자에게도 콤비신이 훨씬 안전하게 쓸 수 있어요.</div>
-          </div>
+          <div class="si-eyebrow">Safety · 안전성</div><div class="si-title">부작용은<br>콤비신이 훨씬 적다</div>
+          <div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">타조신 설사 <strong>11.3%</strong>, 콤비신 <strong>2.8%</strong>. 신장 환자에게도 콤비신이 더 안전합니다.</div></div>
           <div class="si-nums">
-            <div class="si-num-box danger">
-              <div class="si-num-val">11.3%</div>
-              <div class="si-num-label">타조신 설사 발생률<br>(n=2,621)</div>
-            </div>
-            <div class="si-num-box safe">
-              <div class="si-num-val">2.8%</div>
-              <div class="si-num-label">콤비신 설사 발생률<br>(n=752)</div>
-            </div>
+            <div class="si-num-box danger"><div class="si-num-val">11.3%</div><div class="si-num-label">타조신 설사 발생률</div></div>
+            <div class="si-num-box safe"><div class="si-num-val">2.8%</div><div class="si-num-label">콤비신 설사 발생률</div></div>
           </div>
           <div class="si-points">
-            <div class="si-point"><div class="si-point-dot">↓</div><div class="si-point-text">소화기 이상반응 <span class="hl-green">4배 적음</span> — 환자 컴플라이언스 향상</div></div>
-            <div class="si-point"><div class="si-point-dot">♥</div><div class="si-point-text">설박탐은 대사체 미생성, 노중 100% 배설 → <span class="hl-green">신장 환자 안전</span> (Ccr 10↓부터만 감소)</div></div>
-            <div class="si-point"><div class="si-point-dot">!</div><div class="si-point-text">타조박탐은 M1 대사체 생성 → Ccr <span class="hl-red">20↓부터 투여 횟수 감소 필요</span></div></div>
+            <div class="si-point"><div class="si-point-dot">↓</div><div class="si-point-text">소화기 이상반응 <span class="hl-green">4배 적음</span></div></div>
+            <div class="si-point"><div class="si-point-dot">♥</div><div class="si-point-text">설박탐 대사체 미생성 → <span class="hl-green">신장 환자 안전</span></div></div>
           </div>
         </div>
       </div>
-
-      <!-- SLIDE 7: Drug Info -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_08.jpg" alt="Drug Information">
-          <div class="slide-img-label">Drug Information</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_08.jpg" alt="Drug Information"><div class="slide-img-label">Drug Information</div></div>
         <div class="slide-info-pane">
-          <div class="si-eyebrow">Drug Information</div>
-          <div class="si-title">처방 정보</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 보험 & 포장</div>
-            <div class="si-easy-text">보험코드 <strong>642306921</strong> · 4.5g × 1vial, 10vials · 유효기간 24개월 · 보관 1~30℃</div>
-          </div>
+          <div class="si-eyebrow">Drug Information</div><div class="si-title">처방 정보</div>
+          <div class="si-easy"><div class="si-easy-label">✦ 보험 & 포장</div><div class="si-easy-text">보험코드 <strong>642306921</strong> · 4.5g × 1vial, 10vials · 유효기간 24개월 · 보관 1~30℃</div></div>
           <div class="si-points">
-            <div class="si-point"><div class="si-point-dot">용</div><div class="si-point-text">성인: 1일 <strong>300mg/kg</strong>을 4회 분할 정맥주사 (설박탐 100mg + 피페라실린 200mg/회)</div></div>
-            <div class="si-point"><div class="si-point-dot">균</div><div class="si-point-text">녹농균·프로테우스·폐렴간균·대장균·A.baumannii 등 광범위 그람음성균</div></div>
-            <div class="si-point"><div class="si-point-dot">증</div><div class="si-point-text">패혈증·폐렴·폐농양·요로감염·복막염·골반감염·피부연조직감염 등</div></div>
-            <div class="si-point"><div class="si-point-dot">주</div><div class="si-point-text">페니실린 과민반응 환자 투여 금지 · 중증 신장애 시 투여 간격 조정</div></div>
-          </div>
-          <div style="margin-top:.5rem;font-size:.65rem;color:var(--text3);line-height:1.8;">
-            삼성제약(주) 031-353-6681 · 웨일즈메디(주) 02-2135-3797<br>
-            사내교육용 SSP_CBC_BR 2025.04 · ※ 이 자료는 의료전문가 대상 정보입니다
+            <div class="si-point"><div class="si-point-dot">용</div><div class="si-point-text">성인: 1일 <strong>300mg/kg</strong>을 4회 분할 정맥주사</div></div>
+            <div class="si-point"><div class="si-point-dot">균</div><div class="si-point-text">녹농균·A.baumannii 등 광범위 그람음성균</div></div>
+            <div class="si-point"><div class="si-point-dot">증</div><div class="si-point-text">패혈증·폐렴·요로감염·복막염 등</div></div>
+            <div class="si-point"><div class="si-point-dot">주</div><div class="si-point-text">페니실린 과민반응 환자 투여 금지</div></div>
           </div>
         </div>
       </div>
-
-      <!-- SLIDE 8: 이상반응 상세 -->
       <div class="modal-slide">
-        <div class="slide-img-pane">
-          <img src="combicin_09.jpg" alt="이상반응 상세">
-          <div class="slide-img-label">이상반응 상세 (국내 임상)</div>
-        </div>
+        <div class="slide-img-pane"><img src="combicin_09.jpg" alt="이상반응"><div class="slide-img-label">이상반응 상세 (국내 임상)</div></div>
         <div class="slide-info-pane">
-          <div class="si-eyebrow">Adverse Events · 이상반응</div>
-          <div class="si-title">실제 국내 임상<br>이상반응 데이터</div>
-          <div class="si-easy">
-            <div class="si-easy-label">✦ 한마디로 말하면</div>
-            <div class="si-easy-text">국내 752명 대상 시판 후 조사에서 이상반응은 <strong>14.6%</strong> 보고됐지만, 이 약과 인과관계 있는 건 모두 조사됐고 대부분 경미한 수준입니다.</div>
-          </div>
+          <div class="si-eyebrow">Adverse Events · 이상반응</div><div class="si-title">실제 국내 임상<br>이상반응 데이터</div>
+          <div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">국내 752명 시판 후 조사에서 이상반응 <strong>14.6%</strong>, 대부분 경미한 수준입니다.</div></div>
           <div class="si-points">
-            <div class="si-point"><div class="si-point-dot">1</div><div class="si-point-text">간장계: 간기능 이상 <strong>20%</strong> (12명/60명) — 가장 빈도 높음</div></div>
-            <div class="si-point"><div class="si-point-dot">2</div><div class="si-point-text">혈액계: 백혈구감소증 <strong>18.33%</strong> (11명)</div></div>
-            <div class="si-point"><div class="si-point-dot">3</div><div class="si-point-text">소화기계: 설사 <span class="hl-green">1.67%</span> · 구역 3.33% · 복통 5% — <span class="hl-green">타조신(설사 11.3%) 대비 현저히 낮음</span></div></div>
-            <div class="si-point"><div class="si-point-dot">4</div><div class="si-point-text">피부계: 발진 5% · 가려움 1.67%</div></div>
-            <div class="si-point"><div class="si-point-dot">5</div><div class="si-point-text">시판 후 6년간 752명 조사 — 발진 <strong>3.9%</strong>, 동통 <strong>3.2%</strong>, 설사 <strong>2.8%</strong>, 발열 <strong>2.5%</strong> 순</div></div>
-          </div>
-          <div style="margin-top:.5rem;font-size:.65rem;color:var(--text3);line-height:1.8;">
-            ※ 국내 시판 후 조사결과 · 이상반응 발생 피험자수 기준<br>
-            보관: 밀봉용기, 실온(1~30℃) · 유효기간: 제조일로부터 24개월
+            <div class="si-point"><div class="si-point-dot">1</div><div class="si-point-text">간장계: 간기능 이상 <strong>20%</strong> — 가장 빈도 높음</div></div>
+            <div class="si-point"><div class="si-point-dot">2</div><div class="si-point-text">혈액계: 백혈구감소증 <strong>18.33%</strong></div></div>
+            <div class="si-point"><div class="si-point-dot">3</div><div class="si-point-text">소화기계: 설사 <span class="hl-green">1.67%</span> — 타조신(11.3%) 대비 현저히 낮음</div></div>
           </div>
         </div>
       </div>
-
-    </div><!-- /modal-slides -->
-  </div><!-- /modal-body -->
-
+    </div>
+  </div>
   <div class="modal-nav">
     <button class="modal-arrow" id="mPrev">‹</button>
     <div id="mDots" style="display:flex;gap:.6rem;"></div>
@@ -563,33 +508,42 @@ body{font-size:18px;}
 <!-- MAIN -->
 <div id="main">
   <nav>
-    <div class="nav-logo">KJ</div>
+    <div class="nav-logo" style="font-size:1rem;letter-spacing:.15em;">PHARMA.AI.KR</div>
     <ul class="nav-links">
       <li><a href="#products">Products</a></li>
       <li><a href="#hospitals">Hospitals</a></li>
       <li><a href="#career">Career</a></li>
-      <li><a href="#apps">Digital</a></li>
+      <li><a href="#apps">앱개발</a></li>
       <li><a href="#tools">Tools</a></li>
     </ul>
     <button class="nav-music" id="navMusic">♪ ON</button>
   </nav>
 
-  <!-- HERO -->
+  <!-- ★ HERO — VHS GLITCH -->
   <div class="hero">
-    <div class="hero-geo"></div><div class="hero-grid"></div>
-    <div class="hero-ey">MEDICAL PORTFOLIO · DAEGU · GYEONGBUK</div>
-    <div class="hero-name">KIM<br><span class="g">JUNHO</span></div>
-    <div class="hero-sub">SINCE 2005 · MEDICAL REPRESENTATIVE</div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-n">20+</div><div class="stat-l">Years MR</div></div>
-      <div class="stat-div"></div>
-      <div class="stat"><div class="stat-n">4</div><div class="stat-l">Key Hospitals</div></div>
-      <div class="stat-div"></div>
-      <div class="stat"><div class="stat-n">2</div><div class="stat-l">Strategic Products</div></div>
-    </div>
-    <div class="scroll-cue"><span>scroll</span><div class="scroll-ln"></div></div>
-  </div>
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-scanline"></div>
+    <div class="hero-hline"></div>
+    <div class="hero-glow"></div>
 
+    <div class="hero-content">
+      <div class="hero-rec">
+        <div class="hero-rec-dot"></div>
+        <span class="hero-rec-text">● REC</span>
+        <span class="hero-rec-year">SP ◀▶ 1979</span>
+      </div>
+      <div class="hero-title">KIM<br>JUNHO</div>
+      <div class="hero-rule"></div>
+      <div class="hero-sub">PHARMACEUTICAL MR · SINCE 2005</div>
+    </div>
+
+    <div class="hero-tag">PHARMA · AI · KR</div>
+    <div id="hero-timecode">00:00:00:00</div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span class="hero-scroll-text">SCROLL</span>
+    </div>
+  </div>
 
   <!-- PRODUCTS -->
   <div style="background:var(--bg2);">
@@ -599,8 +553,7 @@ body{font-size:18px;}
       <div class="s-rule"></div>
       <div class="product-grid">
         <div class="product-card" id="combicin-card">
-          <img class="product-card-img" src="combicin_01.jpg" alt="콤비신"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+          <img class="product-card-img" src="combicin_01.jpg" alt="콤비신" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
           <div class="product-card-img-placeholder" style="display:none;">
             <div style="font-family:'Bebas Neue',sans-serif;font-size:2.5rem;letter-spacing:.1em;color:var(--gold);">COMBICIN</div>
             <div style="font-size:.7rem;letter-spacing:.3em;color:#4a6090;">주 4.5g</div>
@@ -609,12 +562,7 @@ body{font-size:18px;}
             <div class="product-card-tag">Samsung Pharm · 항생제</div>
             <div class="product-card-name">콤비신 주 4.5g</div>
             <div class="product-card-sub">Piperacillin 3g + Sulbactam 1.5g<br>A.Baumannii 중심 광범위 항균제</div>
-            <div class="product-card-pills">
-              <span class="product-pill">CRAB 특화</span>
-              <span class="product-pill">6vial 전액급여</span>
-              <span class="product-pill">IDSA 가이드라인</span>
-              <span class="product-pill">타조신 대안</span>
-            </div>
+            <div class="product-card-pills"><span class="product-pill">CRAB 특화</span><span class="product-pill">6vial 전액급여</span><span class="product-pill">IDSA 가이드라인</span><span class="product-pill">타조신 대안</span></div>
             <div class="product-card-cta">e-브로셔 보기</div>
           </div>
         </div>
@@ -626,25 +574,30 @@ body{font-size:18px;}
           <div class="product-card-body">
             <div class="product-card-tag">Strategic Product</div>
             <div class="product-card-name">브리턴주사</div>
-            <div class="product-card-sub">
-              제품 교육자료 및 핵심 비교 포인트를<br>
-              추후 브로셔 형태로 추가 예정
-            </div>
-            <div class="product-card-pills">
-              <span class="product-pill">제품교육</span>
-              <span class="product-pill">회의 발표용</span>
-              <span class="product-pill">업데이트 예정</span>
-            </div>
+            <div class="product-card-sub">제품 교육자료 및 핵심 비교 포인트를<br>추후 브로셔 형태로 추가 예정</div>
+            <div class="product-card-pills"><span class="product-pill">제품교육</span><span class="product-pill">회의 발표용</span><span class="product-pill">업데이트 예정</span></div>
             <div class="product-card-cta">준비 중</div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 
+  <!-- TOOLS -->
+  <div class="sw" id="tools">
+    <div class="s-ey">Quick Links · 바로가기</div>
+    <div class="s-title">도구함</div>
+    <div class="s-rule"></div>
+    <div class="tool-grid">
+      <a class="tool-card" href="https://allai.ai.kr" target="_blank"><span class="tool-ic">💊</span><div class="tool-nm">ALLAI</div><div class="tool-ds">MR 전용 의약품 AI 조회</div><span class="tool-arr">↗</span></a>
+      <a class="tool-card" href="https://fukudaegu.com" target="_blank"><span class="tool-ic">🇯🇵</span><div class="tool-nm">FUKU DAEGU</div><div class="tool-ds">대구 로컬 일본인 여행 에이전시</div><span class="tool-arr">↗</span></a>
+      <a class="tool-card" href="https://ipsipass.com" target="_blank"><span class="tool-ic">🎓</span><div class="tool-nm">입시패스</div><div class="tool-ds">대학 입시 합격 예측 플랫폼</div><span class="tool-arr">↗</span></a>
+      <a class="tool-card" href="https://www.kmrak.com" target="_blank"><span class="tool-ic">🔑</span><div class="tool-nm">경매락</div><div class="tool-ds">권리분석·시세·수익률</div><span class="tool-arr">↗</span></a>
+      <a class="tool-card" href="https://passbox.co.kr" target="_blank"><span class="tool-ic">📦</span><div class="tool-nm">PASSBOX</div><div class="tool-ds">개인 보관함</div><span class="tool-arr">↗</span></a>
+    </div>
+  </div
 
-  <!-- HOSPITALS -->
+    <!-- HOSPITALS -->
   <div class="sw" id="hospitals">
     <div class="s-ey">Coverage · 담당 병원</div>
     <div class="s-title">커버 병원</div>
@@ -672,10 +625,10 @@ body{font-size:18px;}
     </div>
   </div>
 
-  <!-- APP PROGRESS -->
+  <!-- APPS -->
   <div class="sw" id="apps">
-    <div class="s-ey">AI & Digital Tools</div>
-    <div class="s-title">디지털 프로젝트</div>
+    <div class="s-ey">앱개발 현황</div>
+    <div class="s-title">앱개발 현황</div>
     <div class="s-rule"></div>
     <div class="app-grid">
       <div class="app-card">
@@ -730,20 +683,7 @@ body{font-size:18px;}
     </div>
   </div>
 
-  <!-- TOOLS -->
-  <div class="sw" id="tools">
-    <div class="s-ey">Quick Links · 바로가기</div>
-    <div class="s-title">도구함</div>
-    <div class="s-rule"></div>
-    <div class="tool-grid">
-      <a class="tool-card" href="https://allai.ai.kr" target="_blank"><span class="tool-ic">💊</span><div class="tool-nm">ALLAI</div><div class="tool-ds">MR 전용 의약품 AI 조회</div><span class="tool-arr">↗</span></a>
-      <a class="tool-card" href="https://nedrug.mfds.go.kr" target="_blank"><span class="tool-ic">🔍</span><div class="tool-nm">의약품안전나라</div><div class="tool-ds">품목 허가·안전 정보</div><span class="tool-arr">↗</span></a>
-      <a class="tool-card" href="https://www.hira.or.kr" target="_blank"><span class="tool-ic">🏥</span><div class="tool-nm">건강보험심사평가원</div><div class="tool-ds">HIRA 급여 기준·청구</div><span class="tool-arr">↗</span></a>
-      <a class="tool-card" href="https://www.courtauction.go.kr" target="_blank"><span class="tool-ic">⚖️</span><div class="tool-nm">법원경매</div><div class="tool-ds">대법원 공식 경매 정보</div><span class="tool-arr">↗</span></a>
-      <a class="tool-card" href="https://www.kmrak.com" target="_blank"><span class="tool-ic">🔑</span><div class="tool-nm">경매락</div><div class="tool-ds">권리분석·시세·수익률</div><span class="tool-arr">↗</span></a>
-      <a class="tool-card" href="https://passbox.co.kr" target="_blank"><span class="tool-ic">📦</span><div class="tool-nm">PASSBOX</div><div class="tool-ds">개인 보관함</div><span class="tool-arr">↗</span></a>
-    </div>
-  </div>
+>
 
   <footer>
     <div class="foot-logo">KIM JUNHO</div>
@@ -762,13 +702,163 @@ const pinErr=document.getElementById('pinErr');
 function updateDots(){dots.forEach((d,i)=>d.classList.toggle('filled',i<input.length));}
 function animateBars(){document.querySelectorAll('.prog-fill').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.pct+'%';},600);});}
 function openDoors(){
-  pinErr.textContent='ACCESS VERIFIED';
-  pinErr.style.color='#b8973a';
-  setTimeout(()=>{
-    gate.classList.add('door-open');
-    main.classList.add('visible');
-  },500);
-  setTimeout(()=>{gate.style.display='none';animateBars();},2800);
+  pinErr.textContent='ACCESS VERIFIED';pinErr.style.color='#b8973a';
+  const nc=document.getElementById('vhs-noise');
+  nc.style.display='block';
+  nc.width=window.innerWidth;nc.height=window.innerHeight;
+  const nx=nc.getContext('2d');
+  const W=nc.width,H=nc.height;
+
+  // 도형 정의 — 화면 전체에 퍼지게
+  const shapes=[];
+  const types=['star','rect','circle','diamond','triangle'];
+  const colors=['rgba(200,255,80,','rgba(255,210,80,','rgba(80,210,255,','rgba(255,80,180,','rgba(255,255,255,'];
+  for(let i=0;i<20;i++){
+    shapes.push({
+      type:types[i%types.length],
+      x:W*0.08+Math.random()*W*0.84,
+      y:H*0.1+Math.random()*H*0.6,
+      size:Math.random()*20+10,
+      color:colors[Math.floor(Math.random()*colors.length)],
+      alpha:0,
+      vy:0,
+      rot:Math.random()*Math.PI*2,
+      rotSpeed:(Math.random()-0.5)*0.06,
+      delay:20+i*6,  // 하나씩 순서대로 등장
+    });
+  }
+
+  // 텍스트
+  let textAlpha=0,textSlide=0;
+  let nf=0,total=260;
+
+  function drawStar(x,y,r,rot){
+    nx.save();nx.translate(x,y);nx.rotate(rot);
+    nx.beginPath();
+    for(let i=0;i<5;i++){
+      const a=i*Math.PI*2/5-Math.PI/2,a2=a+Math.PI/5;
+      i===0?nx.moveTo(Math.cos(a)*r,Math.sin(a)*r):nx.lineTo(Math.cos(a)*r,Math.sin(a)*r);
+      nx.lineTo(Math.cos(a2)*r*0.42,Math.sin(a2)*r*0.42);
+    }
+    nx.closePath();nx.fill();nx.restore();
+  }
+  function drawDiamond(x,y,r,rot){
+    nx.save();nx.translate(x,y);nx.rotate(rot);
+    nx.beginPath();nx.moveTo(0,-r);nx.lineTo(r*0.6,0);nx.lineTo(0,r);nx.lineTo(-r*0.6,0);
+    nx.closePath();nx.fill();nx.restore();
+  }
+  function drawTriangle(x,y,r,rot){
+    nx.save();nx.translate(x,y);nx.rotate(rot);
+    nx.beginPath();nx.moveTo(0,-r);nx.lineTo(r*0.87,r*0.5);nx.lineTo(-r*0.87,r*0.5);
+    nx.closePath();nx.fill();nx.restore();
+  }
+
+  function drawNoise(){
+    nf++;
+
+    // ── 구간 정의 ──
+    // 0~30:   VHS 노이즈 강하게
+    // 30~160: 노이즈 줄어들며 도형 하나씩 팝업 (로딩)
+    // 130~170: 중앙에 KIM JUNHO 페이드인
+    // 170~220: 도형+텍스트 아래로 스윕 내려가며 문 열림
+    // 220~260: 페이드아웃
+
+    const noiseIntens = nf<30 ? nf/30 : nf<60 ? 1-(nf-30)/30*0.85 : nf<160 ? 0.15 : 0;
+
+    nx.clearRect(0,0,W,H);
+    nx.fillStyle='rgba(8,8,8,0.97)';
+    nx.fillRect(0,0,W,H);
+
+    // 노이즈
+    if(noiseIntens>0.04){
+      const id=nx.createImageData(W,H);
+      const d=id.data;
+      for(let i=0;i<d.length;i+=4){
+        if(Math.random()<noiseIntens*0.28){
+          const v=Math.random()>0.5?255:0;
+          d[i]=d[i+1]=d[i+2]=v;d[i+3]=Math.random()*150*noiseIntens;
+        }
+      }
+      nx.putImageData(id,0,0);
+      const bands=Math.floor(noiseIntens*8);
+      for(let b=0;b<bands;b++){
+        const y=Math.random()*H,h=Math.random()*5+1;
+        nx.fillStyle=`rgba(200,255,80,${0.2*noiseIntens})`;
+        nx.fillRect((Math.random()-0.5)*25*noiseIntens,y,W,h);
+      }
+      if(noiseIntens>0.4){
+        nx.fillStyle=`rgba(255,0,0,${0.05*noiseIntens})`;nx.fillRect(-3,0,W,H);
+        nx.fillStyle=`rgba(0,0,255,${0.05*noiseIntens})`;nx.fillRect(3,0,W,H);
+      }
+    }
+
+    // ── 도형 그리기 ──
+    const shapePhase = nf>169 ? (nf-170)/50 : 0; // 170프레임 이후 아래로
+    shapes.forEach(s=>{
+      if(nf<s.delay) return;
+      const age=nf-s.delay;
+      // 팝업 효과: 작게 시작해서 통통 튀며 등장
+      const popT=Math.min(1,age/15);
+      const pop=popT<0.6?popT/0.6:popT<0.8?1+(1-popT)/0.2*0.2:1;
+      s.alpha=Math.min(0.9,age/15);
+      s.rot+=s.rotSpeed;
+
+      // 아래로 흘러가기
+      if(shapePhase>0){
+        s.vy+=1.2;
+        s.y+=s.vy;
+        s.alpha=Math.max(0,s.alpha-0.03);
+      }
+
+      nx.fillStyle=s.color+s.alpha+')';
+      const sz=s.size*pop;
+      if(s.type==='star') drawStar(s.x,s.y,sz,s.rot);
+      else if(s.type==='rect'){nx.save();nx.translate(s.x,s.y);nx.rotate(s.rot);nx.fillRect(-sz/2,-sz/2,sz,sz);nx.restore();}
+      else if(s.type==='circle'){nx.beginPath();nx.arc(s.x,s.y,sz/2,0,Math.PI*2);nx.fill();}
+      else if(s.type==='diamond') drawDiamond(s.x,s.y,sz,s.rot);
+      else drawTriangle(s.x,s.y,sz,s.rot);
+    });
+
+    // ── KIM JUNHO 텍스트 ──
+    if(nf>129){
+      if(nf<160){ textAlpha=Math.min(1,(nf-130)/30); }
+      else if(nf<170){ textAlpha=1; }
+      else { textAlpha=Math.max(0,1-(nf-170)/40); textSlide+=(H*0.35-textSlide)*0.1; }
+
+      const fs=Math.min(Math.floor(W*0.09),100);
+      // 글로우
+      nx.save();nx.globalAlpha=textAlpha*0.25;
+      nx.fillStyle='#c8ff50';
+      nx.filter='blur(18px)';
+      nx.font=`bold ${fs}px 'Black Han Sans',sans-serif`;
+      nx.textAlign='center';
+      nx.fillText('KIM JUNHO',W/2,H/2+textSlide);
+      nx.restore();
+      // 글리치
+      if(Math.random()<0.12){
+        nx.save();nx.globalAlpha=textAlpha*0.35;
+        nx.fillStyle='#ff3030';nx.font=`bold ${fs}px 'Black Han Sans',sans-serif`;nx.textAlign='center';
+        nx.fillText('KIM JUNHO',W/2+5,H/2+textSlide);
+        nx.fillStyle='#3030ff';
+        nx.fillText('KIM JUNHO',W/2-5,H/2+textSlide);
+        nx.restore();
+      }
+      nx.save();nx.globalAlpha=textAlpha;
+      nx.fillStyle='#c8ff50';
+      nx.font=`bold ${fs}px 'Black Han Sans',sans-serif`;
+      nx.textAlign='center';
+      nx.shadowColor='rgba(200,255,80,0.7)';nx.shadowBlur=16;
+      nx.fillText('KIM JUNHO',W/2,H/2+textSlide);
+      nx.restore();
+    }
+
+    // 문 열기
+    if(nf===170){ gate.classList.add('door-open'); main.classList.add('visible'); }
+
+    if(nf<total){ requestAnimationFrame(drawNoise); }
+    else{ nc.style.display='none'; gate.style.display='none'; animateBars(); startHero(); }
+  }
+  requestAnimationFrame(drawNoise);
 }
 function wrongPin(){
   document.getElementById('pinDots').classList.add('shake');
@@ -800,39 +890,63 @@ function toggleMusic(){
 document.getElementById('gateMusic').addEventListener('click',toggleMusic);
 document.getElementById('navMusic').addEventListener('click',toggleMusic);
 
-// ── MODAL SLIDER ──
+// ── HERO VHS 파티클 ──
+function startHero(){
+  const canvas=document.getElementById('hero-canvas');
+  const ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
+  resize();
+  window.addEventListener('resize',resize);
+  const particles=Array.from({length:60},()=>({
+    x:Math.random(),y:Math.random()*1.2,
+    r:Math.random()*1.8+0.4,
+    speed:Math.random()*0.00015+0.00006,
+    opacity:Math.random()*0.25+0.05,
+  }));
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(p=>{
+      p.y-=p.speed;
+      if(p.y<-0.05){p.y=1.1;p.x=Math.random();}
+      ctx.beginPath();
+      ctx.arc(p.x*canvas.width,p.y*canvas.height,p.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(180,255,60,${p.opacity})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+  // 타임코드
+  const tc=document.getElementById('hero-timecode');
+  let f=0;
+  setInterval(()=>{
+    f++;
+    const fr=f%30,s=Math.floor(f/30)%60,m=Math.floor(f/1800)%60,h=Math.floor(f/108000);
+    tc.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+':'+String(fr).padStart(2,'0');
+  },1000/30);
+}
+
+// ── MODAL ──
 const modal=document.getElementById('modal');
 const mSlides=document.getElementById('mSlides');
 const mDots=document.getElementById('mDots');
 const mCount=document.getElementById('mCount');
 const total=mSlides.children.length;
 let cur=0;
-
 for(let i=0;i<total;i++){
-  const d=document.createElement('div');
-  d.className='modal-dot'+(i===0?' active':'');
-  d.addEventListener('click',()=>goTo(i));
-  mDots.appendChild(d);
+  const d=document.createElement('div');d.className='modal-dot'+(i===0?' active':'');
+  d.addEventListener('click',()=>goTo(i));mDots.appendChild(d);
 }
-
 function goTo(n){
   cur=Math.max(0,Math.min(n,total-1));
   mSlides.style.transform=`translateX(-${cur*100}%)`;
   mDots.querySelectorAll('.modal-dot').forEach((d,i)=>d.classList.toggle('active',i===cur));
   mCount.textContent=`${cur+1} / ${total}`;
 }
-
 document.getElementById('mPrev').addEventListener('click',()=>goTo(cur-1));
 document.getElementById('mNext').addEventListener('click',()=>goTo(cur+1));
-document.getElementById('modalClose').addEventListener('click',()=>{
-  modal.classList.remove('open');
-  document.body.style.overflow='';
-});
-document.getElementById('combicin-card').addEventListener('click',()=>{
-  modal.classList.add('open');
-  document.body.style.overflow='hidden';
-  goTo(0);
-});
+document.getElementById('modalClose').addEventListener('click',()=>{modal.classList.remove('open');document.body.style.overflow='';});
+document.getElementById('combicin-card').addEventListener('click',()=>{modal.classList.add('open');document.body.style.overflow='hidden';goTo(0);});
 document.addEventListener('keydown',e=>{
   if(!modal.classList.contains('open'))return;
   if(e.key==='ArrowRight')goTo(cur+1);
