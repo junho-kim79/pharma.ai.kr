@@ -346,6 +346,40 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   .modal-slide{grid-template-columns:1fr;grid-template-rows:40% 60%;}
   .hero-content{padding:0 6vw;}
 }
+
+
+/* LIFE TAPE */
+.life-wrap{background:#070b14;color:#dce6ff;position:relative;overflow:hidden;}
+.life-wrap::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,.035) 2px,rgba(255,255,255,.035) 4px);pointer-events:none;opacity:.55;}
+.life-panel{position:relative;border:1px solid rgba(184,151,58,.35);border-radius:18px;background:linear-gradient(135deg,rgba(15,32,68,.92),rgba(7,11,20,.96));box-shadow:0 30px 80px rgba(0,0,0,.35);padding:2rem;}
+.life-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:1.5rem;}
+.life-title{font-family:'Bebas Neue',sans-serif;font-size:3rem;letter-spacing:.09em;color:#c8ff50;line-height:1;text-shadow:2px 0 #ff3030,-2px 0 #3030ff;}
+.life-sub{font-size:1rem;color:rgba(220,230,255,.65);line-height:1.9;margin-top:.5rem;}
+.life-lock{border:1px solid rgba(184,151,58,.45);background:rgba(0,0,0,.25);color:var(--gold-lt);padding:.7rem 1rem;border-radius:999px;font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;}
+.life-auth{border:1px dashed rgba(184,151,58,.45);border-radius:14px;padding:1.5rem;background:rgba(0,0,0,.25);text-align:center;}
+.life-auth input{width:min(260px,100%);background:#02050d;border:1px solid rgba(184,151,58,.45);color:#fff;padding:.9rem 1rem;border-radius:8px;text-align:center;font-size:1.2rem;letter-spacing:.35em;margin:.9rem 0;}
+.life-btn{background:var(--gold);border:none;color:#071126;border-radius:8px;padding:.85rem 1.2rem;font-weight:700;cursor:pointer;letter-spacing:.08em;}
+.life-btn.ghost{background:transparent;border:1px solid rgba(184,151,58,.45);color:var(--gold-lt);}
+.life-btn.red{background:#c62828;color:#fff;}
+.life-rec{display:none;}
+.life-rec.unlocked{display:block;}
+.life-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.life-card{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.045);border-radius:14px;padding:1.2rem;}
+.life-card h3{font-size:.8rem;letter-spacing:.35em;color:var(--gold-lt);text-transform:uppercase;margin-bottom:.8rem;}
+.life-textarea{width:100%;min-height:170px;background:#02050d;border:1px solid rgba(255,255,255,.12);color:#eaf0ff;border-radius:10px;padding:1rem;font-size:1rem;line-height:1.8;resize:vertical;font-family:'Noto Sans KR',sans-serif;}
+.life-actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:.8rem;}
+.life-output{white-space:pre-wrap;background:#fff;color:#17223a;border-radius:10px;padding:1rem;min-height:170px;line-height:1.9;font-size:1rem;}
+.life-meta{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-top:.8rem;}
+.life-meta input{background:#02050d;border:1px solid rgba(255,255,255,.12);color:#fff;border-radius:8px;padding:.75rem .9rem;font-size:.95rem;}
+.life-list{margin-top:1rem;display:flex;flex-direction:column;gap:.7rem;max-height:320px;overflow:auto;}
+.life-item{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;cursor:pointer;transition:.2s;}
+.life-item:hover{border-color:rgba(184,151,58,.5);transform:translateY(-2px);}
+.life-item-title{font-weight:700;color:#fff;margin-bottom:.35rem;}
+.life-item-date{font-size:.78rem;color:rgba(220,230,255,.45);margin-bottom:.45rem;}
+.life-tags{display:flex;flex-wrap:wrap;gap:.35rem;}
+.life-tag{font-size:.75rem;background:rgba(200,255,80,.12);color:#c8ff50;border:1px solid rgba(200,255,80,.2);padding:.25rem .55rem;border-radius:999px;}
+@media(max-width:768px){.life-grid{grid-template-columns:1fr}.life-head{flex-direction:column}.life-title{font-size:2.4rem}}
+
 </style>
 </head>
 <body>
@@ -515,6 +549,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
       <li><a href="#career">Career</a></li>
       <li><a href="#apps">앱개발</a></li>
       <li><a href="#tools">Tools</a></li>
+      <li><a href="#lifetape">Life Tape</a></li>
     </ul>
     <button class="nav-music" id="navMusic">♪ ON</button>
   </nav>
@@ -596,6 +631,65 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
       <a class="tool-card" href="https://passbox.co.kr" target="_blank"><span class="tool-ic">📦</span><div class="tool-nm">PASSBOX</div><div class="tool-ds">개인 보관함</div><span class="tool-arr">↗</span></a>
     </div>
   </div
+
+
+
+  <!-- LIFE TAPE -->
+  <div class="life-wrap">
+    <div class="sw" id="lifetape">
+      <div class="life-panel">
+        <div class="life-head">
+          <div>
+            <div class="s-ey">Private Memory Archive</div>
+            <div class="life-title">LIFE TAPE</div>
+            <div class="life-sub">말로 남긴 생각을 AI 일기처럼 정리하는 개인 기록실입니다.<br>음성파일은 저장하지 않고, 텍스트 기록만 남기는 구조입니다.</div>
+          </div>
+          <div class="life-lock">SECOND AUTH</div>
+        </div>
+
+        <div class="life-auth" id="lifeAuth">
+          <div style="font-family:'Share Tech Mono',monospace;letter-spacing:.35em;color:#c8ff50;margin-bottom:.5rem;">PRIVATE LOG ACCESS</div>
+          <div style="color:rgba(220,230,255,.55);line-height:1.8;">LIFE TAPE는 2차 비밀번호 입력 후 열립니다.</div>
+          <input id="lifePin" type="password" maxlength="4" placeholder="••••">
+          <div><button class="life-btn" id="lifeUnlock">UNLOCK</button></div>
+          <div id="lifeAuthMsg" style="margin-top:.8rem;color:#ff7373;font-size:.82rem;letter-spacing:.18em;"></div>
+        </div>
+
+        <div class="life-rec" id="lifeRec">
+          <div class="life-grid">
+            <div class="life-card">
+              <h3>● REC / Speech Input</h3>
+              <textarea class="life-textarea" id="lifeRaw" placeholder="여기에 말한 내용이 들어옵니다. 직접 타이핑해도 됩니다.
+예: 오늘 영대병원 갔다 왔는데 생각이 좀 많았다..."></textarea>
+              <div class="life-actions">
+                <button class="life-btn" id="lifeStart">🎙 말하기 시작</button>
+                <button class="life-btn ghost" id="lifeStop">■ 정지</button>
+                <button class="life-btn ghost" id="lifeClear">초기화</button>
+              </div>
+              <div class="life-meta">
+                <input id="lifeTitle" placeholder="제목은 자동 생성됩니다">
+                <input id="lifeDate" readonly>
+              </div>
+            </div>
+            <div class="life-card">
+              <h3>AI Clean Text</h3>
+              <div class="life-output" id="lifeOutput">AI 정리본이 여기에 표시됩니다.</div>
+              <div class="life-actions">
+                <button class="life-btn" id="lifeClean">AI처럼 정리하기</button>
+                <button class="life-btn ghost" id="lifeSave">저장</button>
+                <button class="life-btn ghost" id="lifeExport">JSON 내보내기</button>
+              </div>
+            </div>
+          </div>
+          <div class="life-card" style="margin-top:1rem;">
+            <h3>Saved Logs</h3>
+            <div class="life-list" id="lifeList"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
     <!-- HOSPITALS -->
   <div class="sw" id="hospitals">
@@ -683,7 +777,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     </div>
   </div>
 
->
 
   <footer>
     <div class="foot-logo">KIM JUNHO</div>
@@ -829,6 +922,85 @@ function startHero(){
     tc.textContent=String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0')+':'+String(fr).padStart(2,'0');
   },1000/30);
 }
+
+
+
+// ── LIFE TAPE ──
+const LIFE_PIN='9811';
+const lifeAuth=document.getElementById('lifeAuth');
+const lifeRec=document.getElementById('lifeRec');
+const lifePin=document.getElementById('lifePin');
+const lifeAuthMsg=document.getElementById('lifeAuthMsg');
+const lifeRaw=document.getElementById('lifeRaw');
+const lifeOutput=document.getElementById('lifeOutput');
+const lifeTitle=document.getElementById('lifeTitle');
+const lifeDate=document.getElementById('lifeDate');
+const lifeList=document.getElementById('lifeList');
+let recognition=null;
+function setLifeDate(){
+  const d=new Date();
+  lifeDate.value=d.getFullYear()+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+String(d.getDate()).padStart(2,'0')+' '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
+setLifeDate();
+document.getElementById('lifeUnlock').addEventListener('click',()=>{
+  if(lifePin.value===LIFE_PIN){lifeAuth.style.display='none';lifeRec.classList.add('unlocked');renderLifeList();setLifeDate();}
+  else{lifeAuthMsg.textContent='ACCESS DENIED';lifePin.value='';}
+});
+lifePin.addEventListener('keydown',e=>{if(e.key==='Enter')document.getElementById('lifeUnlock').click();});
+function makeDiary(raw){
+  let t=(raw||'').replace(/\s+/g,' ').trim();
+  t=t.replace(/음+|어+|아+|그니까|그러니까|뭐랄까|약간|진짜로|막/g,'').replace(/\s+/g,' ').trim();
+  if(!t)return {title:'오늘의 기록',clean:'기록할 내용이 없습니다.',summary:'',moods:['기록'],topics:['일기']};
+  const words=t.split(' ');
+  let first=t.slice(0,34).replace(/[.,!?]$/,'');
+  let title=lifeTitle.value.trim() || (first.length>4?first:'오늘의 기록');
+  let moods=[];
+  if(/힘들|피곤|지침|귀찮|속상|불안|걱정/.test(t))moods.push('피곤함','생각많음');
+  if(/좋|재밌|기대|희망|대박|가능/.test(t))moods.push('기대감');
+  if(/화|억울|짜증|소송|학폭/.test(t))moods.push('분노','정리필요');
+  if(!moods.length)moods.push('차분함','기록');
+  let topics=[];
+  [['병원|영대|드림|의사|제품|영업','영업'],['주식|투자|돈|코인|테슬라|ISA','투자'],['와이프|아들|딸|가족|아이','가족'],['일본|일본어|여행|대구','여행'],['앱|AI|홈페이지|파이어|개발','AI개발'],['소송|학폭|법원|교육청','소송']].forEach(([re,tag])=>{if(new RegExp(re).test(t))topics.push(tag);});
+  if(!topics.length)topics.push('개인생각');
+  const clean='오늘의 기록을 정리하면 다음과 같습니다.\n\n'+t.replace(/다 /g,'다. ').replace(/요 /g,'요. ')+'\n\n[요약] '+(words.length>28?words.slice(0,28).join(' ')+'...':t);
+  return {title,clean,summary:words.slice(0,24).join(' '),moods:[...new Set(moods)],topics:[...new Set(topics)]};
+}
+document.getElementById('lifeClean').addEventListener('click',()=>{
+  const d=makeDiary(lifeRaw.value);
+  lifeTitle.value=d.title;
+  lifeOutput.textContent=d.clean+'\n\n#감정 '+d.moods.map(x=>'#'+x).join(' ')+'\n#주제 '+d.topics.map(x=>'#'+x).join(' ');
+});
+document.getElementById('lifeSave').addEventListener('click',()=>{
+  const d=makeDiary(lifeRaw.value);
+  const logs=JSON.parse(localStorage.getItem('lifeTapeLogs')||'[]');
+  logs.unshift({id:Date.now(),date:lifeDate.value,title:lifeTitle.value||d.title,raw:lifeRaw.value,clean:lifeOutput.textContent,moods:d.moods,topics:d.topics});
+  localStorage.setItem('lifeTapeLogs',JSON.stringify(logs));
+  renderLifeList();
+});
+function renderLifeList(){
+  const logs=JSON.parse(localStorage.getItem('lifeTapeLogs')||'[]');
+  if(!logs.length){lifeList.innerHTML='<div style="color:rgba(220,230,255,.45);">저장된 기록이 없습니다.</div>';return;}
+  lifeList.innerHTML=logs.map(l=>`<div class="life-item" data-id="${l.id}"><div class="life-item-title">${l.title}</div><div class="life-item-date">${l.date}</div><div class="life-tags">${[...(l.moods||[]),...(l.topics||[])].map(t=>`<span class="life-tag">#${t}</span>`).join('')}</div></div>`).join('');
+  lifeList.querySelectorAll('.life-item').forEach(el=>el.addEventListener('click',()=>{
+    const l=logs.find(x=>String(x.id)===el.dataset.id);
+    if(l){lifeTitle.value=l.title;lifeDate.value=l.date;lifeRaw.value=l.raw;lifeOutput.textContent=l.clean;}
+  }));
+}
+document.getElementById('lifeExport').addEventListener('click',()=>{
+  const data=localStorage.getItem('lifeTapeLogs')||'[]';
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='life-tape-logs.json';a.click();URL.revokeObjectURL(a.href);
+});
+document.getElementById('lifeClear').addEventListener('click',()=>{lifeRaw.value='';lifeOutput.textContent='AI 정리본이 여기에 표시됩니다.';lifeTitle.value='';setLifeDate();});
+document.getElementById('lifeStart').addEventListener('click',()=>{
+  const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+  if(!SR){alert('이 브라우저는 음성인식을 지원하지 않습니다. Chrome/Edge에서 사용하세요.');return;}
+  recognition=new SR();recognition.lang='ko-KR';recognition.continuous=true;recognition.interimResults=true;
+  let finalText=lifeRaw.value?lifeRaw.value+' ':'';
+  recognition.onresult=e=>{let interim='';for(let i=e.resultIndex;i<e.results.length;i++){const txt=e.results[i][0].transcript;if(e.results[i].isFinal)finalText+=txt+' ';else interim+=txt;}lifeRaw.value=finalText+interim;};
+  recognition.start();
+});
+document.getElementById('lifeStop').addEventListener('click',()=>{if(recognition)recognition.stop();});
 
 // ── MODAL ──
 const modal=document.getElementById('modal');
