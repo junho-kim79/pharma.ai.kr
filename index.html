@@ -380,6 +380,33 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
 .life-tag{font-size:.75rem;background:rgba(200,255,80,.12);color:#c8ff50;border:1px solid rgba(200,255,80,.2);padding:.25rem .55rem;border-radius:999px;}
 @media(max-width:768px){.life-grid{grid-template-columns:1fr}.life-head{flex-direction:column}.life-title{font-size:2.4rem}}
 
+  @keyframes rocketLaunch{
+  0%{transform:translateY(0) scale(1);opacity:1;}
+  30%{transform:translateY(-20px) scale(1.05);opacity:1;}
+  100%{transform:translateY(-120vh) scale(.8);opacity:0;}
+}
+@keyframes flashScreen{
+  0%{opacity:0;}20%{opacity:1;}60%{opacity:.8;}100%{opacity:0;}
+}
+@keyframes shakeGate{
+  0%,100%{transform:translateX(0);}
+  20%{transform:translateX(-12px);}
+  40%{transform:translateX(12px);}
+  60%{transform:translateX(-8px);}
+  80%{transform:translateX(8px);}
+}
+.rocket-el{
+  position:absolute;
+  right:18vw;bottom:8%;
+  width:clamp(80px,12vw,160px);
+  pointer-events:none;
+}
+.rocket-el.launch{animation:rocketLaunch 1.8s cubic-bezier(.2,.8,.4,1) forwards;}
+#flash{
+  position:fixed;inset:0;z-index:999;
+  background:#fff;opacity:0;pointer-events:none;
+}
+#flash.on{animation:flashScreen .6s ease forwards;}
 </style>
 </head>
 <body>
@@ -411,6 +438,15 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     <button class="music-gate" id="gateMusic">♪ MUSIC OFF</button>
     <div class="gate-hint">4-digit pin · private</div>
   </div>
+  <div id="flash"></div>
+<svg class="rocket-el" id="rocketEl" viewBox="0 0 60 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <ellipse cx="30" cy="55" rx="12" ry="50" fill="#c8c8c8"/>
+  <polygon points="30,0 18,30 42,30" fill="#e8e8e8"/>
+  <polygon points="18,80 5,105 18,95" fill="#aaa"/>
+  <polygon points="42,80 55,105 42,95" fill="#aaa"/>
+  <ellipse cx="30" cy="100" rx="8" ry="6" fill="#ff6600" opacity=".9"/>
+  <ellipse cx="30" cy="108" rx="5" ry="8" fill="#ffaa00" opacity=".7"/>
+</svg>
 </div>
 
 <!-- MODAL -->
@@ -828,7 +864,15 @@ const pinErr=document.getElementById('pinErr');
 function updateDots(){dots.forEach((d,i)=>d.classList.toggle('filled',i<input.length));}
 function animateBars(){document.querySelectorAll('.prog-fill').forEach(b=>{setTimeout(()=>{b.style.width=b.dataset.pct+'%';},600);});}
 function openDoors(){
-  pinErr.textContent='ACCESS VERIFIED';pinErr.style.color='#b8973a';
+  pinErr.textContent='LAUNCH INITIATED 🚀';pinErr.style.color='#ff6600';
+  document.getElementById('gate').style.animation='shakeGate .5s ease';
+  setTimeout(()=>{
+    document.getElementById('flash').classList.add('on');
+    document.getElementById('rocketEl').classList.add('launch');
+  },500);
+  setTimeout(()=>{
+    document.getElementById('flash').classList.remove('on');
+  },1100);
   const nc=document.getElementById('vhs-noise');
   nc.style.display='block';
   nc.width=window.innerWidth;nc.height=window.innerHeight;
