@@ -22,7 +22,7 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-serif;overflow-x:hidden;}
 
 /* ── GATE ── */
-#gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at center,#182f5a 0%,#0f2044 40%,#071126 100%);}
+#gate{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;background:url('gate.jpg') center/cover no-repeat;background-color:#071126;}
 .door-l,.door-r{
   position:absolute;top:0;bottom:0;width:50%;
   transition:transform 2.4s cubic-bezier(.86,0,.07,1);
@@ -31,12 +31,12 @@ body{background:var(--bg);color:var(--text);font-family:'Noto Sans KR',sans-seri
 }
 .door-l{
   left:0;
-  background:linear-gradient(90deg,#071126 0%,#0f2044 65%,#142b55 100%);
+  background:linear-gradient(90deg,rgba(7,17,38,.85) 0%,rgba(15,32,68,.85) 65%,rgba(20,43,85,.85) 100%);
   justify-content:flex-end;padding-right:3rem;
 }
 .door-r{
   right:0;
-  background:linear-gradient(270deg,#071126 0%,#0d1d3e 65%,#142b55 100%);
+  background:linear-gradient(270deg,rgba(7,17,38,.85) 0%,rgba(13,29,62,.85) 65%,rgba(20,43,85,.85) 100%);
   justify-content:flex-start;padding-left:3rem;
 }
 .door-wm{font-family:'Bebas Neue',sans-serif;font-size:clamp(6rem,18vw,14rem);letter-spacing:.15em;color:var(--gold);opacity:.06;user-select:none;pointer-events:none;white-space:nowrap;}
