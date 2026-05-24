@@ -379,72 +379,6 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     </div>
   </div>
 
-  <div class="life-wrap"><div class="sw" id="lifetape">
-    <div class="life-panel">
-      <div class="life-head">
-        <div><div class="s-ey">Private Memory Archive</div><div class="life-title">LIFE TAPE</div><div class="life-sub">말로 남긴 생각을 AI 일기처럼 정리하는 개인 기록실입니다.</div></div>
-        <div class="life-lock">SECOND AUTH</div>
-      </div>
-      <div class="life-auth" id="lifeAuth">
-        <div style="font-family:'Share Tech Mono',monospace;letter-spacing:.35em;color:#c8ff50;margin-bottom:.5rem;">PRIVATE LOG ACCESS</div>
-        <div style="color:rgba(220,230,255,.55);line-height:1.8;">LIFE TAPE는 2차 비밀번호 입력 후 열립니다.</div>
-        <input id="lifePin" type="password" maxlength="4" placeholder="••••">
-        <div><button class="life-btn" id="lifeUnlock">UNLOCK</button></div>
-        <div id="lifeAuthMsg" style="margin-top:.8rem;color:#ff7373;font-size:.82rem;letter-spacing:.18em;"></div>
-      </div>
-      <div class="life-rec" id="lifeRec">
-        <div class="life-grid">
-          <div class="life-card">
-            <h3>● REC / Speech Input</h3>
-            <textarea class="life-textarea" id="lifeRaw" placeholder="여기에 말한 내용이 들어옵니다..."></textarea>
-            <div class="life-actions">
-              <button class="life-btn" id="lifeStart">🎙 말하기 시작</button>
-              <button class="life-btn ghost" id="lifeStop">■ 정지</button>
-              <button class="life-btn ghost" id="lifeClear">초기화</button>
-            </div>
-            <div class="life-meta"><input id="lifeTitle" placeholder="제목은 자동 생성됩니다"><input id="lifeDate" readonly></div>
-          </div>
-          <div class="life-card">
-            <h3>AI Clean Text</h3>
-            <div class="life-output" id="lifeOutput">AI 정리본이 여기에 표시됩니다.</div>
-            <div class="life-actions">
-              <button class="life-btn" id="lifeClean">AI처럼 정리하기</button>
-              <button class="life-btn ghost" id="lifeSave">저장</button>
-              <button class="life-btn ghost" id="lifeExport">JSON 내보내기</button>
-            </div>
-          </div>
-        </div>
-        <div class="life-card" style="margin-top:1rem;"><h3>Saved Logs</h3><div class="life-list" id="lifeList"></div></div>
-      </div>
-    </div>
-  </div></div>
-
-  <div style="background:var(--bg2);"><div class="sw" id="systemlog">
-    <div class="s-ey">ARCHIVE · SYSTEM LOG</div><div class="s-title">SYSTEM HISTORY</div><div class="s-rule"></div>
-    <div class="timeline">
-      <div class="tl-item">
-        <div class="tl-period">2005</div>
-        <div class="tl-co">INITIALIZED <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">初期化 · 시작</span></div>
-        <div class="tl-role">PHARMACEUTICAL MR CAREER STARTED IN DAEGU · GYEONGBUK<br><span style="font-size:.9rem;color:var(--text3);">大邱·慶北エリア 医薬品MRとしてキャリアスタート</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-period">2010</div>
-        <div class="tl-co">NETWORK EXPANSION <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">拡張 · 확장</span></div>
-        <div class="tl-role">SPECIALTY DRUG SALES · MULTINATIONAL PHARMA EXPERIENCE<br><span style="font-size:.9rem;color:var(--text3);">専門薬品営業 · 多国籍製薬会社との連携経験</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-period">2012</div>
-        <div class="tl-co">RETURN TO FIELD <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">現場復帰 · 복귀</span></div>
-        <div class="tl-role">PROFESSIONAL NETWORK DEEPENED ACROSS KEY HOSPITALS<br><span style="font-size:.9rem;color:var(--text3);">主要病院ネットワーク強化 · 専門性深化</span></div>
-      </div>
-      <div class="tl-item">
-        <div class="tl-period">2020 — PRESENT</div>
-        <div class="tl-co">PRIVATE ARCHIVE MODE <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">記録モード · 기록</span></div>
-        <div class="tl-role">AI · PRODUCT ARCHIVE · LIFE TAPE · DIGITAL MEMORY SYSTEM<br><span style="font-size:.9rem;color:var(--text3);">AI活用 · デジタルアーカイブ · ライフテープ構築中</span></div>
-      </div>
-    </div>
-  </div></div>
-
   <div class="sw" id="apps">
     <div class="s-ey">Domain Portfolio · 도메인 현황</div>
     <div class="s-title">PROJECT PIPELINE</div>
@@ -644,6 +578,72 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     gauges.forEach(g=>obs.observe(g));
   })();
   </script>
+
+  <div class="life-wrap"><div class="sw" id="lifetape">
+    <div class="life-panel">
+      <div class="life-head">
+        <div><div class="s-ey">Private Memory Archive</div><div class="life-title">LIFE TAPE</div><div class="life-sub">말로 남긴 생각을 AI 일기처럼 정리하는 개인 기록실입니다.</div></div>
+        <div class="life-lock">SECOND AUTH</div>
+      </div>
+      <div class="life-auth" id="lifeAuth">
+        <div style="font-family:'Share Tech Mono',monospace;letter-spacing:.35em;color:#c8ff50;margin-bottom:.5rem;">PRIVATE LOG ACCESS</div>
+        <div style="color:rgba(220,230,255,.55);line-height:1.8;">LIFE TAPE는 2차 비밀번호 입력 후 열립니다.</div>
+        <input id="lifePin" type="password" maxlength="4" placeholder="••••">
+        <div><button class="life-btn" id="lifeUnlock">UNLOCK</button></div>
+        <div id="lifeAuthMsg" style="margin-top:.8rem;color:#ff7373;font-size:.82rem;letter-spacing:.18em;"></div>
+      </div>
+      <div class="life-rec" id="lifeRec">
+        <div class="life-grid">
+          <div class="life-card">
+            <h3>● REC / Speech Input</h3>
+            <textarea class="life-textarea" id="lifeRaw" placeholder="여기에 말한 내용이 들어옵니다..."></textarea>
+            <div class="life-actions">
+              <button class="life-btn" id="lifeStart">🎙 말하기 시작</button>
+              <button class="life-btn ghost" id="lifeStop">■ 정지</button>
+              <button class="life-btn ghost" id="lifeClear">초기화</button>
+            </div>
+            <div class="life-meta"><input id="lifeTitle" placeholder="제목은 자동 생성됩니다"><input id="lifeDate" readonly></div>
+          </div>
+          <div class="life-card">
+            <h3>AI Clean Text</h3>
+            <div class="life-output" id="lifeOutput">AI 정리본이 여기에 표시됩니다.</div>
+            <div class="life-actions">
+              <button class="life-btn" id="lifeClean">AI처럼 정리하기</button>
+              <button class="life-btn ghost" id="lifeSave">저장</button>
+              <button class="life-btn ghost" id="lifeExport">JSON 내보내기</button>
+            </div>
+          </div>
+        </div>
+        <div class="life-card" style="margin-top:1rem;"><h3>Saved Logs</h3><div class="life-list" id="lifeList"></div></div>
+      </div>
+    </div>
+  </div></div>
+
+  <div style="background:var(--bg2);"><div class="sw" id="systemlog">
+    <div class="s-ey">ARCHIVE · SYSTEM LOG</div><div class="s-title">SYSTEM HISTORY</div><div class="s-rule"></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-period">2005</div>
+        <div class="tl-co">INITIALIZED <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">初期化 · 시작</span></div>
+        <div class="tl-role">PHARMACEUTICAL MR CAREER STARTED IN DAEGU · GYEONGBUK<br><span style="font-size:.9rem;color:var(--text3);">大邱·慶北エリア 医薬品MRとしてキャリアスタート</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2010</div>
+        <div class="tl-co">NETWORK EXPANSION <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">拡張 · 확장</span></div>
+        <div class="tl-role">SPECIALTY DRUG SALES · MULTINATIONAL PHARMA EXPERIENCE<br><span style="font-size:.9rem;color:var(--text3);">専門薬品営業 · 多国籍製薬会社との連携経験</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2012</div>
+        <div class="tl-co">RETURN TO FIELD <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">現場復帰 · 복귀</span></div>
+        <div class="tl-role">PROFESSIONAL NETWORK DEEPENED ACROSS KEY HOSPITALS<br><span style="font-size:.9rem;color:var(--text3);">主要病院ネットワーク強化 · 専門性深化</span></div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-period">2020 — PRESENT</div>
+        <div class="tl-co">PRIVATE ARCHIVE MODE <span style="font-size:.85rem;color:var(--text3);margin-left:.5rem;">記録モード · 기록</span></div>
+        <div class="tl-role">AI · PRODUCT ARCHIVE · LIFE TAPE · DIGITAL MEMORY SYSTEM<br><span style="font-size:.9rem;color:var(--text3);">AI活用 · デジタルアーカイブ · ライフテープ構築中</span></div>
+      </div>
+    </div>
+  </div></div>
 
   <footer><div class="foot-logo">KIM JUNHO</div><div class="foot-txt">© 2026 · pharma.ai.kr · Private</div></footer>
 </div>
