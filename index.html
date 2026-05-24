@@ -561,16 +561,34 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     <div class="hero-hline"></div>
     <div class="hero-glow"></div>
 
-    <div class="hero-content">
-      <div class="hero-rec">
-        <div class="hero-rec-dot"></div>
-        <span class="hero-rec-text">● REC</span>
-        <span class="hero-rec-year">SP ◀▶ 1979</span>
-      </div>
-      <div class="hero-title">KIM<br>JUNHO</div>
-      <div class="hero-rule"></div>
-      <div class="hero-sub">PHARMACEUTICAL MR · SINCE 2005</div>
+<div class="hero-content" style="display:flex;align-items:center;gap:6vw;width:100%;">
+  <div>
+    <div class="hero-rec">
+      <div class="hero-rec-dot"></div>
+      <span class="hero-rec-text">● REC</span>
+      <span class="hero-rec-year">SP ◀▶ 1979</span>
     </div>
+    <div class="hero-title">KIM<br>JUNHO</div>
+    <div class="hero-rule"></div>
+    <div class="hero-sub">PHARMACEUTICAL MR · SINCE 2005</div>
+  </div>
+  <div style="position:relative;flex-shrink:0;">
+    <video src="winning.mp4" autoplay muted loop playsinline
+      style="width:clamp(200px,30vw,420px);border-radius:4px;opacity:.75;
+             filter:sepia(.4) contrast(1.1) brightness(.85) saturate(.7);
+             box-shadow:0 0 0 2px rgba(200,255,80,.15),0 0 40px rgba(0,0,0,.6);
+             mix-blend-mode:lighten;">
+    </video>
+    <!-- VHS 스캔라인 오버레이 -->
+    <div style="position:absolute;inset:0;pointer-events:none;
+      background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.25) 3px,rgba(0,0,0,.25) 4px);
+      border-radius:4px;"></div>
+    <!-- VHS 레이블 -->
+    <div style="position:absolute;bottom:8px;left:10px;
+      font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:3px;
+      color:rgba(200,255,80,.4);">▶ PLAY · HI-FI</div>
+  </div>
+</div>
 
     <div class="hero-tag">PHARMA · AI · KR</div>
     <div id="hero-timecode">00:00:00:00</div>
