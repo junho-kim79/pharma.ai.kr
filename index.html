@@ -894,5 +894,18 @@ document.getElementById('modalClose').addEventListener('click',()=>{modal.classL
 document.getElementById('combicin-card').addEventListener('click',()=>{modal.classList.add('open');document.body.style.overflow='hidden';goTo(0);});
 document.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='ArrowRight')goTo(cur+1);if(e.key==='ArrowLeft')goTo(cur-1);if(e.key==='Escape'){modal.classList.remove('open');document.body.style.overflow='';}});
 </script>
+  <script>
+const andongCard = document.querySelector('.andong-card');
+const andongVideo = document.querySelector('.andong-video');
+
+andongCard.addEventListener('mouseenter', () => {
+  andongVideo.play();
+});
+
+andongCard.addEventListener('mouseleave', () => {
+  andongVideo.pause();
+  andongVideo.currentTime = 0;
+});
+</script>
 </body>
 </html>
