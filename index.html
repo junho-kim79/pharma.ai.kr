@@ -353,6 +353,241 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
           <div class="product-card-cta">e-브로셔 보기</div>
         </div>
       </div>
+      <!-- =====================================================
+     반코키트 카드 + 모달 슬라이더
+     사용법: 콤비신 카드 바로 다음에 아래 코드 전체 붙여넣기
+     ===================================================== -->
+
+<!-- ── 반코키트 카드 ── -->
+<div class="product-card" style="background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08);">
+
+  <!-- 썸네일 (클릭 시 모달 오픈) -->
+  <div onclick="vancoOpenModal()" style="background:#12295a;height:240px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(18,41,90,.9),rgba(185,151,62,.6));"></div>
+    <div style="position:relative;z-index:1;text-align:center;">
+      <div style="font-size:2rem;font-weight:700;letter-spacing:.12em;color:#fff;font-family:Georgia,serif;">VANCO KIT</div>
+      <div style="font-size:.85rem;letter-spacing:.3em;color:rgba(255,255,255,.7);margin-top:4px;">반 코 키 트 주</div>
+    </div>
+  </div>
+
+  <!-- 카드 본문 -->
+  <div style="padding:1.6rem 1.8rem;">
+    <div style="font-size:.65rem;letter-spacing:.3em;color:#b9973e;margin-bottom:.6rem;font-family:sans-serif;">UK CHEMIPHARM · 항생제</div>
+    <div style="font-size:2rem;font-weight:700;color:#12295a;margin-bottom:.5rem;line-height:1.2;">반코키트주</div>
+    <div style="font-size:.9rem;color:#6b7280;line-height:1.7;margin-bottom:1rem;">
+      Vancomycin HCl 1g + 0.9% Normal Saline 100ml<br>
+      MRSA 치료 1차 선택약물 · 일체형 항생제 키트
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem;">
+      <span style="font-size:.72rem;padding:4px 12px;border:1px solid #e5e7eb;border-radius:999px;color:#374151;font-family:sans-serif;">MRSA 특화</span>
+      <span style="font-size:.72rem;padding:4px 12px;border:1px solid #e5e7eb;border-radius:999px;color:#374151;font-family:sans-serif;">KIT 일체형</span>
+      <span style="font-size:.72rem;padding:4px 12px;border:1px solid #e5e7eb;border-radius:999px;color:#374151;font-family:sans-serif;">주사횟수 제한 없음</span>
+    </div>
+    <button onclick="vancoOpenModal()" style="font-size:.75rem;letter-spacing:.2em;color:#b9973e;font-family:sans-serif;background:none;border:none;padding:0;cursor:pointer;">E-브로셔 보기 →</button>
+  </div>
+</div>
+<!-- ── /반코키트 카드 끝 ── -->
+
+
+<!-- =====================================================
+     모달 + 슬라이더 (body 어디든 한 번만 삽입)
+     ===================================================== -->
+<div id="vancoModalBg" onclick="if(event.target===this)vancoCloseModal()" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.65);align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#fff;border-radius:16px;width:100%;max-width:680px;max-height:90vh;overflow-y:auto;position:relative;">
+
+    <!-- 닫기 버튼 -->
+    <button onclick="vancoCloseModal()" style="position:absolute;top:14px;right:16px;background:rgba(0,0,0,.25);border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;color:#fff;z-index:10;display:flex;align-items:center;justify-content:center;">✕</button>
+
+    <!-- 탭 네비 -->
+    <div style="display:flex;gap:6px;padding:1rem 1.5rem 0;overflow-x:auto;flex-wrap:nowrap;" id="vancoTabs">
+      <button class="vtab active" onclick="vancoGoSlide(0)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #12295a;background:#12295a;color:#fff;white-space:nowrap;">01 KIT란?</button>
+      <button class="vtab" onclick="vancoGoSlide(1)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">02 바이알 차이</button>
+      <button class="vtab" onclick="vancoGoSlide(2)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">03 비용 비교</button>
+      <button class="vtab" onclick="vancoGoSlide(3)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">04 사용 전략</button>
+      <button class="vtab" onclick="vancoGoSlide(4)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">05 수가 근거</button>
+    </div>
+
+    <!-- SLIDE 1 -->
+    <div class="vslide" style="display:block;">
+      <div style="background:#12295a;padding:2rem 2.2rem 1.5rem;border-radius:0;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">WHAT IS IT</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">반코키트주란?</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">Vancomycin HCl 1g + 생리식염수 100ml 일체형</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:1rem;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#e8edf5;color:#12295a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">📦</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">이미 섞여서 나온다</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">기존엔 간호사가 바이알을 직접 생리식염수에 녹여서 투여해야 했어요. 반코키트는 이미 다 섞인 상태로 배송돼서 연통침만 끼우면 바로 투여 가능합니다.</span></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:1rem 0;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#f5ead9;color:#b9973e;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">🛡️</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">10년간 일본 수출로 품질 검증</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">국내 최초의 항생제 UK-Kit 제형. 단순히 편한 게 아니라 안전성이 입증된 제품입니다.</span></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-top:1rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#d1fae5;color:#065f46;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">🦠</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">MRSA 치료 1차 선택약물</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">다제내성균 MRSA·MRSE에 뛰어난 항균력. 페니실린·세팔로스포린으로 안 되는 중증 감염에 씁니다.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="vslide" style="display:none;">
+      <div style="background:#1f2937;padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">COMPARISON</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">바이알과 뭐가 다를까?</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">같은 성분, 다른 편의성과 감염 리스크</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:1rem;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#dbeafe;color:#1d4ed8;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">⏱</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">간호사 준비시간 단축</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">바이알은 약을 녹이고, 희석하고, 라벨 붙이는 과정이 필요합니다. 키트는 연통침만 끼우면 끝.</span></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:1rem 0;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#f5ead9;color:#b9973e;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">💧</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">Mixing 과정 없애 감염 노출 감소</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">바이알 개봉·혼합 과정에서 에어로졸·약물이 튈 수 있습니다. 키트는 밀폐 연결로 병원감염 리스크가 낮아집니다.</span></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-top:1rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#e8edf5;color:#12295a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">⚖️</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">ICU·중증 환자는 바이알이 유리</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">신기능 변동이 큰 중환자는 750mg, 1.25g 같은 세밀한 용량 조절이 필요합니다. 1g 고정 키트보다 바이알이 TDM 대응에 더 유연합니다.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="vslide" style="display:none;">
+      <div style="background:linear-gradient(135deg,#12295a,#b9973e);padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">COST &amp; CLAIM</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">비용과 청구 비교</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">병원 수익 관점에서 KIT가 압도적으로 유리</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px;">
+          <div style="background:#fee2e2;border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">이노엔 바이알 1g</div><div style="font-size:14px;font-weight:600;color:#dc2626;">11,118원</div></div>
+          <div style="background:#eef2f9;border:1px solid #c5cfe8;border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">반코키트 1g</div><div style="font-size:14px;font-weight:600;color:#12295a;">12,899원</div></div>
+          <div style="background:#f9fafb;border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">단가 차이</div><div style="font-size:14px;font-weight:600;color:#dc2626;">+1,781원</div></div>
+        </div>
+        <div style="border-left:3px solid #12295a;border-radius:0 8px 8px 0;padding:.8rem 1rem;font-size:13px;color:#374151;line-height:1.8;background:#f9fafb;margin-bottom:10px;">
+          바이알은 하루 <strong>1회만</strong> 청구 인정.<br>
+          반코키트는 <strong>횟수 제한 없이</strong> 매회 청구 가능.<br>
+          BID 처방시 → <strong>25,798원</strong> vs 바이알 1,755원
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+          <div style="background:#fee2e2;border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">바이알 점적 연간(1000V)</div><div style="font-size:14px;font-weight:600;color:#dc2626;">10,530,000원</div></div>
+          <div style="background:#eef2f9;border:1px solid #c5cfe8;border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">키트 연간(1000V)</div><div style="font-size:14px;font-weight:600;color:#12295a;">38,640,000원</div></div>
+          <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:#9ca3af;margin-bottom:3px;">병원 추가수익</div><div style="font-size:14px;font-weight:600;color:#065f46;">+2,811만원</div></div>
+        </div>
+        <div style="font-size:11px;color:#9ca3af;line-height:1.7;margin-top:10px;">* 3차병원 30% 가산율 미적용 기본 수가 기준.</div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="vslide" style="display:none;">
+      <div style="background:linear-gradient(135deg,#12295a,#1d6a4a);padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">WHO SHOULD USE</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">누가 쓰면 좋을까?</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">환자 상태에 따라 KIT ↔ 바이알 이중 전략</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:1rem;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#e8edf5;color:#12295a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">🏥</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">일반 병동 → KIT 추천</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">안정적 신기능, 표준 1g 용량으로 충분한 환자. 간호 업무 효율 + 감염 예방 + 병원 수익 모두 잡을 수 있습니다.</span></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:1rem 0;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#f5ead9;color:#b9973e;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">📈</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">ICU·CRRT·중증 → 바이알 병행</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">신기능 변동이 크고 AUC 기반 TDM이 필요한 환자. 용량을 자유롭게 조절할 수 있는 바이알이 더 적합합니다.</span></div>
+        </div>
+        <div style="border-left:3px solid #12295a;border-radius:0 8px 8px 0;padding:.8rem 1rem;font-size:13px;color:#374151;line-height:1.8;background:#f9fafb;margin-top:1rem;">
+          "일반 병동은 KIT로 효율화,<br>TDM 집중 환자는 바이알로 정밀 조절"<br>
+          <span style="font-size:12px;color:#6b7280;">이 이중 전략을 제안하면 감염내과·ICU 교수에게 더 신뢰를 얻을 수 있습니다.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="vslide" style="display:none;">
+      <div style="background:linear-gradient(135deg,#1f2937,#12295a);padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">BILLING EVIDENCE</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">주사료(행위수가) 근거</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">2025년 기본 수가 기준</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#6b7280;padding-bottom:6px;border-bottom:1px solid #f3f4f6;margin-bottom:8px;">① 1회 주사료 비교</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
+          <div style="background:#fee2e2;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">바이알 IV side injection</div><div style="font-size:16px;font-weight:700;color:#dc2626;">1,440원/회</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">입원 하루 2회까지</div></div>
+          <div style="background:#f9fafb;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">바이알 점적주사</div><div style="font-size:16px;font-weight:700;color:#374151;">1,755원/회</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">하루 1회만 인정</div></div>
+          <div style="background:#eef2f9;border:1px solid #c5cfe8;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">반코키트 점적주사</div><div style="font-size:16px;font-weight:700;color:#12295a;">3,220원/회</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">횟수 제한 없음</div></div>
+        </div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#6b7280;padding-bottom:6px;border-bottom:1px solid #f3f4f6;margin-bottom:8px;">② BID 하루 청구 합계</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:16px;">
+          <div style="background:#fee2e2;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">바이알 IV · BID</div><div style="font-size:16px;font-weight:700;color:#dc2626;">2,880원/일</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">1,440 × 2회</div></div>
+          <div style="background:#fee2e2;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">바이알 점적 · BID 처방해도</div><div style="font-size:16px;font-weight:700;color:#dc2626;">1,755원/일</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">1회분만 인정, 나머지 삭감</div></div>
+          <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">반코키트 · BID</div><div style="font-size:16px;font-weight:700;color:#065f46;">6,440원/일</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">3,220 × 2회 전액</div></div>
+        </div>
+        <div style="font-size:11px;font-weight:600;letter-spacing:.1em;color:#6b7280;padding-bottom:6px;border-bottom:1px solid #f3f4f6;margin-bottom:8px;">③ 3차병원 30% 가산 적용 시 연간(1,000V BID)</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:12px;">
+          <div style="background:#fee2e2;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">바이알 IV 연간</div><div style="font-size:15px;font-weight:700;color:#dc2626;">22,464,000원</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">17,280,000 × 1.3</div></div>
+          <div style="background:#fee2e2;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">바이알 점적 연간</div><div style="font-size:15px;font-weight:700;color:#dc2626;">13,689,000원</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">10,530,000 × 1.3</div></div>
+          <div style="background:#d1fae5;border:1px solid #6ee7b7;border-radius:8px;padding:.8rem 1rem;"><div style="font-size:11px;color:#6b7280;margin-bottom:4px;font-weight:500;">반코키트 연간</div><div style="font-size:15px;font-weight:700;color:#065f46;">50,232,000원</div><div style="font-size:11px;color:#9ca3af;margin-top:3px;">38,640,000 × 1.3</div></div>
+        </div>
+        <div style="background:#12295a;border-radius:12px;padding:1.2rem 1.4rem;">
+          <div style="font-size:12px;color:rgba(255,255,255,.65);margin-bottom:10px;">3차병원 30% 가산 적용 시 키트 우위</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:rgba(255,255,255,.55);margin-bottom:3px;">vs 바이알 IV</div><div style="font-size:15px;font-weight:700;color:#f5c842;">+27,768,000원</div><div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:2px;">연간 차이</div></div>
+            <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:rgba(255,255,255,.55);margin-bottom:3px;">vs 바이알 점적</div><div style="font-size:15px;font-weight:700;color:#f5c842;">+36,543,000원</div><div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:2px;">연간 차이</div></div>
+            <div style="background:rgba(255,255,255,.1);border-radius:8px;padding:.7rem .9rem;"><div style="font-size:10px;color:rgba(255,255,255,.55);margin-bottom:3px;">종합병원 25% 가산</div><div style="font-size:15px;font-weight:700;color:#fff;">48,300,000원</div><div style="font-size:10px;color:rgba(255,255,255,.45);margin-top:2px;">키트 연간</div></div>
+          </div>
+        </div>
+        <div style="font-size:11px;color:#9ca3af;line-height:1.7;margin-top:12px;">* 2025년 기본 행위수가 기준. 연간 1,000V BID 사용 기준.</div>
+      </div>
+    </div>
+
+    <!-- 도트 네비 -->
+    <div style="display:flex;gap:6px;justify-content:center;padding:1rem 0 1.5rem;" id="vancoDots">
+      <div style="width:20px;height:6px;border-radius:3px;background:#12295a;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(0)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(1)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(2)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(3)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(4)"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var cur = 0;
+  var slides = document.querySelectorAll('.vslide');
+  var tabs = document.querySelectorAll('.vtab');
+  var dots = document.querySelectorAll('#vancoDots div');
+
+  window.vancoOpenModal = function(){
+    var el = document.getElementById('vancoModalBg');
+    el.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+  window.vancoCloseModal = function(){
+    document.getElementById('vancoModalBg').style.display = 'none';
+    document.body.style.overflow = '';
+  };
+  window.vancoGoSlide = function(n){
+    slides[cur].style.display = 'none';
+    tabs[cur].style.background = '#fff';
+    tabs[cur].style.color = '#6b7280';
+    tabs[cur].style.borderColor = '#e5e7eb';
+    dots[cur].style.width = '6px';
+    dots[cur].style.borderRadius = '50%';
+    dots[cur].style.background = '#d1d5db';
+    cur = n;
+    slides[cur].style.display = 'block';
+    tabs[cur].style.background = '#12295a';
+    tabs[cur].style.color = '#fff';
+    tabs[cur].style.borderColor = '#12295a';
+    dots[cur].style.width = '20px';
+    dots[cur].style.borderRadius = '3px';
+    dots[cur].style.background = '#12295a';
+  };
+})();
+</script>
       <div class="product-card">
         <div class="product-card-img-placeholder" style="display:flex;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.1em;color:var(--gold);">BRITON</div><div style="font-size:.9rem;letter-spacing:.3em;color:#4a6090;">브리턴주사</div></div>
         <div class="product-card-body">
