@@ -987,7 +987,7 @@ background:#000;
   // ── DTMF SOUND ──
 const dtmfAudio = new Audio('DTMF_Tones.m4a');
 function playDTMF(n) {
-  dtmfAudio.currentTime = parseInt(n) * 0.6;
+  dtmfAudio.currentTime = 1.6;
   dtmfAudio.play();
 }
 function stopDTMF() {
