@@ -984,6 +984,15 @@ background:#000;
 </div>
 
 <script>
+  // ── DTMF SOUND ──
+const dtmfAudio = new Audio('DTMF_Tones.m4a');
+function playDTMF(n) {
+  dtmfAudio.currentTime = parseInt(n) * 0.6;
+  dtmfAudio.play();
+}
+function stopDTMF() {
+  dtmfAudio.pause();
+}
 // ── GATE GEMINI KEYPAD ──
 const CORRECT='9811';
 let gInput='';
@@ -999,7 +1008,18 @@ document.getElementById('gKeypad').addEventListener('click',function(e){
   else if(n==='#'){gCheck(e,btn);}
   else{gKey(e,btn,n);}
 });
-
+document.getElementById('gKeypad').addEventListener('mousedown', function(e) {
+  const btn = e.target.closest('.g-key');
+  if (!btn || isNaN(parseInt(btn.dataset.n))) return;
+  playDTMF(btn.dataset.n);
+});
+document.getElementById('gKeypad').addEventListener('mouseup', stopDTMF);
+document.getElementById('gKeypad').addEventListener('touchstart', function(e) {
+  const btn = e.target.closest('.g-key');
+  if (!btn || isNaN(parseInt(btn.dataset.n))) return;
+  playDTMF(btn.dataset.n);
+}, {passive:true});
+document.getElementById('gKeypad').addEventListener('touchend', stopDTMF, {passive:true});
 function gKey(e,btn,n){
   if(gInput.length>=4)return;
   gRipple(e,btn);gInput+=n;gRender();
