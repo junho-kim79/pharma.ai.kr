@@ -989,7 +989,6 @@ const dtmfAudio = new Audio('DTMF_Tones.m4a');
 function playDTMF(n) {
   dtmfAudio.currentTime = parseInt(n) * 0.6;
   dtmfAudio.play();
-  setTimeout(stopDTMF, 800);
 }
 function stopDTMF() {
   dtmfAudio.pause();
@@ -1015,7 +1014,7 @@ document.getElementById('gKeypad').addEventListener('mousedown', function(e) {
   playDTMF(btn.dataset.n);
 });
 document.getElementById('gKeypad').addEventListener('mouseup', stopDTMF);
-document.getElementById('gKeypad').addEventListener('touchend', function(e) {
+document.getElementById('gKeypad').addEventListener('touchstart', function(e) {
   const btn = e.target.closest('.g-key');
   if (!btn || isNaN(parseInt(btn.dataset.n))) return;
   playDTMF(btn.dataset.n);
