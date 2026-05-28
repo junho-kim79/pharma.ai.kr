@@ -418,6 +418,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
       <button class="vtab" onclick="vancoGoSlide(2)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">03 비용 비교</button>
       <button class="vtab" onclick="vancoGoSlide(3)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">04 사용 전략</button>
       <button class="vtab" onclick="vancoGoSlide(4)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">05 수가 근거</button>
+      <button class="vtab" onclick="vancoGoSlide(5)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">06 사용법 영상</button>
     </div>
 
     <!-- SLIDE 1 -->
@@ -553,6 +554,16 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
         <div style="font-size:11px;color:#9ca3af;line-height:1.7;margin-top:12px;">* 2025년 기본 행위수가 기준. 연간 1,000V BID 사용 기준.</div>
       </div>
     </div>
+    <!-- SLIDE 6 -->
+<div class="vslide" style="display:none;">
+  <div style="background:#12295a;padding:2rem 2.2rem 1.5rem;">
+    <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">HOW TO USE</div>
+    <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">반코키트 사용법</h2>
+  </div>
+  <div style="padding:1.5rem 2.2rem;">
+    <iframe width="100%" style="aspect-ratio:16/9;border-radius:8px;" src="https://www.youtube.com/embed/Pnvqeoq2-jI" frameborder="0" allowfullscreen></iframe>
+  </div>
+</div>
 
     <!-- 도트 네비 -->
     <div style="display:flex;gap:6px;justify-content:center;padding:1rem 0 1.5rem;" id="vancoDots">
@@ -561,6 +572,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
       <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(2)"></div>
       <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(3)"></div>
       <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(4)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(5)"></div>
     </div>
 
   </div>
@@ -599,6 +611,12 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     dots[cur].style.borderRadius = '3px';
     dots[cur].style.background = '#12295a';
   };
+  document.addEventListener('keydown', function(e){
+  if(document.getElementById('vancoModalBg').style.display==='none') return;
+  if(e.key==='ArrowRight') vancoGoSlide(Math.min(cur+1, 5));
+  if(e.key==='ArrowLeft') vancoGoSlide(Math.max(cur-1, 0));
+  if(e.key==='Escape') vancoCloseModal();
+});
 })();
 </script>
       <div class="product-card">
