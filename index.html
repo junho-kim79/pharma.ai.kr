@@ -337,9 +337,43 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   <span style="font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:3px;color:rgba(200,255,80,.7);">▶ PLAY · HI-FI</span>
 
 </div>
-<iframe 
-  src="https://www.youtube.com/embed/QK-s478AtHA?autoplay=1&mute=1&loop=1&playlist=QK-s478AtHA" 
-  id="heroVideo" 
+<div style="position:relative;display:inline-block;">
+  <iframe 
+    id="heroVideo"
+    src="https://www.youtube.com/embed/QK-s478AtHA?autoplay=1&mute=1&loop=1&playlist=QK-s478AtHA" 
+    style="width:clamp(380px,52vw,780px);aspect-ratio:16/9;border-radius:4px;box-shadow:0 0 0 2px rgba(200,255,80,.15),0 0 40px rgba(0,0,0,.6);mix-blend-mode:lighten;"
+    frameborder="0" allow="autoplay; fullscreen">
+  </iframe>
+  <!-- 좌우 버튼 -->
+  <button onclick="heroVideoPrev()" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
+  <button onclick="heroVideoNext()" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
+  <!-- 카운터 -->
+  <div id="heroVideoCounter" style="position:absolute;bottom:10px;right:14px;font-size:11px;color:rgba(200,255,80,.6);font-family:monospace;letter-spacing:2px;">1 / 7</div>
+</div>
+
+<script>
+var heroVideos = [
+  'QK-s478AtHA',
+  'Pnvqeoq2-jI',
+  'rUy5xMk1oA4',
+  'cgSm2I28L6g',
+  'ilQszLtf6tQ',
+  'tSi6Dn1H36Y',
+  'ycZdVI-gQxs'
+];
+var heroVideoCur = 0;
+
+function heroVideoLoad(n, autoplay){
+  var ap = autoplay ? '1' : '0';
+  document.getElementById('heroVideo').src =
+    'https://www.youtube.com/embed/' + heroVideos[n] +
+    '?autoplay=' + ap + '&mute=1&loop=1&playlist=' + heroVideos[n];
+  document.getElementById('heroVideoCounter').textContent = (n+1) + ' / ' + heroVideos.length;
+  heroVideoCur = n;
+}
+function heroVideoPrev(){ if(heroVideoCur > 0) heroVideoLoad(heroVideoCur-1, true); }
+function heroVideoNext(){ if(heroVideoCur < heroVideos.length-1) heroVideoLoad(heroVideoCur+1, true); }
+</script>
   style="width:clamp(380px,52vw,780px);aspect-ratio:16/9;border-radius:4px;box-shadow:0 0 0 2px rgba(200,255,80,.15),0 0 40px rgba(0,0,0,.6);mix-blend-mode:lighten;"
   frameborder="0" allow="autoplay; fullscreen">
 </iframe>
@@ -1209,7 +1243,7 @@ function animateBars(){document.querySelectorAll('.prog-fill').forEach(b=>{setTi
 
 // ── HERO ──
 function startHero(){
-  document.getElementById('heroVideo').play();
+  heroVideoLoad(0, true);
   const canvas=document.getElementById('hero-canvas');
   const ctx=canvas.getContext('2d');
   function resize(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight;}
