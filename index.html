@@ -325,10 +325,18 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
         <div class="hero-sub">PHARMACEUTICAL MR · SINCE 2005</div>
       </div>
       <div style="position:relative;flex-shrink:0;">
+        <style>
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.4); }
+}
+#muteBtn { animation: pulse 1.5s ease-in-out infinite; }
+#muteBtn:hover { animation: none; transform: scale(1.2); }
+</style>
 <div style="position:absolute;top:8px;left:10px;display:flex;align-items:center;gap:10px;">
-          <span style="font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:3px;color:rgba(200,255,80,.7);">▶ PLAY · HI-FI</span>
-          <button onclick="const v=document.getElementById('heroVideo');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊'" style="background:rgba(0,0,0,.5);border:1px solid rgba(200,255,80,.3);color:rgba(200,255,80,.7);font-size:15px;padding:4px 10px;border-radius:4px;cursor:pointer;">🔇</button>
-        </div>
+  <span style="font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:3px;color:rgba(200,255,80,.7);">▶ PLAY · HI-FI</span>
+  <button id="muteBtn" onclick="const v=document.getElementById('heroVideo');v.muted=!v.muted;this.textContent=v.muted?'🔇':'🔊';this.style.animation='none';" style="background:rgba(0,0,0,.5);border:1px solid rgba(200,255,80,.3);color:rgba(200,255,80,.7);font-size:22px;padding:6px 12px;border-radius:4px;cursor:pointer;">🔇</button>
+</div>
 <iframe 
   src="https://www.youtube.com/embed/QK-s478AtHA?autoplay=1&mute=1&loop=1&playlist=QK-s478AtHA" 
   id="heroVideo" 
