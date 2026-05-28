@@ -525,7 +525,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
 <!-- ── /반코키트 카드 끝 ── -->
 
 <!-- ── 모달 ── -->
-<div id="vancoModalBg" style="display:none;position:fixed;inset:0;z-index:9999;background:#fff;overflow:hidden;flex-direction:column;">
+<div id="vancoModalBg" style="display:none;position:fixed;inset:0;z-index:9999;background:#fff;overflow:hidden;flex-direction:column;height:100%;">
 
   <!-- 헤더 -->
   <div style="position:relative;z-index:100;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;flex-shrink:0;">
@@ -719,7 +719,7 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   var slides = document.querySelectorAll('.vslide');
   var tabs = document.querySelectorAll('.vtab');
   var dots = document.querySelectorAll('#vancoDots div');
-
+window.vancoCur = 0;
   window.vancoOpenModal = function(){
     var el = document.getElementById('vancoModalBg');
     el.style.display = 'flex';
