@@ -347,14 +347,12 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   <!-- 좌우 버튼 -->
   <button onclick="heroVideoPrev()" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
   <button onclick="heroVideoNext()" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
-  <!-- 카운터 -->
-  <div id="heroVideoCounter" style="position:absolute;bottom:10px;right:14px;font-size:11px;color:rgba(200,255,80,.6);font-family:monospace;letter-spacing:2px;">1 / 7</div>
+  
 </div>
 
 <script>
 var heroVideos = [
   'QK-s478AtHA',
-  'Pnvqeoq2-jI',
   'rUy5xMk1oA4',
   'cgSm2I28L6g',
   'ilQszLtf6tQ',
@@ -371,8 +369,8 @@ function heroVideoLoad(n, autoplay){
   document.getElementById('heroVideoCounter').textContent = (n+1) + ' / ' + heroVideos.length;
   heroVideoCur = n;
 }
-function heroVideoPrev(){ if(heroVideoCur > 0) heroVideoLoad(heroVideoCur-1, true); }
-function heroVideoNext(){ if(heroVideoCur < heroVideos.length-1) heroVideoLoad(heroVideoCur+1, true); }
+function heroVideoPrev(){ heroVideoLoad(heroVideoCur > 0 ? heroVideoCur-1 : heroVideos.length-1, true); }
+function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? heroVideoCur+1 : 0, true); }
 </script>
   style="width:clamp(380px,52vw,780px);aspect-ratio:16/9;border-radius:4px;box-shadow:0 0 0 2px rgba(200,255,80,.15),0 0 40px rgba(0,0,0,.6);mix-blend-mode:lighten;"
   frameborder="0" allow="autoplay; fullscreen">
