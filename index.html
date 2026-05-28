@@ -532,11 +532,14 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
 <!-- =====================================================
      모달 + 슬라이더 (body 어디든 한 번만 삽입)
      ===================================================== -->
-<div id="vancoModalBg" style="display:none;position:fixed;inset:0;z-index:9999;background:#fff;overflow-y:auto;">
+<div id="vancoModalBg" style="display:none;position:fixed;inset:0;z-index:9999;background:#0a0a0a;overflow-y:auto;">
+  <div style="position:sticky;top:0;z-index:100;background:#0a0a0a;border-bottom:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:space-between;padding:.6rem 1.5rem;">
+    <div style="color:#fff;font-size:.8rem;letter-spacing:.2em;font-family:sans-serif;">반코키트주 E-BROCHURE</div>
+    <button onclick="vancoCloseModal()" style="background:rgba(255,255,255,.15);border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;color:#fff;">✕</button>
+  </div>
   <div style="position:relative;">
 
-    <!-- 닫기 버튼 -->
-    <button onclick="vancoCloseModal()" style="position:absolute;top:14px;right:16px;background:rgba(0,0,0,.25);border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;color:#fff;z-index:10;display:flex;align-items:center;justify-content:center;">✕</button>
+
 
     <!-- 탭 네비 -->
     <div style="display:flex;gap:6px;padding:1rem 1.5rem 0;overflow-x:auto;flex-wrap:nowrap;" id="vancoTabs">
@@ -692,8 +695,20 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   </div>
 </div>
 
-    <!-- 도트 네비 -->
-    <div style="display:flex;gap:6px;justify-content:center;padding:1rem 0 1.5rem;" id="vancoDots">
+   
+    <!-- 좌우 버튼 + 도트 네비 -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:1rem 0 1.5rem;">
+      <button onclick="vancoGoSlide(Math.max(cur-1,0))" style="width:40px;height:40px;border-radius:50%;border:1px solid #e5e7eb;background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#374151;">‹</button>
+      <div style="display:flex;gap:6px;align-items:center;" id="vancoDots">
+        <div style="width:20px;height:6px;border-radius:3px;background:#12295a;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(0)"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(1)"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(2)"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(3)"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(4)"></div>
+        <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(5)"></div>
+      </div>
+      <button onclick="vancoGoSlide(Math.min(cur+1,5))" style="width:40px;height:40px;border-radius:50%;border:1px solid #e5e7eb;background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#374151;">›</button>
+    </div>
       <div style="width:20px;height:6px;border-radius:3px;background:#12295a;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(0)"></div>
       <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(1)"></div>
       <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;transition:all .2s;" onclick="vancoGoSlide(2)"></div>
@@ -721,16 +736,41 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     document.getElementById('vancoModalBg').style.display = 'none';
     document.body.style.overflow = '';
   };
-  window.vancoGoSlide = function(n){
-    slides[cur].style.display = 'none';
+window.vancoGoSlide = function(n){
+    if(n < 0 || n >= slides.length) return;
+    var dir = n > cur ? 1 : -1;
+
+    // 현재 슬라이드 밀어내기
+    slides[cur].style.transition = 'transform .35s ease, opacity .35s ease';
+    slides[cur].style.transform = 'translateX(' + (-dir * 100) + '%)';
+    slides[cur].style.opacity = '0';
+
+    // 탭/도트 업데이트
     tabs[cur].style.background = '#fff';
     tabs[cur].style.color = '#6b7280';
     tabs[cur].style.borderColor = '#e5e7eb';
     dots[cur].style.width = '6px';
     dots[cur].style.borderRadius = '50%';
     dots[cur].style.background = '#d1d5db';
+
     cur = n;
+
+    // 새 슬라이드 들어오기
+    slides[cur].style.transition = 'none';
     slides[cur].style.display = 'block';
+    slides[cur].style.transform = 'translateX(' + (dir * 100) + '%)';
+    slides[cur].style.opacity = '0';
+
+    setTimeout(function(){
+      slides[cur].style.transition = 'transform .35s ease, opacity .35s ease';
+      slides[cur].style.transform = 'translateX(0)';
+      slides[cur].style.opacity = '1';
+    }, 20);
+
+    setTimeout(function(){
+      slides.forEach(function(s, i){ if(i !== cur) s.style.display = 'none'; });
+    }, 380);
+
     tabs[cur].style.background = '#12295a';
     tabs[cur].style.color = '#fff';
     tabs[cur].style.borderColor = '#12295a';
