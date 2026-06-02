@@ -341,20 +341,20 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
 <div style="position:absolute;top:8px;left:10px;display:flex;align-items:center;gap:10px;">
   <span style="font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:3px;color:rgba(200,255,80,.7);">▶ PLAY · HI-FI</span>
 
-<div style="position:absolute;top:8px;left:10px;">
-  <span style="font-family:'Share Tech Mono',monospace;font-size:13px;letter-spacing:3px;color:rgba(200,255,80,.7);display:block;margin-bottom:8px;">▶ PLAY · HI-FI</span>
-  <div style="position:relative;display:inline-block;">
-    <iframe 
-      id="heroVideo"
-      src="https://www.youtube.com/embed/7XTjTItkQKY?autoplay=1&mute=1&loop=1&playlist=7XTjTItkQKY&controls=0&modestbranding=1&rel=0&showinfo=0"
-      style="width:clamp(300px,44vw,680px);aspect-ratio:16/9;border-radius:4px;box-shadow:0 0 0 2px rgba(200,255,80,.15),0 0 40px rgba(0,0,0,.6);mix-blend-mode:lighten;pointer-events:none;"
-      frameborder="0" allow="autoplay; fullscreen">
-    </iframe>
-    <div style="position:absolute;top:0;left:0;width:100%;height:100%;z-index:1;"></div>
-    <button onclick="heroVideoPrev()" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;">‹</button>
-    <button onclick="heroVideoNext()" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;">›</button>
-  </div>
 </div>
+<div style="position:relative;display:inline-block;">
+  <iframe 
+    id="heroVideo"
+   src="https://www.youtube.com/embed/7XTjTItkQKY?autoplay=1&mute=1&loop=1&playlist=7XTjTItkQKY"
+    style="width:clamp(300px,44vw,680px);aspect-ratio:16/9;border-radius:4px;box-shadow:0 0 0 2px rgba(200,255,80,.15),0 0 40px rgba(0,0,0,.6);mix-blend-mode:lighten;"
+    frameborder="0" allow="autoplay; fullscreen">
+  </iframe>
+  <!-- 좌우 버튼 -->
+  <button onclick="heroVideoPrev()" style="position:absolute;left:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
+  <button onclick="heroVideoNext()" style="position:absolute;right:-50px;top:50%;transform:translateY(-50%);width:36px;height:36px;border-radius:50%;border:1px solid rgba(200,255,80,.3);background:rgba(0,0,0,.5);color:rgba(200,255,80,.8);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
+  
+</div>
+
 <script>
 var heroVideos = [
   '7XTjTItkQKY',
@@ -376,6 +376,9 @@ function heroVideoLoad(n, autoplay){
 function heroVideoPrev(){ heroVideoLoad(heroVideoCur > 0 ? heroVideoCur-1 : heroVideos.length-1, true); }
 function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? heroVideoCur+1 : 0, true); }
 </script>
+  style="width:clamp(380px,52vw,780px);aspect-ratio:16/9;border-radius:4px;box-shadow:0 0 0 2px rgba(200,255,80,.15),0 0 40px rgba(0,0,0,.6);mix-blend-mode:lighten;"
+  frameborder="0" allow="autoplay; fullscreen">
+</iframe>
       </div>
     </div>
     <div class="hero-tag">PHARMA · AI · KR</div>
