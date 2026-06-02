@@ -145,7 +145,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:cen
 .modal-close:hover{border-color:var(--gold);color:var(--gold);}
 .modal-slide-count{font-size:.92rem;letter-spacing:.3em;color:var(--gold-lt);}
 .modal-body{flex:1;overflow:hidden;position:relative;}
-.modal-slides{display:flex;height:100%;position:relative;}
+.modal-slides{display:flex;height:100%;position:absolute;top:0;left:0;width:100%;transform-origin:0 0;will-change:transform;}.modal-body{cursor:grab;touch-action:none;user-select:none;}.modal-body.dragging{cursor:grabbing;}.zoom-badge{position:absolute;top:.6rem;right:.6rem;z-index:10;background:rgba(0,0,0,.6);color:rgba(255,255,255,.75);font-size:.6rem;letter-spacing:.2em;padding:.28rem .6rem;border-radius:4px;pointer-events:none;transition:opacity .3s;}.zoom-badge.hide{opacity:0;}.zoom-hint{position:absolute;bottom:.7rem;left:50%;transform:translateX(-50%);z-index:10;background:rgba(0,0,0,.5);color:rgba(255,255,255,.6);font-size:.6rem;letter-spacing:.2em;padding:.3rem .8rem;border-radius:4px;pointer-events:none;white-space:nowrap;transition:opacity .6s;}.zoom-hint.hide{opacity:0;}
 .modal-slide{min-width:100%;height:100%;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:absolute;top:0;left:0;width:100%;backface-visibility:hidden;transform-origin:left center;transition:transform .95s cubic-bezier(.77,0,.18,1),opacity .95s,box-shadow .95s;opacity:0;pointer-events:none;}
 .modal-slide.active{opacity:1;pointer-events:auto;transform:rotateY(0deg) scale(1);z-index:2;box-shadow:none;}
 .modal-slide.exit-left{transform:rotateY(-110deg) scale(0.95);opacity:0;z-index:1;box-shadow:-20px 0 60px rgba(0,0,0,0.5);}
@@ -282,7 +282,9 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
       <button class="modal-close" id="modalClose">✕</button>
     </div>
   </div>
-  <div class="modal-body">
+  <div class="modal-body" id="mBody">
+    <div class="zoom-badge hide" id="mZoomBadge">1.0×</div>
+    <div class="zoom-hint" id="mZoomHint">스크롤·핀치 확대 &nbsp;·&nbsp; 드래그 이동 &nbsp;·&nbsp; 더블클릭 2× / 복구</div>
     <div class="modal-slides" id="mSlides">
       <div class="modal-slide"><div class="slide-img-pane"><img src="combicin_01.jpg" alt="콤비신 표지"><div class="slide-img-label">원본 브로셔 표지</div></div><div class="slide-info-pane"><div class="si-eyebrow">Samsung Pharm · 2025</div><div class="si-title">콤비신 주 4.5g<br>Combicin Inj.</div><div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">병원에서 항생제도 안 듣는 가장 무서운 세균(CRAB)을 잡는 주사약입니다. 기존 약보다 핵심 성분이 <strong>3배 많고</strong>, 주사 횟수는 <strong>1/3로 줄었으며</strong>, 보험도 <strong>100%</strong> 됩니다.</div></div><div class="si-points"><div class="si-point"><div class="si-point-dot">1</div><div class="si-point-text">성분: Piperacillin Sodium <strong>3g</strong> + Sulbactam Sodium <strong>1.5g</strong></div></div><div class="si-point"><div class="si-point-dot">2</div><div class="si-point-text"><span class="hl">A.Baumannii 중심</span>의 광범위 항균제</div></div><div class="si-point"><div class="si-point-dot">3</div><div class="si-point-text">한국·일본·유럽·캐나다·호주 <strong>5개국 특허</strong> 보유</div></div></div></div></div>
       <div class="modal-slide"><div class="slide-img-pane"><img src="combicin_02.jpg" alt="성분 설명"><div class="slide-img-label">성분 구성</div></div><div class="slide-info-pane"><div class="si-eyebrow">핵심 비교</div><div class="si-title">콤비신 vs 타조신</div><div class="si-easy"><div class="si-easy-label">✦ 한마디로 말하면</div><div class="si-easy-text">타조신은 세균과 직접 싸우는 성분(설박탐)이 <strong>없습니다</strong>. 콤비신은 <strong>1.5g</strong>이나 들어있어요.</div></div><table class="si-table"><thead><tr><th>구분</th><th>타조신 4.5g</th><th>콤비신 4.5g ★</th></tr></thead><tbody><tr><td>Piperacillin</td><td>4g</td><td>3g</td></tr><tr><td>β-Lactamase 억제제</td><td>Tazobactam 0.5g</td><td class="good">Sulbactam 1.5g</td></tr><tr><td>A.baumannii 직접 항균</td><td class="bad">✕ 없음</td><td class="good">✓ 있음</td></tr><tr class="highlight"><td>CRAB 9g 설박탐 치료</td><td class="bad">불가</td><td class="good">6vial 전액 급여</td></tr></tbody></table></div></div>
@@ -1334,6 +1336,83 @@ document.getElementById('mPrev').addEventListener('click',()=>goTo(cur-1));
 document.getElementById('mNext').addEventListener('click',()=>goTo(cur+1));
 document.getElementById('modalClose').addEventListener('click',()=>{modal.classList.remove('open');document.body.style.overflow='';});
 document.getElementById('combicin-card').addEventListener('click',()=>{modal.classList.add('open');document.body.style.overflow='hidden';goTo(0);});
+
+// ── ZOOM + DRAG ──
+
+// ── ZOOM + DRAG ──
+{
+  const zB=document.getElementById('mBody');
+  const zS=document.getElementById('mSlides');
+  const zBg=document.getElementById('mZoomBadge');
+  const zHt=document.getElementById('mZoomHint');
+  let zSc=1,zTx=0,zTy=0,zDg=false,zLx=0,zLy=0,zPn=false,zPd=0,zTm;
+
+  function zA(an){
+    zS.style.transition=an?'transform .3s ease':'none';
+    zS.style.transform='translate('+zTx+'px,'+zTy+'px) scale('+zSc+')';
+    zBg.textContent=zSc.toFixed(1)+'×';
+    zBg.className='zoom-badge'+(zSc<=1.05?' hide':'');
+  }
+  function zCl(){
+    const vw=zB.offsetWidth,vh=zB.offsetHeight;
+    const mx=vw*(zSc*0.9),my=vh*(zSc*0.9);
+    zTx=Math.max(-mx,Math.min(mx,zTx));
+    zTy=Math.max(-my,Math.min(my,zTy));
+  }
+  function zRs(an){zSc=1;zTx=0;zTy=0;zA(an);}
+  function zSH(){zHt.className='zoom-hint';clearTimeout(zTm);zTm=setTimeout(()=>zHt.className='zoom-hint hide',2800);}
+
+  const _goBase=goTo;
+  goTo=function(n){
+    if(zSc>1.05){zRs(true);setTimeout(()=>_goBase(n),320);}
+    else _goBase(n);
+  };
+  document.getElementById('mPrev').onclick=()=>goTo(cur-1);
+  document.getElementById('mNext').onclick=()=>goTo(cur+1);
+
+  zB.addEventListener('wheel',e=>{
+    e.preventDefault();
+    const r=zB.getBoundingClientRect(),ox=r.width/2,oy=r.height/2;
+    const d=e.deltaY>0?0.88:1.14,ns=Math.max(1,Math.min(4,zSc*d)),ds=ns/zSc;
+    zTx=ox-ds*(ox-zTx);zTy=oy-ds*(oy-zTy);zSc=ns;zCl();zA(false);
+  },{passive:false});
+
+  zB.addEventListener('mousedown',e=>{zDg=true;zLx=e.clientX;zLy=e.clientY;zB.classList.add('dragging');});
+  document.addEventListener('mousemove',e=>{if(!zDg)return;zTx+=e.clientX-zLx;zTy+=e.clientY-zLy;zLx=e.clientX;zLy=e.clientY;zCl();zA(false);});
+  document.addEventListener('mouseup',()=>{zDg=false;zB.classList.remove('dragging');});
+
+  zB.addEventListener('touchstart',e=>{
+    if(e.touches.length===2){zPn=true;zPd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);e.preventDefault();}
+    else if(e.touches.length===1){zDg=true;zLx=e.touches[0].clientX;zLy=e.touches[0].clientY;e.preventDefault();}
+  },{passive:false});
+  zB.addEventListener('touchmove',e=>{
+    if(zPn&&e.touches.length===2){
+      e.preventDefault();
+      const nd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      const r=zB.getBoundingClientRect(),cx=(e.touches[0].clientX+e.touches[1].clientX)/2-r.left,cy=(e.touches[0].clientY+e.touches[1].clientY)/2-r.top;
+      const d=nd/zPd,ns=Math.max(1,Math.min(4,zSc*d)),ds=ns/zSc;
+      zTx=cx-ds*(cx-zTx);zTy=cy-ds*(cy-zTy);zSc=ns;zPd=nd;zCl();zA(false);
+    } else if(zDg&&e.touches.length===1){
+      e.preventDefault();
+      zTx+=e.touches[0].clientX-zLx;zTy+=e.touches[0].clientY-zLy;
+      zLx=e.touches[0].clientX;zLy=e.touches[0].clientY;zCl();zA(false);
+    }
+  },{passive:false});
+  zB.addEventListener('touchend',()=>{zPn=false;zDg=false;});
+
+  zB.addEventListener('dblclick',e=>{
+    if(zSc>1.05){zRs(true);}
+    else{
+      const r=zB.getBoundingClientRect(),ox=e.clientX-r.left,oy=e.clientY-r.top;
+      const ns=2.2,ds=ns/zSc;
+      zTx=ox-ds*(ox-zTx);zTy=oy-ds*(oy-zTy);zSc=ns;zCl();zA(true);
+    }
+  });
+
+  document.getElementById('modalClose').addEventListener('click',()=>zRs(false));
+  document.getElementById('combicin-card').addEventListener('click',()=>zSH());
+}
+
 document.addEventListener('keydown',e=>{if(!modal.classList.contains('open'))return;if(e.key==='ArrowRight')goTo(cur+1);if(e.key==='ArrowLeft')goTo(cur-1);if(e.key==='Escape'){modal.classList.remove('open');document.body.style.overflow='';}});
 </script>
   <script>
