@@ -518,100 +518,166 @@ function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? her
     <div class="s-title">제품 포트폴리오</div>
 <div class="s-rule"></div>
 
-    <!-- ===== 교육 일정 위젯 시작 ===== -->
-    <div id="edu-widget" style="margin:1.5rem 0 2rem;">
-      <div style="background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:16px 20px;">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;">
-          <div style="display:flex;align-items:center;gap:8px;">
-            <span style="font-size:11px;letter-spacing:.1em;color:#8a9ab5;">TODAY</span>
-            <span id="edu-today-date" style="font-size:14px;font-weight:500;color:#c8d4e8;"></span>
+   <div class="s-rule"></div>
+
+    <!-- ===== 교육 일정 위젯 v3 ===== -->
+    <div id="edu-widget" style="margin:1.5rem 0 2.5rem;">
+      <div style="background:rgba(0,0,0,0.03);border:0.5px solid rgba(0,0,0,0.1);border-radius:12px;padding:18px 22px;">
+
+        <!-- 오늘 날짜 + 버튼들 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <span style="font-size:11px;letter-spacing:.12em;color:#888;font-weight:500;">TODAY</span>
+            <span id="edu-today-date" style="font-size:15px;font-weight:500;color:#111;"></span>
           </div>
-          <button id="edu-unlock-btn" onclick="eduHandleUnlock()"
-            style="font-size:11px;padding:4px 12px;border-radius:99px;background:transparent;border:0.5px solid rgba(255,255,255,0.2);color:#8a9ab5;cursor:pointer;">
-            🔒 편집
-          </button>
+          <div style="display:flex;gap:8px;">
+            <button onclick="eduShiftAll()"
+              style="font-size:11px;padding:5px 14px;border-radius:99px;background:transparent;border:1px solid #e8a020;color:#a07820;cursor:pointer;">
+              ⏭ 밀림
+            </button>
+            <button id="edu-edit-btn" onclick="eduToggleEdit()"
+              style="font-size:11px;padding:5px 14px;border-radius:99px;background:transparent;border:1px solid #ccc;color:#888;cursor:pointer;">
+              ✎ 편집
+            </button>
+          </div>
         </div>
-        <div id="edu-pin-area" style="display:none;text-align:center;padding:10px 0 14px;">
-          <input id="edu-pin-input" type="password" maxlength="4" placeholder="PIN"
-            oninput="eduCheckPin()"
-            style="font-size:18px;letter-spacing:.4em;width:80px;text-align:center;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.3);color:#c8d4e8;outline:none;" />
-          <div style="font-size:11px;color:#5a6a80;margin-top:6px;">PIN 4자리 입력</div>
-        </div>
+
+        <!-- 일정 테이블 -->
         <table id="edu-table" style="width:100%;border-collapse:collapse;"></table>
       </div>
     </div>
+
     <script>
     (function(){
-      const PIN='9811';
       const DAYS_KO=['일','월','화','수','목','금','토'];
-      let unlocked=false, editingKey=null;
+      let editing=false, editingKey=null;
       const today=new Date(); today.setHours(0,0,0,0);
+
       document.getElementById('edu-today-date').textContent=
         today.getFullYear()+'년 '+(today.getMonth()+1)+'월 '+today.getDate()+'일 ('+DAYS_KO[today.getDay()]+'요일)';
+
       function getMondaysThisMonth(){
         const y=today.getFullYear(),m=today.getMonth(),d=new Date(y,m,1),res=[];
         while(d.getDay()!==1) d.setDate(d.getDate()+1);
         while(d.getMonth()===m){res.push(new Date(d));d.setDate(d.getDate()+7);}
         return res;
       }
-      const mondays=getMondaysThisMonth();
+
       function dk(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
       function fmt(d){return (d.getMonth()+1)+'/'+(d.getDate())+'(월)';}
       function load(){try{return JSON.parse(localStorage.getItem('pharma_edu')||'{}');}catch{return{};}}
       function save(d){try{localStorage.setItem('pharma_edu',JSON.stringify(d));}catch{}}
+
       function renderTable(){
-        const data=load(),tb=document.getElementById('edu-table');
+        const mondays=getMondaysThisMonth();
+        const lastMonday=mondays[mondays.length-1];
+        const lastKey=dk(lastMonday);
+        const data=load();
+        const tb=document.getElementById('edu-table');
         tb.innerHTML='';
-        mondays.forEach(mon=>{
-          const key=dk(mon),item=data[key]||{};
-          const isToday=mon.getTime()===today.getTime(),isPast=mon<today;
+
+        mondays.forEach((mon,idx)=>{
+          const key=dk(mon);
+          const isLast=(idx===mondays.length-1);
+          const item=data[key]||{};
+          const isToday=mon.getTime()===today.getTime();
+          const isPast=mon<today;
           const tr=document.createElement('tr');
-          if(isPast&&!isToday) tr.style.opacity='.4';
+          if(isPast&&!isToday) tr.style.opacity='.5';
+
+          // 마지막 월요일 = 교육없음
+          if(isLast){
+            tr.innerHTML=`
+              <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;color:#bbb;font-size:13px;white-space:nowrap;width:90px;">${fmt(mon)}</td>
+              <td colspan="3" style="padding:10px 8px;border-bottom:1px solid #f0f0f0;color:#bbb;font-size:13px;font-style:italic;">교육 없음</td>
+              <td style="border-bottom:1px solid #f0f0f0;width:30px;"></td>`;
+            tb.appendChild(tr);
+            return;
+          }
+
           const badge=isToday
-            ?'<span style="font-size:10px;padding:2px 8px;border-radius:99px;background:#185FA5;color:#E6F1FB;">오늘</span>'
+            ?'<span style="font-size:11px;padding:3px 10px;border-radius:99px;background:#1a5fa8;color:#fff;font-weight:500;">오늘</span>'
             :isPast
-              ?'<span style="font-size:10px;padding:2px 8px;border-radius:99px;background:rgba(255,255,255,0.07);color:#5a6a80;">완료</span>'
-              :'<span style="font-size:10px;padding:2px 8px;border-radius:99px;background:rgba(184,164,100,0.15);color:#b8a464;border:0.5px solid rgba(184,164,100,0.3);">예정</span>';
-          const productHtml=(unlocked&&editingKey===key)
-            ?`<input id="ep_${key}" value="${item.product||''}" placeholder="제품명" style="font-size:13px;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.3);color:#c8d4e8;outline:none;width:110px;">`
-            :`<span style="font-size:13px;font-weight:500;color:${item.product?'#c8d4e8':'#3a4a60'};">${item.product||'미정'}</span>`;
-          const personHtml=(unlocked&&editingKey===key)
-            ?`<input id="en_${key}" value="${item.person||''}" placeholder="담당자" style="font-size:12px;background:transparent;border:none;border-bottom:1px solid rgba(255,255,255,0.3);color:#8a9ab5;outline:none;width:80px;">`
-            :`<span style="font-size:12px;color:#8a9ab5;">${item.person||''}</span>`;
-          const editHtml=unlocked
+              ?'<span style="font-size:11px;padding:3px 10px;border-radius:99px;background:#eee;color:#666;">완료</span>'
+              :'<span style="font-size:11px;padding:3px 10px;border-radius:99px;background:#fff8e6;color:#a07820;border:1px solid #e8d08a;">예정</span>';
+
+          const productHtml=(editing&&editingKey===key)
+            ?`<input id="ep_${key}" value="${item.product||''}" placeholder="제품명"
+                style="font-size:14px;background:transparent;border:none;border-bottom:1.5px solid #aaa;color:#111;outline:none;width:130px;">`
+            :`<span style="font-size:14px;font-weight:500;color:#111;">${item.product||'미정'}</span>`;
+
+          const personHtml=(editing&&editingKey===key)
+            ?`<input id="en_${key}" value="${item.person||''}" placeholder="담당자"
+                style="font-size:13px;background:transparent;border:none;border-bottom:1.5px solid #aaa;color:#111;outline:none;width:90px;">`
+            :`<span style="font-size:13px;color:#111;">${item.person||''}</span>`;
+
+          const editHtml=editing
             ?(editingKey===key
-              ?`<button onclick="eduSaveRow('${key}')" style="background:none;border:none;cursor:pointer;color:#b8a464;font-size:14px;padding:2px 6px;">✓</button>`
-              :`<button onclick="eduEditRow('${key}')" style="background:none;border:none;cursor:pointer;color:#5a6a80;font-size:13px;padding:2px 6px;">✎</button>`)
+              ?`<button onclick="eduSaveRow('${key}')" style="background:none;border:none;cursor:pointer;color:#1a5fa8;font-size:16px;padding:2px 6px;">✓</button>`
+              :`<button onclick="eduEditRow('${key}')" style="background:none;border:none;cursor:pointer;color:#aaa;font-size:14px;padding:2px 6px;">✎</button>`)
             :'';
+
+          const dateColor=isToday?'#1a5fa8':'#111';
+          const dateBold=isToday?'600':'500';
           tr.innerHTML=`
-            <td style="padding:8px 6px;border-bottom:0.5px solid rgba(255,255,255,0.06);color:${isToday?'#7ab0e8':'#5a6a80'};font-size:12px;white-space:nowrap;width:80px;">${fmt(mon)}</td>
-            <td style="padding:8px 6px;border-bottom:0.5px solid rgba(255,255,255,0.06);">${productHtml}</td>
-            <td style="padding:8px 6px;border-bottom:0.5px solid rgba(255,255,255,0.06);">${personHtml}</td>
-            <td style="padding:8px 6px;border-bottom:0.5px solid rgba(255,255,255,0.06);text-align:right;">${badge}</td>
-            <td style="padding:8px 2px;border-bottom:0.5px solid rgba(255,255,255,0.06);width:28px;">${editHtml}</td>`;
+            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;color:${dateColor};font-size:13px;white-space:nowrap;width:90px;font-weight:${dateBold};">${fmt(mon)}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;">${productHtml}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;">${personHtml}</td>
+            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;text-align:right;">${badge}</td>
+            <td style="padding:10px 4px;border-bottom:1px solid #f0f0f0;width:30px;">${editHtml}</td>`;
           tb.appendChild(tr);
         });
       }
-      window.eduHandleUnlock=function(){
-        if(unlocked){unlocked=false;editingKey=null;document.getElementById('edu-unlock-btn').textContent='🔒 편집';document.getElementById('edu-pin-area').style.display='none';renderTable();return;}
-        const pa=document.getElementById('edu-pin-area');
-        pa.style.display=pa.style.display==='none'?'block':'none';
-        if(pa.style.display==='block') document.getElementById('edu-pin-input').focus();
+
+      // 밀림: 오늘 이후 예정된 일정들을 1주씩 뒤로
+      window.eduShiftAll=function(){
+        if(!confirm('이번 달 예정 교육을 전부 1주 뒤로 미룰까요?')) return;
+        const mondays=getMondaysThisMonth();
+        const lastKey=dk(mondays[mondays.length-1]);
+        const data=load();
+        // 오늘 이후 예정 항목만, 마지막 월요일 제외, 역순으로 이동
+        const upcoming=mondays.filter(m=>m>=today && dk(m)!==lastKey).reverse();
+        upcoming.forEach(mon=>{
+          const key=dk(mon);
+          const nextDate=new Date(mon); nextDate.setDate(nextDate.getDate()+7);
+          const nextKey=dk(nextDate);
+          if(dk(nextDate)!==lastKey){ // 마지막 월요일로 밀리면 스킵
+            data[nextKey]=data[key]||{};
+          }
+          delete data[key];
+        });
+        save(data);
+        editingKey=null;
+        renderTable();
       };
-      window.eduCheckPin=function(){
-        const v=document.getElementById('edu-pin-input').value;
-        if(v===PIN){unlocked=true;document.getElementById('edu-pin-area').style.display='none';document.getElementById('edu-pin-input').value='';document.getElementById('edu-unlock-btn').textContent='🔓 편집중';renderTable();}
+
+      window.eduToggleEdit=function(){
+        editing=!editing;
+        editingKey=null;
+        document.getElementById('edu-edit-btn').textContent=editing?'✓ 완료':'✎ 편집';
+        document.getElementById('edu-edit-btn').style.borderColor=editing?'#1a5fa8':'#ccc';
+        document.getElementById('edu-edit-btn').style.color=editing?'#1a5fa8':'#888';
+        renderTable();
       };
-      window.eduEditRow=function(key){editingKey=key;renderTable();setTimeout(()=>{const el=document.getElementById('ep_'+key);if(el)el.focus();},50);};
+
+      window.eduEditRow=function(key){
+        editingKey=key;renderTable();
+        setTimeout(()=>{const el=document.getElementById('ep_'+key);if(el)el.focus();},50);
+      };
+
       window.eduSaveRow=function(key){
-        const data=load(),p=document.getElementById('ep_'+key),n=document.getElementById('en_'+key);
+        const data=load();
+        const p=document.getElementById('ep_'+key),n=document.getElementById('en_'+key);
         data[key]={product:p?p.value.trim():'',person:n?n.value.trim():''};
         save(data);editingKey=null;renderTable();
       };
+
       renderTable();
     })();
     </script>
     <!-- ===== 교육 일정 위젯 끝 ===== -->
+
+    <div class="product-grid">
 
     <div class="product-grid">
       <div class="product-card" id="combicin-card">
