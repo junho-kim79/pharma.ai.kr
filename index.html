@@ -520,25 +520,32 @@ function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? her
 
    <div class="s-rule"></div>
 
-    <!-- ===== 교육 일정 위젯 v3 ===== -->
-    <div id="edu-widget" style="margin:1.5rem 0 2.5rem;">
-      <div style="background:rgba(0,0,0,0.03);border:0.5px solid rgba(0,0,0,0.1);border-radius:12px;padding:18px 22px;">
+    <div class="s-rule"></div>
 
-        <!-- 오늘 날짜 + 버튼들 -->
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px;">
-          <div style="display:flex;align-items:center;gap:10px;">
-            <span style="font-size:11px;letter-spacing:.12em;color:#888;font-weight:500;">TODAY</span>
-            <span id="edu-today-date" style="font-size:15px;font-weight:500;color:#111;"></span>
+    <!-- ===== 교육 일정 위젯 v4 ===== -->
+    <div id="edu-widget" style="margin:1.5rem 0 2.5rem;">
+      <div style="background:rgba(0,0,0,0.03);border:0.5px solid rgba(0,0,0,0.1);border-radius:12px;padding:20px 24px;">
+
+        <!-- 오늘 날짜 -->
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+          <span style="font-size:12px;letter-spacing:.12em;color:#888;font-weight:500;">TODAY</span>
+          <span id="edu-today-date" style="font-size:16px;font-weight:600;color:#111;"></span>
+        </div>
+
+        <!-- 월 네비게이션 + 버튼들 -->
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <button onclick="eduChangeMonth(-1)"
+              style="font-size:14px;padding:4px 10px;border-radius:6px;background:transparent;border:1px solid #ddd;color:#555;cursor:pointer;">◀</button>
+            <span id="edu-month-label" style="font-size:16px;font-weight:600;color:#111;min-width:80px;text-align:center;"></span>
+            <button onclick="eduChangeMonth(1)"
+              style="font-size:14px;padding:4px 10px;border-radius:6px;background:transparent;border:1px solid #ddd;color:#555;cursor:pointer;">▶</button>
           </div>
           <div style="display:flex;gap:8px;">
             <button onclick="eduShiftAll()"
-              style="font-size:11px;padding:5px 14px;border-radius:99px;background:transparent;border:1px solid #e8a020;color:#a07820;cursor:pointer;">
-              ⏭ 밀림
-            </button>
+              style="font-size:12px;padding:5px 14px;border-radius:99px;background:transparent;border:1px solid #e8a020;color:#a07820;cursor:pointer;">⏭ 밀림</button>
             <button id="edu-edit-btn" onclick="eduToggleEdit()"
-              style="font-size:11px;padding:5px 14px;border-radius:99px;background:transparent;border:1px solid #ccc;color:#888;cursor:pointer;">
-              ✎ 편집
-            </button>
+              style="font-size:12px;padding:5px 14px;border-radius:99px;background:transparent;border:1px solid #ccc;color:#888;cursor:pointer;">✎ 편집</button>
           </div>
         </div>
 
@@ -552,12 +559,25 @@ function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? her
       const DAYS_KO=['일','월','화','수','목','금','토'];
       let editing=false, editingKey=null;
       const today=new Date(); today.setHours(0,0,0,0);
+      let viewYear=today.getFullYear(), viewMonth=today.getMonth();
 
+      // 오늘 날짜 표시
       document.getElementById('edu-today-date').textContent=
         today.getFullYear()+'년 '+(today.getMonth()+1)+'월 '+today.getDate()+'일 ('+DAYS_KO[today.getDay()]+'요일)';
 
-      function getMondaysThisMonth(){
-        const y=today.getFullYear(),m=today.getMonth(),d=new Date(y,m,1),res=[];
+      // 초기 데이터 (일정표 기준)
+      const PRESET = {
+        '2026-6-1':  {product:'칼슘제(칼테오)', person:'지영진'},
+        '2026-6-8':  {product:'리포타손 주',   person:'강성근'},
+        '2026-6-15': {product:'콤비신',         person:'김준호'},
+        '2026-6-22': {product:'레일라 디에스',  person:'김병문'},
+        '2026-7-6':  {product:'에제슈프라',     person:'지영진'},
+        '2026-7-13': {product:'아토젯',         person:'강성근'},
+        '2026-7-20': {product:'놀텍(PPI)',      person:'김준호'},
+      };
+
+      function getMondaysOfMonth(y,m){
+        const d=new Date(y,m,1),res=[];
         while(d.getDay()!==1) d.setDate(d.getDate()+1);
         while(d.getMonth()===m){res.push(new Date(d));d.setDate(d.getDate()+7);}
         return res;
@@ -565,13 +585,27 @@ function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? her
 
       function dk(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
       function fmt(d){return (d.getMonth()+1)+'/'+(d.getDate())+'(월)';}
-      function load(){try{return JSON.parse(localStorage.getItem('pharma_edu')||'{}');}catch{return{};}}
-      function save(d){try{localStorage.setItem('pharma_edu',JSON.stringify(d));}catch{}}
 
-      function renderTable(){
-        const mondays=getMondaysThisMonth();
-        const lastMonday=mondays[mondays.length-1];
-        const lastKey=dk(lastMonday);
+      function load(){
+        try{
+          const stored=JSON.parse(localStorage.getItem('pharma_edu_v4')||'{}');
+          // 프리셋과 병합 (저장된 값 우선)
+          return Object.assign({},PRESET,stored);
+        }catch{return Object.assign({},PRESET);}
+      }
+      function save(d){
+        try{
+          // 프리셋과 다른 것만 저장
+          const toStore={};
+          Object.keys(d).forEach(k=>{ toStore[k]=d[k]; });
+          localStorage.setItem('pharma_edu_v4',JSON.stringify(toStore));
+        }catch{}
+      }
+
+      function renderMonth(){
+        document.getElementById('edu-month-label').textContent=viewYear+'년 '+(viewMonth+1)+'월';
+        const mondays=getMondaysOfMonth(viewYear,viewMonth);
+        const lastKey=dk(mondays[mondays.length-1]);
         const data=load();
         const tb=document.getElementById('edu-table');
         tb.innerHTML='';
@@ -583,85 +617,91 @@ function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? her
           const isToday=mon.getTime()===today.getTime();
           const isPast=mon<today;
           const tr=document.createElement('tr');
-          if(isPast&&!isToday) tr.style.opacity='.5';
+          if(isPast&&!isToday) tr.style.opacity='.45';
 
           // 마지막 월요일 = 교육없음
           if(isLast){
             tr.innerHTML=`
-              <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;color:#bbb;font-size:13px;white-space:nowrap;width:90px;">${fmt(mon)}</td>
-              <td colspan="3" style="padding:10px 8px;border-bottom:1px solid #f0f0f0;color:#bbb;font-size:13px;font-style:italic;">교육 없음</td>
+              <td style="padding:11px 8px;border-bottom:1px solid #f0f0f0;color:#bbb;font-size:14px;white-space:nowrap;width:90px;">${fmt(mon)}</td>
+              <td colspan="3" style="padding:11px 8px;border-bottom:1px solid #f0f0f0;color:#bbb;font-size:14px;font-style:italic;">교육 없음</td>
               <td style="border-bottom:1px solid #f0f0f0;width:30px;"></td>`;
             tb.appendChild(tr);
             return;
           }
 
           const badge=isToday
-            ?'<span style="font-size:11px;padding:3px 10px;border-radius:99px;background:#1a5fa8;color:#fff;font-weight:500;">오늘</span>'
+            ?'<span style="font-size:12px;padding:3px 11px;border-radius:99px;background:#1a5fa8;color:#fff;font-weight:500;">오늘</span>'
             :isPast
-              ?'<span style="font-size:11px;padding:3px 10px;border-radius:99px;background:#eee;color:#666;">완료</span>'
-              :'<span style="font-size:11px;padding:3px 10px;border-radius:99px;background:#fff8e6;color:#a07820;border:1px solid #e8d08a;">예정</span>';
+              ?'<span style="font-size:12px;padding:3px 11px;border-radius:99px;background:#eee;color:#666;">완료</span>'
+              :'<span style="font-size:12px;padding:3px 11px;border-radius:99px;background:#fff8e6;color:#a07820;border:1px solid #e8d08a;">예정</span>';
 
           const productHtml=(editing&&editingKey===key)
             ?`<input id="ep_${key}" value="${item.product||''}" placeholder="제품명"
-                style="font-size:14px;background:transparent;border:none;border-bottom:1.5px solid #aaa;color:#111;outline:none;width:130px;">`
-            :`<span style="font-size:14px;font-weight:500;color:#111;">${item.product||'미정'}</span>`;
+                style="font-size:15px;background:transparent;border:none;border-bottom:1.5px solid #aaa;color:#111;outline:none;width:140px;">`
+            :`<span style="font-size:15px;font-weight:600;color:#111;">${item.product||'미정'}</span>`;
 
           const personHtml=(editing&&editingKey===key)
             ?`<input id="en_${key}" value="${item.person||''}" placeholder="담당자"
-                style="font-size:13px;background:transparent;border:none;border-bottom:1.5px solid #aaa;color:#111;outline:none;width:90px;">`
-            :`<span style="font-size:13px;color:#111;">${item.person||''}</span>`;
+                style="font-size:14px;background:transparent;border:none;border-bottom:1.5px solid #aaa;color:#111;outline:none;width:90px;">`
+            :`<span style="font-size:14px;color:#111;">${item.person||''}</span>`;
 
           const editHtml=editing
             ?(editingKey===key
-              ?`<button onclick="eduSaveRow('${key}')" style="background:none;border:none;cursor:pointer;color:#1a5fa8;font-size:16px;padding:2px 6px;">✓</button>`
-              :`<button onclick="eduEditRow('${key}')" style="background:none;border:none;cursor:pointer;color:#aaa;font-size:14px;padding:2px 6px;">✎</button>`)
+              ?`<button onclick="eduSaveRow('${key}')" style="background:none;border:none;cursor:pointer;color:#1a5fa8;font-size:18px;padding:2px 6px;">✓</button>`
+              :`<button onclick="eduEditRow('${key}')" style="background:none;border:none;cursor:pointer;color:#aaa;font-size:15px;padding:2px 6px;">✎</button>`)
             :'';
 
           const dateColor=isToday?'#1a5fa8':'#111';
-          const dateBold=isToday?'600':'500';
           tr.innerHTML=`
-            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;color:${dateColor};font-size:13px;white-space:nowrap;width:90px;font-weight:${dateBold};">${fmt(mon)}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;">${productHtml}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;">${personHtml}</td>
-            <td style="padding:10px 8px;border-bottom:1px solid #f0f0f0;text-align:right;">${badge}</td>
-            <td style="padding:10px 4px;border-bottom:1px solid #f0f0f0;width:30px;">${editHtml}</td>`;
+            <td style="padding:11px 8px;border-bottom:1px solid #f0f0f0;color:${dateColor};font-size:14px;white-space:nowrap;width:90px;font-weight:${isToday?'700':'500'};">${fmt(mon)}</td>
+            <td style="padding:11px 8px;border-bottom:1px solid #f0f0f0;">${productHtml}</td>
+            <td style="padding:11px 8px;border-bottom:1px solid #f0f0f0;">${personHtml}</td>
+            <td style="padding:11px 8px;border-bottom:1px solid #f0f0f0;text-align:right;">${badge}</td>
+            <td style="padding:11px 4px;border-bottom:1px solid #f0f0f0;width:30px;">${editHtml}</td>`;
           tb.appendChild(tr);
         });
       }
 
-      // 밀림: 오늘 이후 예정된 일정들을 1주씩 뒤로
+      window.eduChangeMonth=function(dir){
+        viewMonth+=dir;
+        if(viewMonth>11){viewMonth=0;viewYear++;}
+        if(viewMonth<0){viewMonth=11;viewYear--;}
+        editingKey=null;
+        renderMonth();
+      };
+
       window.eduShiftAll=function(){
         if(!confirm('이번 달 예정 교육을 전부 1주 뒤로 미룰까요?')) return;
-        const mondays=getMondaysThisMonth();
+        const mondays=getMondaysOfMonth(viewYear,viewMonth);
         const lastKey=dk(mondays[mondays.length-1]);
         const data=load();
-        // 오늘 이후 예정 항목만, 마지막 월요일 제외, 역순으로 이동
         const upcoming=mondays.filter(m=>m>=today && dk(m)!==lastKey).reverse();
         upcoming.forEach(mon=>{
           const key=dk(mon);
           const nextDate=new Date(mon); nextDate.setDate(nextDate.getDate()+7);
           const nextKey=dk(nextDate);
-          if(dk(nextDate)!==lastKey){ // 마지막 월요일로 밀리면 스킵
+          if(nextKey!==lastKey){
             data[nextKey]=data[key]||{};
           }
           delete data[key];
         });
         save(data);
         editingKey=null;
-        renderTable();
+        renderMonth();
       };
 
       window.eduToggleEdit=function(){
         editing=!editing;
         editingKey=null;
-        document.getElementById('edu-edit-btn').textContent=editing?'✓ 완료':'✎ 편집';
-        document.getElementById('edu-edit-btn').style.borderColor=editing?'#1a5fa8':'#ccc';
-        document.getElementById('edu-edit-btn').style.color=editing?'#1a5fa8':'#888';
-        renderTable();
+        const btn=document.getElementById('edu-edit-btn');
+        btn.textContent=editing?'✓ 완료':'✎ 편집';
+        btn.style.borderColor=editing?'#1a5fa8':'#ccc';
+        btn.style.color=editing?'#1a5fa8':'#888';
+        renderMonth();
       };
 
       window.eduEditRow=function(key){
-        editingKey=key;renderTable();
+        editingKey=key;renderMonth();
         setTimeout(()=>{const el=document.getElementById('ep_'+key);if(el)el.focus();},50);
       };
 
@@ -669,15 +709,13 @@ function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? her
         const data=load();
         const p=document.getElementById('ep_'+key),n=document.getElementById('en_'+key);
         data[key]={product:p?p.value.trim():'',person:n?n.value.trim():''};
-        save(data);editingKey=null;renderTable();
+        save(data);editingKey=null;renderMonth();
       };
 
-      renderTable();
+      renderMonth();
     })();
     </script>
     <!-- ===== 교육 일정 위젯 끝 ===== -->
-
-    <div class="product-grid">
 
     <div class="product-grid">
       <div class="product-card" id="combicin-card">
