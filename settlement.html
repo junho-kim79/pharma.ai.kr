@@ -226,14 +226,14 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
     </div>
 
     <div class="tab-row">
-      <button class="tab on" onclick="setTab('dream',this)">드림병원 · 김기주 과장</button>
-      <button class="tab" onclick="setTab('gumi',this)">구미차병원 · 뮤코나</button>
+      <button class="tab on" onclick="setTab('dream',this)">KKJ</button>
+      <button class="tab" onclick="setTab('gumi',this)">KDS</button>
     </div>
 
     <!-- DREAM HOSPITAL -->
     <div id="tab-dream">
       <div class="view-row">
-        <button class="vtab on" id="doctorTab">김기주 과장용</button>
+        <button class="vtab on" id="doctorTab">KKJ</button>
         <div class="month-sel">
           <select id="selYear" onchange="updateLabels();loadData()"><option>2026</option><option>2025</option></select>
           <select id="selMonth" onchange="updateLabels();loadData()">
@@ -250,7 +250,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
       <div id="view-doctor">
         <div class="card">
           <div class="card-head">
-            <span class="ct">지엘파마 <span id="lb-gl" style="font-size:11px;color:var(--text3);font-weight:400"></span></span>
+            <span class="ct">지엘 <span id="lb-gl" style="font-size:11px;color:var(--text3);font-weight:400"></span></span>
             <span class="badge badge-blue" id="badge-gl">4월 매출 기준</span>
           </div>
           <div class="tbl-wrap">
@@ -266,7 +266,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
               <th style="width:12%" class="r">정산금</th>
             </tr></thead>
             <tbody>
-              <tr class="sec-row"><td colspan="8">지엘파마</td></tr>
+              <tr class="sec-row"><td colspan="8">지엘</td></tr>
               <tr><td>라베프론정 10mg<div class="sm">약가 454원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_l10" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_l10">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_l10">0</td><td class="r" id="sup_l10">0</td><td class="r">18%</td><td class="r" id="ds_l10">0</td></tr>
               <tr><td>라베프론정 20mg<div class="sm">약가 909원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_l20" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_l20">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_l20">0</td><td class="r" id="sup_l20">0</td><td class="r">18%</td><td class="r" id="ds_l20">0</td></tr>
               <tr><td>록소페닌정<div class="sm">약가 106원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_rox" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_rox">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_rox">0</td><td class="r" id="sup_rox">0</td><td class="r">15%</td><td class="r" id="ds_rox">0</td></tr>
@@ -308,7 +308,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
 
         <div class="metrics">
           <div class="met met-full">
-            <div class="lb">김기주 과장 이번 달 정산금 합계</div>
+            <div class="lb">이번 달 정산금 합계</div>
             <div class="vl hi" id="total_doc">0원</div>
           </div>
         </div>
@@ -327,8 +327,8 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
               <th style="width:28%">품목</th>
               <th style="width:14%" class="r">수취율</th>
               <th style="width:18%" class="r">수취금</th>
-              <th style="width:14%" class="r">김기주 지급율</th>
-              <th style="width:14%" class="r">김기주 지급금</th>
+              <th style="width:14%" class="r">지급율</th>
+              <th style="width:14%" class="r">지급금</th>
               <th style="width:12%" class="r">순수익</th>
             </tr></thead>
             <tbody>
@@ -352,7 +352,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
         </div>
         <div class="metrics">
           <div class="met"><div class="lb">총수취</div><div class="vl" id="i_recv">0원</div></div>
-          <div class="met"><div class="lb">김기주 지급</div><div class="vl" id="i_pay">0원</div></div>
+          <div class="met"><div class="lb">지급</div><div class="vl" id="i_pay">0원</div></div>
           <div class="met"><div class="lb">이번 달 순수익</div><div class="vl profit" id="i_profit">0원</div></div>
         </div>
       </div>
@@ -362,7 +362,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
     <div id="tab-gumi" style="display:none">
       <div class="card">
         <div class="card-head">
-          <span class="ct">구미차병원 · 뮤코나 정산</span>
+          <span class="ct">KDS</span>
           <span class="badge badge-blue" id="gumi-badge">바이알 수량 입력</span>
         </div>
         <div class="gumi-row">
@@ -377,7 +377,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
       </div>
       <div class="metrics">
         <div class="met met-full">
-          <div class="lb">구미차병원 이번 달 정산금</div>
+          <div class="lb">이번 달 정산금</div>
           <div class="vl hi" id="gumi_disp">0원</div>
         </div>
       </div>
@@ -590,7 +590,7 @@ function updateLabels(){
   document.getElementById('sm_velox').textContent = `${m2}월 매출 기준`;
   document.getElementById('td_velox').textContent = `${m2}월`;
 
-  document.getElementById('printTitle').textContent = `드림병원 · 김기주 과장 정산서 (${y}년 ${m}월)`;
+  document.getElementById('printTitle').textContent = `KKJ 정산서 (${y}년 ${m}월)`;
   const today = new Date();
   document.getElementById('printSub').textContent = `${y2}년 ${m2}월 매출 기준 | 출력일: ${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')}`;
 }
