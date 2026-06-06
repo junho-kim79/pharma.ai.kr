@@ -136,12 +136,31 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
 /* PRINT */
 @media print{
   #pin-gate{display:none!important}
+  #adminModal{display:none!important}
   .top-bar .actions{display:none}
   .tab-row{display:none}
   .view-row{display:none}
-  body{background:#fff}
-  .card{border:1px solid #ddd;break-inside:avoid}
+  .card-head .badge{display:none}
+  body{background:#fff;font-size:11px}
+  .container{padding:0}
+  .top-bar{background:#1a2e4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:10px 16px}
+  .card{border:1px solid #ccc;break-inside:avoid;margin-bottom:10px}
+  .card-head{background:#f0ede6!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .tot-row td{background:#f5f3ee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .sec-row td{background:#f5f3ee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .print-header{display:block!important}
+  .metrics{break-inside:avoid}
+  .met{border:1px solid #ccc}
+
+  input[type=text],input[type=number]{
+    border:none!important;
+    background:transparent!important;
+    font-size:11px!important;
+    width:auto!important;
+    padding:0!important;
+    pointer-events:none;
+  }
+  .gumi-field input{border:none!important;background:transparent!important}
 }
 .print-header{display:none;margin-bottom:16px}
 .print-header h2{font-size:16px;font-weight:700;color:var(--navy)}
@@ -572,7 +591,8 @@ function updateLabels(){
   document.getElementById('td_velox').textContent = `${m2}월`;
 
   document.getElementById('printTitle').textContent = `드림병원 · 김기주 과장 정산서 (${y}년 ${m}월)`;
-  document.getElementById('printSub').textContent = `${y2}년 ${m2}월 매출 기준`;
+  const today = new Date();
+  document.getElementById('printSub').textContent = `${y2}년 ${m2}월 매출 기준 | 출력일: ${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')}`;
 }
 </script>
 </body>
