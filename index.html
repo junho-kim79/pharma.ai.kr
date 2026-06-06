@@ -1116,6 +1116,12 @@ window.vancoCur = 0;
 
   </div>
 </a>
+      <a class="tool-card" href="#" onclick="openSettlement(event)">
+  <span class="tool-ic">🔒</span>
+  <div class="tool-nm">보안 문서</div>
+  <div class="tool-ds">의사별 정산 시스템</div>
+  <span class="tool-arr">↗</span>
+</a>
     </div>
   </div>
 
@@ -1622,6 +1628,17 @@ andongCard.addEventListener('mouseleave', () => {
   andongVideo.pause();
   andongVideo.currentTime = 0;
 });
+</script>
+  <script>
+function openSettlement(e) {
+  e.preventDefault();
+  const pin = prompt('PIN을 입력하세요');
+  if (pin === '9811') {
+    window.location.href = 'settlement.html';
+  } else if (pin !== null) {
+    alert('PIN이 올바르지 않습니다');
+  }
+}
 </script>
 </body>
 </html>
