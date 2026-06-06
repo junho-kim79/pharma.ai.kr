@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>보안 문서 · 월별 정산</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1a2e4a;
+  --gold:#c9a84c;
+  --bg:#f7f6f2;
+  --white:#ffffff;
+  --border:#e0ddd5;
+  --text1:#1a1a1a;
+  --text2:#555;
+  --text3:#999;
+  --red:#c0392b;
+  --green:#1a6b3c;
+}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text1);min-height:100vh}
+
+/* PIN GATE */
+#pin-gate{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem;
+  background:var(--navy);
+}
+.pin-logo{color:var(--gold);font-size:13px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:.5rem}
+.pin-title{color:#fff;font-size:22px;font-weight:500;letter-spacing:.05em}
+.pin-sub{color:#8a9ab5;font-size:13px}
+.pin-box{display:flex;flex-direction:column;align-items:center;gap:1rem}
+.pin-input{
+  width:160px;text-align:center;font-size:24px;letter-spacing:8px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);
+  border-radius:8px;padding:12px 16px;color:#fff;outline:none;
+}
+.pin-input:focus{border-color:var(--gold)}
+.pin-btn{
+  background:var(--gold);color:var(--navy);border:none;border-radius:6px;
+  padding:10px 32px;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.05em;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.pin-btn:hover{background:#e0b84e}
+.pin-err{color:#e74c3c;font-size:12px;min-height:16px}
+
+/* MAIN APP */
+#app{display:none}
+.top-bar{
+  background:var(--navy);color:#fff;padding:14px 24px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.top-bar .logo{font-size:12px;letter-spacing:.25em;color:var(--gold);text-transform:uppercase}
+.top-bar .title{font-size:14px;font-weight:500}
+.top-bar .actions{display:flex;gap:8px}
+.btn{
+  padding:7px 16px;border-radius:5px;font-size:12px;cursor:pointer;
+  font-family:'Noto Sans KR',sans-serif;font-weight:500;border:1px solid transparent;
+}
+.btn-outline{background:transparent;border-color:rgba(255,255,255,.3);color:#fff}
+.btn-outline:hover{background:rgba(255,255,255,.1)}
+.btn-gold{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.btn-gold:hover{background:#e0b84e}
+.btn-navy{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+.container{max-width:960px;margin:0 auto;padding:24px 16px}
+
+/* TABS */
+.tab-row{display:flex;gap:6px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab{
+  padding:8px 20px;font-size:13px;cursor:pointer;border:none;background:none;
+  font-family:'Noto Sans KR',sans-serif;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-1px;
+}
+.tab.on{color:var(--navy);border-bottom-color:var(--navy);font-weight:500}
+
+/* VIEW TOGGLE */
+.view-row{display:flex;gap:8px;margin-bottom:16px;align-items:center}
+.vtab{
+  padding:5px 14px;border-radius:4px;border:1px solid var(--border);font-size:12px;cursor:pointer;
+  background:var(--white);color:var(--text2);font-family:'Noto Sans KR',sans-serif;
+}
+.vtab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.month-sel{display:flex;gap:6px;align-items:center;margin-left:auto}
+.month-sel select{
+  font-size:12px;padding:4px 8px;border:1px solid var(--border);border-radius:4px;
+  background:var(--white);color:var(--text1);font-family:'Noto Sans KR',sans-serif;
+}
+.month-sel .ref-note{font-size:11px;color:var(--text3)}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:16px}
+.card-head{
+  padding:10px 16px;background:#f0ede6;border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.card-head .ct{font-size:13px;font-weight:500;color:var(--navy)}
+.badge{font-size:10px;padding:2px 8px;border-radius:999px;font-weight:500}
+.badge-blue{background:#e8f0fb;color:#185fa5}
+.badge-gold{background:#fdf3dc;color:#8a5e0a}
+.badge-green{background:#e4f5ec;color:#1a6b3c}
+.badge-lock{background:#fff0e0;color:#b05a00}
+
+/* TABLE */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{
+  padding:7px 10px;text-align:left;color:var(--text2);font-weight:400;
+  border-bottom:1px solid var(--border);background:#faf9f6;white-space:nowrap;
+}
+td{padding:7px 10px;color:var(--text1);border-bottom:1px solid #f0ede8;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+.r{text-align:right}
+.sm{font-size:10px;color:var(--text3)}
+.tot-row td{font-weight:500;background:#f5f3ee}
+.sec-row td{
+  padding:5px 10px;font-size:11px;color:var(--text2);background:#f5f3ee;
+  border-bottom:1px solid var(--border);letter-spacing:.03em;
+}
+input[type=number],input[type=text]{
+  width:72px;font-size:12px;padding:3px 6px;text-align:right;
+  background:#faf9f6;border:1px solid var(--border);border-radius:4px;
+  color:var(--text1);font-family:'Noto Sans KR',sans-serif;
+}
+input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--navy)}
+
+/* METRICS */
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+.met{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:12px 16px}
+.met .lb{font-size:11px;color:var(--text2);margin-bottom:6px}
+.met .vl{font-size:20px;font-weight:700;color:var(--text1)}
+.met .vl.hi{color:var(--navy)}
+.met .vl.profit{color:var(--green)}
+.met-full{grid-column:1/-1}
+
+/* PRINT */
+@media print{
+  #pin-gate{display:none!important}
+  .top-bar .actions{display:none}
+  .tab-row{display:none}
+  .view-row{display:none}
+  body{background:#fff}
+  .card{border:1px solid #ddd;break-inside:avoid}
+  .print-header{display:block!important}
+}
+.print-header{display:none;margin-bottom:16px}
+.print-header h2{font-size:16px;font-weight:700;color:var(--navy)}
+.print-header p{font-size:12px;color:var(--text2);margin-top:4px}
+
+/* GUMI */
+.gumi-row{display:flex;align-items:center;gap:12px;padding:12px 16px}
+.gumi-field{display:flex;flex-direction:column;gap:4px}
+.gumi-field label{font-size:11px;color:var(--text2)}
+.gumi-field input{width:100px;font-size:14px;padding:6px 10px;border:1px solid var(--border);border-radius:5px;text-align:right;font-family:'Noto Sans KR',sans-serif}
+.gumi-result{font-size:20px;font-weight:700;color:var(--navy);margin-left:auto}
+.gumi-result span{font-size:12px;color:var(--text2);font-weight:400;margin-right:4px}
+</style>
+</head>
+<body>
+
+<!-- PIN GATE -->
+<div id="pin-gate">
+  <div style="text-align:center">
+    <div class="pin-logo">1급</div>
+    <div class="pin-title">보안 문서</div>
+    
+  </div>
+  <div class="pin-box">
+    <input class="pin-input" type="password" id="pinInput" maxlength="6" placeholder="······" onkeydown="if(event.key==='Enter')doPin()">
+    <div class="pin-err" id="pinErr"></div>
+    <button class="pin-btn" onclick="doPin()">확인</button>
+  </div>
+  <div style="color:#3a4d63;font-size:11px">PHARMA.AI.KR</div>
+</div>
+
+<!-- ADMIN MODAL -->
+<div id="adminModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center;">
+  <div style="background:var(--navy);border-radius:12px;padding:2rem;display:flex;flex-direction:column;align-items:center;gap:1rem;min-width:240px">
+    <div style="color:var(--gold);font-size:11px;letter-spacing:.2em">관리자 모드</div>
+    <input type="password" id="adminPin" maxlength="6" placeholder="······" style="width:140px;text-align:center;font-size:20px;letter-spacing:6px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:10px;color:#fff;outline:none;font-family:'Noto Sans KR',sans-serif" onkeydown="if(event.key==='Enter')checkAdminPin()">
+    <div id="adminErr" style="color:#e74c3c;font-size:11px;min-height:14px"></div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-outline" onclick="closeAdmin()">취소</button>
+      <button class="btn btn-gold" onclick="checkAdminPin()">확인</button>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="app">
+  <div class="top-bar">
+    <div>
+      <div class="logo">보안 문서</div>
+      <div class="title" id="topTitle">월별 정산</div>
+    </div>
+    <div class="actions">
+      <button class="btn btn-outline" onclick="window.print()">🖨 인쇄 / PDF</button>
+      <button class="btn btn-outline" onclick="location.href='index.html'">← 돌아가기</button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="print-header" id="printHeader">
+      <h2 id="printTitle"></h2>
+      <p id="printSub"></p>
+    </div>
+
+    <div class="tab-row">
+      <button class="tab on" onclick="setTab('dream',this)">드림병원 · 김기주 과장</button>
+      <button class="tab" onclick="setTab('gumi',this)">구미차병원 · 뮤코나</button>
+    </div>
+
+    <!-- DREAM HOSPITAL -->
+    <div id="tab-dream">
+      <div class="view-row">
+        <button class="vtab on" id="doctorTab">김기주 과장용</button>
+        <div class="month-sel">
+          <select id="selYear" onchange="updateLabels();loadData()"><option>2026</option><option>2025</option></select>
+          <select id="selMonth" onchange="updateLabels();loadData()">
+            <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
+            <option value="4">4월</option><option value="5">5월</option><option value="6" selected>6월</option>
+            <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
+            <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
+          </select>
+          <span class="ref-note" id="refNote">4월 매출 기준</span>
+        </div>
+      </div>
+
+      <!-- DOCTOR VIEW -->
+      <div id="view-doctor">
+        <div class="card">
+          <div class="card-head">
+            <span class="ct">지엘파마 <span id="lb-gl" style="font-size:11px;color:var(--text3);font-weight:400"></span></span>
+            <span class="badge badge-blue" id="badge-gl">4월 매출 기준</span>
+          </div>
+          <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th style="width:26%">품목</th>
+              <th style="width:10%" class="r">수량</th>
+              <th style="width:13%" class="r">처방금액</th>
+              <th style="width:9%" class="r">부가세</th>
+              <th style="width:11%" class="r">부가세액</th>
+              <th style="width:11%" class="r">공급가액</th>
+              <th style="width:8%" class="r">요율</th>
+              <th style="width:12%" class="r">정산금</th>
+            </tr></thead>
+            <tbody>
+              <tr class="sec-row"><td colspan="8">지엘파마</td></tr>
+              <tr><td>라베프론정 10mg<div class="sm">약가 454원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_l10" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_l10">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_l10">0</td><td class="r" id="sup_l10">0</td><td class="r">18%</td><td class="r" id="ds_l10">0</td></tr>
+              <tr><td>라베프론정 20mg<div class="sm">약가 909원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_l20" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_l20">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_l20">0</td><td class="r" id="sup_l20">0</td><td class="r">18%</td><td class="r" id="ds_l20">0</td></tr>
+              <tr><td>록소페닌정<div class="sm">약가 106원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_rox" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_rox">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_rox">0</td><td class="r" id="sup_rox">0</td><td class="r">15%</td><td class="r" id="ds_rox">0</td></tr>
+              <tr><td>테넬리엘듀오 10/500<div class="sm">약가 334원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_t1" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_t1">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_t1">0</td><td class="r" id="sup_t1">0</td><td class="r">15%</td><td class="r" id="ds_t1">0</td></tr>
+              <tr><td>테넬리엘듀오 20/1000<div class="sm">약가 665원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_t2" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_t2">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_t2">0</td><td class="r" id="sup_t2">0</td><td class="r">15%</td><td class="r" id="ds_t2">0</td></tr>
+              <tr><td>테넬리엘정 20mg<div class="sm">약가 665원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_t3" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_t3">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_t3">0</td><td class="r" id="sup_t3">0</td><td class="r">15%</td><td class="r" id="ds_t3">0</td></tr>
+              <tr><td>리바텍정<div class="sm">약가 155원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_rv1" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_rv1">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_rv1">0</td><td class="r" id="sup_rv1">0</td><td class="r">10%</td><td class="r" id="ds_rv1">0</td></tr>
+              <tr><td>리바텍플러스<div class="sm">약가 260원</div></td><td class="r"><input type="text" inputmode="numeric" id="q_rv2" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r" id="rx_rv2">0</td><td class="r sm">÷1.1</td><td class="r sm" id="vat_rv2">0</td><td class="r" id="sup_rv2">0</td><td class="r">10%</td><td class="r" id="ds_rv2">0</td></tr>
+              <tr class="tot-row"><td colspan="2">처방금액 합계</td><td class="r" id="total_rx_gl">0</td><td colspan="2" class="r sm" id="total_vat_gl">부가세: 0</td><td class="r" id="total_sup_gl">0</td><td></td><td class="r" id="sub_gl">0</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head">
+            <span class="ct">세일약품</span>
+            <span class="badge badge-green" id="badge-sail">콤비신·아젠카: 5월 / 벨록스캡: 4월</span>
+          </div>
+          <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th style="width:30%">품목</th>
+              <th style="width:20%" class="r">매출금액 입력</th>
+              <th style="width:14%" class="r">기준월</th>
+              <th style="width:10%" class="r">부가세</th>
+              <th style="width:10%" class="r">요율</th>
+              <th style="width:16%" class="r">정산금</th>
+            </tr></thead>
+            <tbody>
+              <tr><td>콤비신<div class="sm" id="sm_combo"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_combo" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r sm" id="td_combo"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">6.5%</td><td class="r" id="ds_combo">0</td></tr>
+              <tr><td>벨록스캡<div class="sm" id="sm_velox"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_velox" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r sm" id="td_velox"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_velox">0</td></tr>
+              <tr><td>아젠카<div class="sm" id="sm_azen"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_azen" value="0" min="0" oninput="calcSaveComma(this)"></td><td class="r sm" id="td_azen"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">10%</td><td class="r" id="ds_azen">0</td></tr>
+              <tr class="tot-row"><td colspan="5">소계</td><td class="r" id="sub_sail">0</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+
+        <div class="metrics">
+          <div class="met met-full">
+            <div class="lb">김기주 과장 이번 달 정산금 합계</div>
+            <div class="vl hi" id="total_doc">0원</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INTERNAL VIEW -->
+      <div id="view-internal" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <span class="ct">내부 정산</span>
+            <span class="badge badge-lock">🔒 비공개</span>
+          </div>
+          <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th style="width:28%">품목</th>
+              <th style="width:14%" class="r">수취율</th>
+              <th style="width:18%" class="r">수취금</th>
+              <th style="width:14%" class="r">김기주 지급율</th>
+              <th style="width:14%" class="r">김기주 지급금</th>
+              <th style="width:12%" class="r">순수익</th>
+            </tr></thead>
+            <tbody>
+              <tr class="sec-row"><td colspan="6">지엘파마</td></tr>
+              <tr><td>라베프론 10mg</td><td class="r">48%</td><td class="r" id="w_l10">0</td><td class="r">18%</td><td class="r" id="ds2_l10">0</td><td class="r" id="pr_l10">0</td></tr>
+              <tr><td>라베프론 20mg</td><td class="r">48%</td><td class="r" id="w_l20">0</td><td class="r">18%</td><td class="r" id="ds2_l20">0</td><td class="r" id="pr_l20">0</td></tr>
+              <tr><td>록소페닌</td><td class="r">40%</td><td class="r" id="w_rox">0</td><td class="r">15%</td><td class="r" id="ds2_rox">0</td><td class="r" id="pr_rox">0</td></tr>
+              <tr><td>테넬리엘듀오 10/500</td><td class="r">36%</td><td class="r" id="w_t1">0</td><td class="r">15%</td><td class="r" id="ds2_t1">0</td><td class="r" id="pr_t1">0</td></tr>
+              <tr><td>테넬리엘듀오 20/1000</td><td class="r">36%</td><td class="r" id="w_t2">0</td><td class="r">15%</td><td class="r" id="ds2_t2">0</td><td class="r" id="pr_t2">0</td></tr>
+              <tr><td>테넬리엘정 20mg</td><td class="r">45%</td><td class="r" id="w_t3">0</td><td class="r">15%</td><td class="r" id="ds2_t3">0</td><td class="r" id="pr_t3">0</td></tr>
+              <tr><td>리바텍정</td><td class="r">42%</td><td class="r" id="w_rv1">0</td><td class="r">10%</td><td class="r" id="ds2_rv1">0</td><td class="r" id="pr_rv1">0</td></tr>
+              <tr><td>리바텍플러스</td><td class="r">38%</td><td class="r" id="w_rv2">0</td><td class="r">10%</td><td class="r" id="ds2_rv2">0</td><td class="r" id="pr_rv2">0</td></tr>
+              <tr class="sec-row"><td colspan="6">세일약품</td></tr>
+              <tr><td>콤비신</td><td class="r sm">직거래</td><td class="r" id="w_combo">0</td><td class="r">6.5%</td><td class="r" id="ds2_combo">0</td><td class="r" id="pr_combo">0</td></tr>
+              <tr><td>벨록스캡</td><td class="r sm">직거래</td><td class="r" id="w_velox">0</td><td class="r">4.5%</td><td class="r" id="ds2_velox">0</td><td class="r" id="pr_velox">0</td></tr>
+              <tr><td>아젠카</td><td class="r sm">직거래</td><td class="r" id="w_azen">0</td><td class="r">10%</td><td class="r" id="ds2_azen">0</td><td class="r" id="pr_azen">0</td></tr>
+              <tr class="tot-row"><td colspan="2">합계</td><td class="r" id="w_total">0</td><td></td><td class="r" id="pay_total">0</td><td class="r" id="pr_total">0</td></tr>
+            </tbody>
+          </table>
+          </div>
+        </div>
+        <div class="metrics">
+          <div class="met"><div class="lb">총수취</div><div class="vl" id="i_recv">0원</div></div>
+          <div class="met"><div class="lb">김기주 지급</div><div class="vl" id="i_pay">0원</div></div>
+          <div class="met"><div class="lb">이번 달 순수익</div><div class="vl profit" id="i_profit">0원</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GUMI HOSPITAL -->
+    <div id="tab-gumi" style="display:none">
+      <div class="card">
+        <div class="card-head">
+          <span class="ct">구미차병원 · 뮤코나 정산</span>
+          <span class="badge badge-blue" id="gumi-badge">바이알 수량 입력</span>
+        </div>
+        <div class="gumi-row">
+          <div class="gumi-field">
+            <label>바이알 수량</label>
+            <input type="text" inputmode="numeric" id="q_muco" value="0" min="0" oninput="calcGumi();saveData()" style="width:120px;font-size:18px;padding:8px 12px">
+          </div>
+          <div style="color:var(--text3);font-size:13px">× 1,300원</div>
+          <div class="gumi-result"><span>=</span><span id="gumi_total">0원</span></div>
+        </div>
+        <div style="padding:0 16px 14px;font-size:11px;color:var(--text3)">단가 1,300원 / 바이알 (납품가 15,000원 기준 별도 협의)</div>
+      </div>
+      <div class="metrics">
+        <div class="met met-full">
+          <div class="lb">구미차병원 이번 달 정산금</div>
+          <div class="vl hi" id="gumi_disp">0원</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const PIN = '981182';
+
+function doPin(){
+  const v = document.getElementById('pinInput').value;
+  if(v === PIN){
+    document.getElementById('pin-gate').style.display = 'none';
+    document.getElementById('app').style.display = 'block';
+    updateLabels();
+    loadData();
+    initQtyInputs();
+  } else {
+    document.getElementById('pinErr').textContent = 'PIN이 올바르지 않습니다';
+    document.getElementById('pinInput').value = '';
+  }
+}
+
+document.getElementById('pinInput').addEventListener('keydown', e => {
+  if(e.key === 'Enter') doPin();
+});
+
+function fmt(n){ return Math.round(n).toLocaleString('ko-KR'); }
+
+const GL = [
+  {id:'l10', price:454, docRate:0.18, witRate:0.48},
+  {id:'l20', price:909, docRate:0.18, witRate:0.48},
+  {id:'rox', price:106, docRate:0.15, witRate:0.40},
+  {id:'t1',  price:334, docRate:0.15, witRate:0.36},
+  {id:'t2',  price:665, docRate:0.15, witRate:0.36},
+  {id:'t3',  price:665, docRate:0.15, witRate:0.45},
+  {id:'rv1', price:155, docRate:0.10, witRate:0.42},
+  {id:'rv2', price:260, docRate:0.10, witRate:0.38},
+];
+const SAIL = [
+  {id:'combo', docRate:0.065},
+  {id:'velox', docRate:0.045},
+  {id:'azen',  docRate:0.10},
+];
+
+function saveData(){
+  const y = document.getElementById('selYear').value;
+  const m = document.getElementById('selMonth').value;
+  const key = `settlement_${y}_${m}`;
+  const data = {};
+  [...GL.map(i=>i.id), ...SAIL.map(i=>i.id), 'muco'].forEach(id=>{
+    const el = document.getElementById('q_'+id);
+    if(el) data[id] = el.value;
+  });
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+function loadData(){
+  const y = document.getElementById('selYear').value;
+  const m = document.getElementById('selMonth').value;
+  const key = `settlement_${y}_${m}`;
+  const saved = localStorage.getItem(key);
+  if(saved){
+    const data = JSON.parse(saved);
+    Object.entries(data).forEach(([id, val])=>{
+      const el = document.getElementById('q_'+id);
+      if(el) el.value = val;
+    });
+  } else {
+    [...GL.map(i=>i.id), ...SAIL.map(i=>i.id), 'muco'].forEach(id=>{
+      const el = document.getElementById('q_'+id);
+      if(el) el.value = 0;
+    });
+  }
+  calc();
+  calcGumi();
+}
+
+function fmtInput(el){
+  const v = parseFloat(el.value.replace(/,/g,''))||0;
+  el.value = v===0?'0':v.toLocaleString('ko-KR');
+}
+function clearInput(el){
+  const v = el.value.replace(/,/g,'');
+  el.value = v==='0'?'':v;
+}
+function calcSaveComma(el){
+  const raw = el.value.replace(/,/g,'');
+  el.value = raw;
+  calc();
+  saveData();
+  fmtInput(el);
+}
+function initQtyInputs(){
+  document.querySelectorAll('input[id^="q_"]').forEach(el=>{
+    el.addEventListener('focus', ()=>clearInput(el));
+    el.addEventListener('blur', ()=>fmtInput(el));
+  });
+}
+function calc(){
+  let subGl=0, subSail=0, wTotal=0, prTotal=0, payTotal=0, totalRxGl=0, totalVatGl=0;
+
+  for(const it of GL){
+    const qty = parseFloat((document.getElementById('q_'+it.id).value||'0').replace(/,/g,''))||0;
+    const rx = qty * it.price;
+    const vat = rx - rx/1.1;
+    const base = rx / 1.1;
+    const doc = base * it.docRate;
+    const wit = it.witRate ? base * it.witRate : base * it.docRate;
+    const pr = wit - doc;
+    subGl += doc; wTotal += wit; prTotal += pr; payTotal += doc;
+    totalRxGl += rx; totalVatGl += vat;
+    document.getElementById('rx_'+it.id).textContent = fmt(rx);
+    document.getElementById('vat_'+it.id).textContent = '-'+fmt(vat);
+    document.getElementById('sup_'+it.id).textContent = fmt(base);
+    document.getElementById('ds_'+it.id).textContent = fmt(doc);
+    document.getElementById('w_'+it.id).textContent = fmt(wit);
+    document.getElementById('ds2_'+it.id).textContent = fmt(doc);
+    document.getElementById('pr_'+it.id).textContent = fmt(pr);
+  }
+
+  for(const it of SAIL){
+    const amt = parseFloat((document.getElementById('q_'+it.id).value||'0').replace(/,/g,''))||0;
+    const doc = amt * it.docRate;
+    subSail += doc; wTotal += doc; payTotal += doc;
+    document.getElementById('ds_'+it.id).textContent = fmt(doc);
+    document.getElementById('w_'+it.id).textContent = fmt(doc);
+    document.getElementById('ds2_'+it.id).textContent = fmt(doc);
+    document.getElementById('pr_'+it.id).textContent = '0';
+  }
+
+  const total = subGl + subSail;
+  document.getElementById('total_rx_gl').textContent = fmt(totalRxGl);
+  document.getElementById('total_vat_gl').textContent = '부가세: -'+fmt(totalVatGl);
+  document.getElementById('total_sup_gl').textContent = fmt(totalRxGl - totalVatGl);
+  document.getElementById('sub_gl').textContent = fmt(subGl);
+  document.getElementById('sub_sail').textContent = fmt(subSail);
+  document.getElementById('total_doc').textContent = fmt(total)+'원';
+  document.getElementById('w_total').textContent = fmt(wTotal);
+  document.getElementById('pay_total').textContent = fmt(payTotal);
+  document.getElementById('pr_total').textContent = fmt(prTotal);
+  document.getElementById('i_recv').textContent = fmt(wTotal)+'원';
+  document.getElementById('i_pay').textContent = fmt(payTotal)+'원';
+  document.getElementById('i_profit').textContent = fmt(prTotal)+'원';
+}
+
+function calcGumi(){
+  const q = parseFloat(document.getElementById('q_muco').value)||0;
+  const t = q * 1300;
+  document.getElementById('gumi_total').textContent = fmt(t)+'원';
+  document.getElementById('gumi_disp').textContent = fmt(t)+'원';
+}
+
+function setTab(t, btn){
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('tab-dream').style.display = t==='dream'?'':'none';
+  document.getElementById('tab-gumi').style.display = t==='gumi'?'':'none';
+}
+
+let clickCount = 0, clickTimer = null;
+document.getElementById('doctorTab').addEventListener('click', function(){
+  clickCount++;
+  if(clickTimer) clearTimeout(clickTimer);
+  clickTimer = setTimeout(()=>{ clickCount=0; }, 2000);
+  if(clickCount >= 5){
+    clickCount = 0;
+    document.getElementById('adminModal').style.display = 'flex';
+    document.getElementById('adminPin').value = '';
+    document.getElementById('adminErr').textContent = '';
+    setTimeout(()=>document.getElementById('adminPin').focus(), 100);
+  }
+});
+
+function checkAdminPin(){
+  const v = document.getElementById('adminPin').value;
+  if(v === PIN){
+    document.getElementById('adminModal').style.display = 'none';
+    document.getElementById('view-doctor').style.display = 'none';
+    document.getElementById('view-internal').style.display = '';
+    document.getElementById('doctorTab').classList.remove('on');
+  } else {
+    document.getElementById('adminErr').textContent = 'PIN이 올바르지 않습니다';
+    document.getElementById('adminPin').value = '';
+  }
+}
+
+function closeAdmin(){
+  document.getElementById('adminModal').style.display = 'none';
+}
+
+function updateLabels(){
+  const y = parseInt(document.getElementById('selYear').value);
+  const m = parseInt(document.getElementById('selMonth').value);
+  const m2 = m<=2 ? 12+m-2 : m-2;
+  const m1 = m<=1 ? 12 : m-1;
+  const y2 = m<=2 ? y-1 : y;
+  const y1 = m<=1 ? y-1 : y;
+
+  document.getElementById('refNote').textContent = `${y2}년 ${m2}월 매출 기준`;
+  document.getElementById('badge-gl').textContent = `${m2}월 매출 기준`;
+  document.getElementById('badge-sail').textContent = `콤비신·아젠카: ${m1}월 / 벨록스캡: ${m2}월`;
+
+  ['combo','azen'].forEach(k=>{
+    document.getElementById('sm_'+k).textContent = `${m1}월 매출 기준`;
+    document.getElementById('td_'+k).textContent = `${m1}월`;
+  });
+  document.getElementById('sm_velox').textContent = `${m2}월 매출 기준`;
+  document.getElementById('td_velox').textContent = `${m2}월`;
+
+  document.getElementById('printTitle').textContent = `드림병원 · 김기주 과장 정산서 (${y}년 ${m}월)`;
+  document.getElementById('printSub').textContent = `${y2}년 ${m2}월 매출 기준`;
+}
+</script>
+</body>
+</html>
