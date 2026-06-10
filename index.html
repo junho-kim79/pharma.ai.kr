@@ -1349,6 +1349,30 @@ document.getElementById('gKeypad').addEventListener('touchstart', function(e) {
   playDTMF(btn.dataset.n);
 }, {passive:true});
 document.getElementById('gKeypad').addEventListener('touchend', stopDTMF, {passive:true});
+  document.addEventListener('keydown', function(e) {
+  if (gate.style.display === 'none') return;
+
+  const key = e.key;
+  let btn = null;
+
+  if (/^[0-9]$/.test(key)) {
+    btn = document.querySelector('.g-key[data-n="' + key + '"]');
+    if (btn) {
+      playDTMF(key);
+      setTimeout(stopDTMF, 120);
+      gKey({clientX:null, clientY:null}, btn, key);
+    }
+  } else if (key === 'Backspace' || key === 'Delete') {
+    btn = document.querySelector('.g-key[data-n="*"]');
+    gClear({clientX:null, clientY:null}, btn);
+  } else if (key === 'Enter') {
+    btn = document.querySelector('.g-key[data-n="#"]');
+    gCheck({clientX:null, clientY:null}, btn);
+  } else if (key === 'Escape') {
+    btn = document.querySelector('.g-key[data-n="*"]');
+    gClear({clientX:null, clientY:null}, btn);
+  }
+});
 function gKey(e,btn,n){
   if(gInput.length>=4)return;
   gRipple(e,btn);gInput+=n;gRender();
