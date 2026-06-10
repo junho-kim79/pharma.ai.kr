@@ -1375,7 +1375,10 @@ document.getElementById('gKeypad').addEventListener('touchend', stopDTMF, {passi
 });
 function gKey(e,btn,n){
   if(gInput.length>=4)return;
-  gRipple(e,btn);gInput+=n;gRender();
+ gRipple(e,btn);
+flashNeighbor(btn);
+gInput+=n;
+gRender();
   if(gInput.length===4)setTimeout(()=>gCheck(null,null),300);
 }
 function gClear(e,btn){gRipple(e,btn);gInput='';gPinErr.textContent='';gRender();}
@@ -1383,6 +1386,37 @@ function gCheck(e,btn){
   if(btn)gRipple(e,btn);
   if(gInput.length<4)return;
   if(gInput===CORRECT){openDoors();}else{wrongPin();}
+}
+  function flashNeighbor(btn){
+  const neighbors = {
+    '1':['2','4'],
+    '2':['1','3','5'],
+    '3':['2','6'],
+    '4':['1','5','7'],
+    '5':['2','4','6','8'],
+    '6':['3','5','9'],
+    '7':['4','8'],
+    '8':['5','7','9','0'],
+    '9':['6','8'],
+    '0':['8']
+  };
+
+  const n = btn.dataset.n;
+  const list = neighbors[n];
+
+  if(!list || !list.length) return;
+
+  const pick = list[Math.floor(Math.random()*list.length)];
+  const fakeBtn = document.querySelector('.g-key[data-n="' + pick + '"]');
+
+  if(!fakeBtn) return;
+
+  const rect = fakeBtn.getBoundingClientRect();
+
+  gRipple({
+    clientX: rect.left + rect.width/2,
+    clientY: rect.top + rect.height/2
+  }, fakeBtn);
 }
 function gRender(){
   for(let i=0;i<4;i++){
