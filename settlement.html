@@ -511,27 +511,51 @@ function queryKKJ(){
   loadKKJ();
 }
 
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbwIrcbqRz8nvcf4V-CBzv3VscynHhc7NFf79BttlcrXncOktvIlxhukt24uxc_TEOyz/exec';
+
+let saveTimer = null;
+function schedSave(fn){ clearTimeout(saveTimer); saveTimer = setTimeout(fn, 800); }
+
+async function gasGet(key){
+  try{
+    const r = await fetch(GAS_URL+'?key='+encodeURIComponent(key));
+    const t = await r.text();
+    return t ? JSON.parse(t) : null;
+  }catch(e){ return localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)) : null; }
+}
+
+async function gasSet(key, value){
+  localStorage.setItem(key, JSON.stringify(value));
+  try{
+    await fetch(GAS_URL, {method:'POST', body: JSON.stringify({key, value: JSON.stringify(value)})});
+  }catch(e){}
+}
+
 function saveKKJ(){
-  const y = document.getElementById('selYear').value;
-  const m = document.getElementById('selMonth').value;
-  const key = `kkj_${y}_${m}`;
-  const data = {};
-  [...GL.map(i=>i.id), ...SAIL.map(i=>i.id)].forEach(id=>{
-    const el = document.getElementById('q_'+id);
-    if(el) data[id] = el.value;
+  schedSave(()=>{
+    const y = document.getElementById('selYear').value;
+    const m = document.getElementById('selMonth').value;
+    const key = `kkj_${y}_${m}`;
+    const data = {};
+    [...GL.map(i=>i.id), ...SAIL.map(i=>i.id)].forEach(id=>{
+      const el = document.getElementById('q_'+id);
+      if(el) data[id] = el.value;
+    });
+    gasSet(key, data);
   });
-  localStorage.setItem(key, JSON.stringify(data));
 }
 
 function saveKDS(){
-  const gy = document.getElementById('gumiYear').value;
-  const gm = document.getElementById('gumiMonth').value;
-  const gkey = `kds_${gy}_${gm}`;
-  const gdata = {};
-  const mucoEl = document.getElementById('q_muco');
-  if(mucoEl) gdata['muco'] = mucoEl.value;
-  localStorage.setItem(gkey, JSON.stringify(gdata));
-  localStorage.setItem(gkey+'_extra', JSON.stringify(extraItems));
+  schedSave(()=>{
+    const gy = document.getElementById('gumiYear').value;
+    const gm = document.getElementById('gumiMonth').value;
+    const gkey = `kds_${gy}_${gm}`;
+    const gdata = {};
+    const mucoEl = document.getElementById('q_muco');
+    if(mucoEl) gdata['muco'] = mucoEl.value;
+    gasSet(gkey, gdata);
+    gasSet(gkey+'_extra', extraItems);
+  });
 }
 
 function saveData(){
@@ -539,14 +563,13 @@ function saveData(){
   saveKDS();
 }
 
-function loadData(){
+async function loadData(){
   // KKJ 로드
   const y = document.getElementById('selYear').value;
   const m = document.getElementById('selMonth').value;
   const key = `kkj_${y}_${m}`;
-  const saved = localStorage.getItem(key);
-  if(saved){
-    const data = JSON.parse(saved);
+  const data = await gasGet(key);
+  if(data){
     Object.entries(data).forEach(([id, val])=>{
       const el = document.getElementById('q_'+id);
       if(el) el.value = val;
@@ -563,19 +586,17 @@ function loadData(){
   const gy = document.getElementById('gumiYear').value;
   const gm = document.getElementById('gumiMonth').value;
   const gkey = `kds_${gy}_${gm}`;
-  const gsaved = localStorage.getItem(gkey);
+  const gdata = await gasGet(gkey);
   const mucoEl = document.getElementById('q_muco');
-  if(gsaved){
-    const gdata = JSON.parse(gsaved);
+  if(gdata){
     if(mucoEl) mucoEl.value = gdata['muco']||0;
   } else {
     if(mucoEl) mucoEl.value = 0;
   }
   calcGumi();
-  const savedExtra = localStorage.getItem(gkey+'_extra');
-  extraItems = savedExtra ? JSON.parse(savedExtra) : [];
+  const extraData = await gasGet(gkey+'_extra');
+  extraItems = extraData || [];
   renderExtraItems();
-  saveKDS();
 }
 
 function fmtInput(el){
@@ -747,32 +768,30 @@ function closeAdmin(){
   document.getElementById('adminModal').style.display = 'none';
 }
 
-function loadKDS(){
+async function loadKDS(){
   const gy = document.getElementById('gumiYear').value;
   const gm = document.getElementById('gumiMonth').value;
   const gkey = `kds_${gy}_${gm}`;
-  const gsaved = localStorage.getItem(gkey);
+  const gdata = await gasGet(gkey);
   const mucoEl = document.getElementById('q_muco');
-  if(gsaved){
-    const gdata = JSON.parse(gsaved);
+  if(gdata){
     const v = parseFloat((gdata['muco']||'0').toString().replace(/,/g,''))||0;
     if(mucoEl) mucoEl.value = v===0?'0':v.toLocaleString('ko-KR');
   } else {
     if(mucoEl) mucoEl.value = '0';
   }
   calcGumi();
-  const savedExtra = localStorage.getItem(gkey+'_extra');
-  extraItems = savedExtra ? JSON.parse(savedExtra) : [];
+  const extraData = await gasGet(gkey+'_extra');
+  extraItems = extraData || [];
   renderExtraItems();
 }
 
-function loadKKJ(){
+async function loadKKJ(){
   const y = document.getElementById('selYear').value;
   const m = document.getElementById('selMonth').value;
   const key = `kkj_${y}_${m}`;
-  const saved = localStorage.getItem(key);
-  if(saved){
-    const data = JSON.parse(saved);
+  const data = await gasGet(key);
+  if(data){
     Object.entries(data).forEach(([id, val])=>{
       const el = document.getElementById('q_'+id);
       if(el) el.value = val;
