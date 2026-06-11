@@ -703,6 +703,118 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     #edu-modal .main-heading{font-size:2.2rem;}
     #edu-modal .info-row{flex-direction:column;}
   }
+  /* MR 교육자료 애니메이션 */
+.edu-slide {
+transition: opacity .45s ease, transform .45s ease;
+}
+
+.edu-slide.active {
+transform: translateX(0);
+}
+
+.edu-slide:not(.active) {
+transform: translateX(24px);
+}
+
+/* 슬라이드 안 요소 순차 등장 */
+.edu-slide.active .big-title {
+animation: eduFadeUp .8s ease both;
+}
+
+.edu-slide.active .subline {
+animation: eduFadeUp .8s ease .12s both;
+}
+
+.edu-slide.active .info-card {
+animation: eduFadeUp .8s ease .22s both;
+}
+
+.edu-slide.active .info-card:nth-child(2) {
+animation-delay: .35s;
+}
+
+.edu-slide.active .note-box {
+animation: eduFadeUp .8s ease .48s both;
+}
+
+.edu-slide.active .slide-label {
+animation: eduFadeUp .7s ease .15s both;
+}
+
+.edu-slide.active .main-heading {
+animation: eduFadeUp .8s ease .25s both;
+}
+
+.edu-slide.active .body-text {
+animation: eduFadeUp .8s ease .38s both;
+}
+
+.edu-slide.active .body-text:nth-of-type(2) {
+animation-delay: .5s;
+}
+
+.edu-slide.active .tip-box {
+animation: eduFadeUp .8s ease .65s both, tipGlow 2.8s ease-in-out infinite;
+}
+
+/* 카드 살짝 떠오르는 효과 */
+.info-card,
+.stat-card,
+.drug-card,
+.time-item,
+.tip-box {
+transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.info-card:hover,
+.stat-card:hover,
+.drug-card:hover,
+.time-item:hover {
+transform: translateY(-6px);
+box-shadow: 0 18px 40px rgba(15,45,99,.12);
+}
+
+/* 버튼 */
+.nav-btn {
+transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.nav-btn:hover {
+transform: scale(1.08);
+background:#ffffff;
+box-shadow:0 10px 25px rgba(15,45,99,.15);
+}
+
+/* 점 */
+.edot {
+transition: transform .2s ease, background .2s ease;
+}
+
+.edot.active {
+transform: scale(1.3);
+}
+
+/* 핵심 애니메이션 */
+@keyframes eduFadeUp {
+from {
+opacity: 0;
+transform: translateY(28px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes tipGlow {
+0%, 100% {
+box-shadow: 0 12px 30px rgba(184,151,58,.08);
+}
+50% {
+box-shadow: 0 18px 45px rgba(184,151,58,.22);
+}
+}
+
 </style>
 
 <!-- MR 교육자료 모달 -->
