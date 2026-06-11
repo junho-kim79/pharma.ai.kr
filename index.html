@@ -303,6 +303,146 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
   </div>
 </div>
 
+<!-- MR 교육자료 모달 -->
+<div id="edu-modal" style="display:none;position:fixed;inset:0;z-index:2000;background:rgba(10,16,34,.97);flex-direction:column;">
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;border-bottom:1px solid rgba(184,151,58,.2);">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.15em;color:var(--gold-lt);">A. baumannii <span style="color:var(--gold);font-size:.9rem;letter-spacing:.2em;margin-left:.8rem;">MR 교육자료</span></div>
+    <div style="display:flex;align-items:center;gap:1.5rem;">
+      <div id="eduCount" style="font-size:.85rem;letter-spacing:.3em;color:var(--gold-lt);">1 / 4</div>
+      <button onclick="closeEduModal()" style="background:none;border:none;color:var(--gold-lt);font-size:1.4rem;cursor:pointer;line-height:1;">✕</button>
+    </div>
+  </div>
+  <div style="flex:1;display:flex;overflow:hidden;position:relative;" id="eduBody">
+    <!-- Slide 1 -->
+    <div class="edu-slide active" id="eSlide1" style="display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%;position:absolute;inset:0;opacity:1;transition:opacity .4s;">
+      <div style="background:#0a1222;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;border-right:1px solid rgba(184,151,58,.15);">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--gold);letter-spacing:.08em;line-height:1;text-align:center;">Acinetobacter<br>baumannii</div>
+        <div style="margin-top:1.5rem;font-size:.8rem;letter-spacing:.2em;color:rgba(255,255,255,.4);">정식 학명 · 이탤릭체 표기</div>
+        <div style="margin-top:2.5rem;display:flex;gap:1rem;">
+          <div style="background:rgba(29,158,117,.15);border:1px solid rgba(29,158,117,.3);border-radius:6px;padding:.6rem 1.2rem;text-align:center;">
+            <div style="font-size:.65rem;letter-spacing:.2em;color:#5DCAA5;margin-bottom:.3rem;">GENUS</div>
+            <div style="font-size:.95rem;color:#9FE1CB;font-style:italic;">Acinetobacter</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.3rem;">akinetos(움직이지 않는) + bacter(막대균)</div>
+          </div>
+          <div style="background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.25);border-radius:6px;padding:.6rem 1.2rem;text-align:center;">
+            <div style="font-size:.65rem;letter-spacing:.2em;color:#F09595;margin-bottom:.3rem;">SPECIES</div>
+            <div style="font-size:.95rem;color:#F7C1C1;font-style:italic;">baumannii</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.4);margin-top:.3rem;">Paul Baumann (UCLA) · 1986년 명명</div>
+          </div>
+        </div>
+        <div style="margin-top:2rem;font-size:.75rem;color:rgba(255,255,255,.35);letter-spacing:.1em;">약어: <em style="color:rgba(255,255,255,.6);">A. baumannii</em> &nbsp;·&nbsp; 발음: 아시네토박터 바우만니이</div>
+      </div>
+      <div style="background:#0d1b35;display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;overflow-y:auto;">
+        <div style="font-size:.65rem;letter-spacing:.25em;color:var(--gold);margin-bottom:.8rem;">SLIDE 01 · 균 소개</div>
+        <div style="font-family:'Noto Serif KR',serif;font-size:1.5rem;color:#eef1f7;line-height:1.4;margin-bottom:1.5rem;">이 균의 이름은<br>어디서 왔나?</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1.2rem;">속명 <em>Acinetobacter</em>는 그리스어에서 유래했습니다. <em>akinetos</em>(움직이지 않는)와 <em>bacter</em>(막대균)의 합성어로, <strong style="color:#eef1f7;">운동성이 없는 간균</strong>이라는 의미입니다.</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;">종명 <em>baumannii</em>는 UCLA의 미생물학자 <strong style="color:#eef1f7;">Paul Baumann</strong>의 이름에서 유래했으며, 1986년 공식 명명되었습니다.</div>
+        <div style="margin-top:1.5rem;padding:1rem 1.2rem;background:rgba(184,151,58,.08);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;">
+          <div style="font-size:.75rem;color:var(--gold-lt);line-height:1.7;">영업 현장 팁: 의사나 교수에게 균 이름의 어원을 아는 MR — 신뢰감이 올라갑니다</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="edu-slide" id="eSlide2" style="display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%;position:absolute;inset:0;opacity:0;transition:opacity .4s;pointer-events:none;">
+      <div style="background:#0a1222;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;border-right:1px solid rgba(184,151,58,.15);">
+        <div style="font-size:.7rem;letter-spacing:.2em;color:rgba(226,75,74,.8);margin-bottom:1rem;">ESKAPE 병원균 중 최악</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem;width:100%;max-width:320px;">
+          <div style="background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.25);border-radius:8px;padding:.8rem;text-align:center;">
+            <div style="font-size:1.6rem;color:#F09595;font-weight:500;">수 주</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.45);margin-top:.3rem;">환경 생존 기간</div>
+          </div>
+          <div style="background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.25);border-radius:8px;padding:.8rem;text-align:center;">
+            <div style="font-size:1.6rem;color:#F09595;font-weight:500;">ICU</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.45);margin-top:.3rem;">집중 발생 구역</div>
+          </div>
+          <div style="background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.25);border-radius:8px;padding:.8rem;text-align:center;">
+            <div style="font-size:1.6rem;color:#F09595;font-weight:500;">40~60%</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.45);margin-top:.3rem;">중증 감염 사망률</div>
+          </div>
+          <div style="background:rgba(226,75,74,.18);border:1px solid rgba(226,75,74,.4);border-radius:8px;padding:.8rem;text-align:center;">
+            <div style="font-size:1.2rem;color:#F7C1C1;font-weight:500;">CRAB</div>
+            <div style="font-size:.65rem;color:rgba(255,255,255,.45);margin-top:.3rem;">카바페넴 내성 → 치료 없음</div>
+          </div>
+        </div>
+        <div style="margin-top:1.5rem;font-size:.7rem;color:rgba(255,255,255,.3);text-align:center;">OXA계열 효소 · Efflux pump 동시 보유</div>
+      </div>
+      <div style="background:#0d1b35;display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;overflow-y:auto;">
+        <div style="font-size:.65rem;letter-spacing:.25em;color:var(--gold);margin-bottom:.8rem;">SLIDE 02 · 왜 무서운가</div>
+        <div style="font-family:'Noto Serif KR',serif;font-size:1.5rem;color:#eef1f7;line-height:1.4;margin-bottom:1.5rem;">병원에서 가장<br>무서운 균</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1rem;">건조한 병원 표면에서 수 주간 생존합니다. 침대 난간, 의료기기 어디서든 집단감염을 일으킬 수 있습니다.</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1rem;">VAP(인공호흡기 관련 폐렴), 패혈증, HABP 등 중증 환자에서 집중 발생합니다.</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;">페니실린 → 세팔로스포린 → 플루오로퀴놀론 → 카바페넴 순으로 방어선이 무너지며, CRAB 단계에서는 <strong style="color:#F09595;">사실상 치료 옵션이 없습니다.</strong></div>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="edu-slide" id="eSlide3" style="display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%;position:absolute;inset:0;opacity:0;transition:opacity .4s;pointer-events:none;">
+      <div style="background:#0a1222;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;border-right:1px solid rgba(184,151,58,.15);">
+        <div style="width:100%;max-width:300px;">
+          <div style="background:rgba(226,75,74,.12);border:1px solid rgba(226,75,74,.3);border-radius:8px;padding:1rem 1.2rem;margin-bottom:.8rem;">
+            <div style="font-size:.65rem;letter-spacing:.2em;color:#F09595;margin-bottom:.5rem;">타조신 (pip/tazobactam)</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.6;">Tazobactam = β-lactamase <strong style="color:#F7C1C1;">억제제만</strong><br>A. baumannii PBP 직접 활성 <strong style="color:#F09595;">없음</strong><br>→ CRAB에 처음부터 무력</div>
+          </div>
+          <div style="text-align:center;font-size:1.2rem;color:rgba(255,255,255,.2);margin:.4rem 0;">vs</div>
+          <div style="background:rgba(29,158,117,.12);border:1px solid rgba(29,158,117,.3);border-radius:8px;padding:1rem 1.2rem;">
+            <div style="font-size:.65rem;letter-spacing:.2em;color:#5DCAA5;margin-bottom:.5rem;">콤비신 (pip/sulbactam)</div>
+            <div style="font-size:.82rem;color:rgba(255,255,255,.6);line-height:1.6;">Sulbactam → PBP1·PBP3 <strong style="color:#9FE1CB;">직접 결합</strong><br>A. baumannii intrinsic activity <strong style="color:#5DCAA5;">있음</strong><br>→ CRAB 커버 가능</div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#0d1b35;display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;overflow-y:auto;">
+        <div style="font-size:.65rem;letter-spacing:.25em;color:var(--gold);margin-bottom:.8rem;">SLIDE 03 · 핵심 차이</div>
+        <div style="font-family:'Noto Serif KR',serif;font-size:1.5rem;color:#eef1f7;line-height:1.4;margin-bottom:1.5rem;">"브로드스펙트럼이니까<br>다 되겠지" — 착각</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1.2rem;">타조신과 콤비신 모두 piperacillin 베이스라 비슷해 보이지만, <strong style="color:#eef1f7;">ICU에서 실제 문제가 되는 균</strong>에 대한 활성이 완전히 다릅니다.</div>
+        <div style="padding:1rem 1.2rem;background:rgba(184,151,58,.08);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;">
+          <div style="font-size:.8rem;color:var(--gold-lt);line-height:1.7;font-style:italic;">"교수님, 타조신도 브로드하지만 ICU에서 진짜 문제 되는 A. baumannii는 콤비신만 잡습니다"</div>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 4 -->
+    <div class="edu-slide" id="eSlide4" style="display:grid;grid-template-columns:1fr 1fr;width:100%;height:100%;position:absolute;inset:0;opacity:0;transition:opacity .4s;pointer-events:none;">
+      <div style="background:#0a1222;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:3rem;border-right:1px solid rgba(184,151,58,.15);">
+        <div style="width:100%;max-width:300px;">
+          <div style="font-size:.65rem;letter-spacing:.2em;color:rgba(255,255,255,.35);margin-bottom:1rem;text-align:center;">설박탐 치료의 역사</div>
+          <div style="display:flex;flex-direction:column;gap:.6rem;">
+            <div style="background:rgba(255,255,255,.05);border-radius:6px;padding:.7rem 1rem;display:flex;align-items:center;gap:.8rem;">
+              <div style="width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);flex-shrink:0;"></div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.5);">폴리믹신 시대 — 독성 심각, 최후 수단</div>
+            </div>
+            <div style="background:rgba(255,255,255,.05);border-radius:6px;padding:.7rem 1rem;display:flex;align-items:center;gap:.8rem;">
+              <div style="width:6px;height:6px;border-radius:50%;background:rgba(239,159,39,.5);flex-shrink:0;"></div>
+              <div style="font-size:.78rem;color:rgba(255,255,255,.5);">암피실린-설박탐 — 설박탐 <strong style="color:rgba(255,255,255,.7);">0.5g</strong> 고정, 용량 한계</div>
+            </div>
+            <div style="background:rgba(29,158,117,.1);border:1px solid rgba(29,158,117,.25);border-radius:6px;padding:.7rem 1rem;display:flex;align-items:center;gap:.8rem;">
+              <div style="width:8px;height:8px;border-radius:50%;background:#1D9E75;flex-shrink:0;"></div>
+              <div style="font-size:.78rem;color:#9FE1CB;"><strong>콤비신</strong> — 설박탐 <strong>1.5g</strong>, 현실적 충분 용량</div>
+            </div>
+          </div>
+          <div style="margin-top:1.2rem;text-align:center;font-size:.7rem;color:rgba(255,255,255,.3);">Sulbactam/Durlobactam (차세대) — 국내 미도입</div>
+        </div>
+      </div>
+      <div style="background:#0d1b35;display:flex;flex-direction:column;justify-content:center;padding:3rem 2.5rem;overflow-y:auto;">
+        <div style="font-size:.65rem;letter-spacing:.25em;color:var(--gold);margin-bottom:.8rem;">SLIDE 04 · 포지셔닝</div>
+        <div style="font-family:'Noto Serif KR',serif;font-size:1.5rem;color:#eef1f7;line-height:1.4;margin-bottom:1.5rem;">콤비신 —<br>현재 가장 현실적 대안</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1.2rem;">설박탐이 A. baumannii를 잡는 유일한 열쇠였고, 암피실린-설박탐은 0.5g 한계로 충분한 용량을 쓸 수 없었습니다. 콤비신은 <strong style="color:#eef1f7;">1.5g으로 그 한계를 극복</strong>했습니다.</div>
+        <div style="font-size:.88rem;color:rgba(255,255,255,.65);line-height:1.8;margin-bottom:1.2rem;"><strong style="color:#F09595;">완벽한 해결책은 아닙니다.</strong> 그러나 현재 국내에서 쓸 수 있는 가장 근거 있는 선택입니다.</div>
+        <div style="padding:1rem 1.2rem;background:rgba(184,151,58,.08);border-left:2px solid var(--gold);border-radius:0 6px 6px 0;">
+          <div style="font-size:.8rem;color:var(--gold-lt);line-height:1.7;font-style:italic;">"완벽한 해결책은 아니지만, 지금 당장 쓸 수 있는 가장 근거 있는 선택입니다"</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:1rem 2rem;border-top:1px solid rgba(184,151,58,.15);">
+    <button onclick="eduPrev()" style="background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">‹</button>
+    <div id="eduDots" style="display:flex;gap:.6rem;">
+      <div class="edot active" onclick="eduGo(0)" style="width:8px;height:8px;border-radius:50%;background:var(--gold);cursor:pointer;transition:background .15s;"></div>
+      <div class="edot" onclick="eduGo(1)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:background .15s;"></div>
+      <div class="edot" onclick="eduGo(2)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:background .15s;"></div>
+      <div class="edot" onclick="eduGo(3)" style="width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.2);cursor:pointer;transition:background .15s;"></div>
+    </div>
+    <button onclick="eduNext()" style="background:none;border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;font-size:1.2rem;cursor:pointer;display:flex;align-items:center;justify-content:center;">›</button>
+  </div>
+</div>
+
 <!-- MAIN -->
 <div id="main">
   <nav>
@@ -721,6 +861,7 @@ function heroVideoNext(){ heroVideoLoad(heroVideoCur < heroVideos.length-1 ? her
           <div class="product-card-sub">Piperacillin 3g + Sulbactam 1.5g<br>A.Baumannii 중심 광범위 항균제</div>
           <div class="product-card-pills"><span class="product-pill">CRAB 특화</span><span class="product-pill">6vial 전액급여</span><span class="product-pill">타조신 대안</span></div>
           <div class="product-card-cta">e-브로셔 보기</div>
+          <div class="product-card-cta" id="combicin-edu-btn" style="margin-top:6px;background:transparent;border:1px solid var(--gold);color:var(--gold);font-size:.72rem;letter-spacing:.15em;">MR 교육자료</div>
         </div>
       </div>
       <!-- =====================================================
@@ -1687,6 +1828,49 @@ andongCard.addEventListener('mouseleave', () => {
 });
 </script>
   <script>
+
+const eduModal = document.getElementById('edu-modal');
+let eCur = 0;
+const eSlides = [
+  document.getElementById('eSlide1'),
+  document.getElementById('eSlide2'),
+  document.getElementById('eSlide3'),
+  document.getElementById('eSlide4')
+];
+const eDots = document.querySelectorAll('.edot');
+
+document.getElementById('combicin-edu-btn').addEventListener('click', function(e){
+  e.stopPropagation();
+  eduModal.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  eduGo(0);
+});
+
+function closeEduModal(){
+  eduModal.style.display = 'none';
+  document.body.style.overflow = '';
+}
+function eduGo(n){
+  eSlides[eCur].style.opacity = '0';
+  eSlides[eCur].style.pointerEvents = 'none';
+  eDots[eCur].style.background = 'rgba(255,255,255,.2)';
+  eCur = (n + 4) % 4;
+  eSlides[eCur].style.opacity = '1';
+  eSlides[eCur].style.pointerEvents = 'auto';
+  eDots[eCur].style.background = 'var(--gold)';
+  document.getElementById('eduCount').textContent = (eCur+1) + ' / 4';
+}
+function eduNext(){ eduGo(eCur+1); }
+function eduPrev(){ eduGo(eCur-1); }
+
+document.addEventListener('keydown', function(e){
+  if(eduModal.style.display === 'flex'){
+    if(e.key === 'ArrowRight') eduNext();
+    if(e.key === 'ArrowLeft') eduPrev();
+    if(e.key === 'Escape') closeEduModal();
+  }
+});
+
 function openSettlement(e) {
   e.preventDefault();
   const pin = prompt('PIN을 입력하세요');
