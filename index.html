@@ -310,49 +310,59 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     position:fixed;
     inset:0;
     z-index:2000;
-    background:#f6f8fc;
+    background:#f4f7fc; /* 한층 더 부드럽고 고급스러운 배경 톤 */
     flex-direction:column;
-    color:#102650;
+    color:#0f2249;
+    font-family:'Noto Sans KR', sans-serif;
   }
 
   #edu-modal .edu-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:1rem 2rem;
-    background:rgba(255,255,255,.96);
-    border-bottom:1px solid #dfe6f1;
-    box-shadow:0 6px 20px rgba(12,31,68,.05);
+    padding:1.2rem 2.5rem;
+    background:rgba(255, 255, 255, 0.98);
+    border-bottom:1px solid #e2eaf5;
+    box-shadow:0 8px 30px rgba(15, 34, 73, 0.03); /* 더 은은하고 세련된 그림자 */
   }
 
   #edu-modal .edu-brand{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:1.35rem;
-    letter-spacing:.15em;
-    color:#102650;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:1.5rem;
+    letter-spacing:.18em;
+    color:#122b5d;
+    font-weight: 900;
   }
 
   #edu-modal .edu-brand span{
-    color:#b58a18;
-    font-size:.9rem;
-    letter-spacing:.18em;
-    margin-left:.8rem;
+    color:#d4af37; /* 리얼 골드 느낌의 고급스러운 색감 처리 */
+    font-size:.95rem;
+    letter-spacing:.2em;
+    margin-left:1rem;
+    font-weight: 700;
   }
 
   #edu-modal .edu-count{
     font-size:.9rem;
     font-weight:800;
     letter-spacing:.3em;
-    color:#102650;
+    color:#53688e;
+    background:#e8effa;
+    padding:0.4rem 1rem;
+    border-radius:20px; /* 카운트 배지 스타일로 변경 */
   }
 
   #edu-modal .edu-close{
     background:none;
     border:none;
-    color:#102650;
-    font-size:1.8rem;
+    color:#122b5d;
+    font-size:2rem;
     cursor:pointer;
     line-height:1;
+    transition:transform 0.2s;
+  }
+  #edu-modal .edu-close:hover {
+    transform: scale(1.1);
   }
 
   #eduBody{
@@ -365,25 +375,25 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
 
   #edu-modal .edu-slide{
     display:grid;
-    grid-template-columns:1fr 1fr;
+    grid-template-columns:1.1fr 0.9fr; /* 좌우 비율을 좀 더 황금비율로 가공 */
     width:100%;
     height:100%;
     position:absolute;
     inset:0;
-    transition:opacity .45s ease, transform .45s ease; /* 전환 효과 부드럽게 개선 */
+    transition:opacity .48s cubic-bezier(0.4, 0, 0.2, 1), transform .48s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   #edu-modal .edu-left{
     background:
-      radial-gradient(circle at 12% 12%, rgba(76,143,201,.14), transparent 28%),
-      radial-gradient(circle at 85% 20%, rgba(184,151,58,.10), transparent 30%),
-      linear-gradient(135deg,#eef5fb,#f9fcff);
+      radial-gradient(circle at 15% 15%, rgba(41, 121, 255, 0.12), transparent 35%),
+      radial-gradient(circle at 85% 25%, rgba(212, 175, 55, 0.08), transparent 35%),
+      linear-gradient(135deg, #f0f5fc, #fbfdfe); /* 입체감 넘치는 하이엔드 그라데이션 */
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    padding:3rem;
-    border-right:1px solid #dfe6f1;
+    padding:4rem;
+    border-right:1px solid #e3eefc;
   }
 
   #edu-modal .edu-right{
@@ -391,395 +401,245 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     display:flex;
     flex-direction:column;
     justify-content:center;
-    padding:3.2rem 3.5rem;
+    padding:3.5rem 4rem;
     overflow-y:auto;
   }
 
-  /* 우측 스크롤바 맞춤 디자인 추가 */
-  #edu-modal .edu-right::-webkit-scrollbar {
-    width: 6px;
-  }
-  #edu-modal .edu-right::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  #edu-modal .edu-right::-webkit-scrollbar-thumb {
-    background: #cbd6e6;
-    border-radius: 3px;
-  }
-  #edu-modal .edu-right::-webkit-scrollbar-thumb:hover {
-    background: #a9b4c6;
-  }
+  /* 고급 스크롤바 커스텀 */
+  #edu-modal .edu-right::-webkit-scrollbar { width: 6px; }
+  #edu-modal .edu-right::-webkit-scrollbar-track { background: transparent; }
+  #edu-modal .edu-right::-webkit-scrollbar-thumb { background: #d0daf0; border-radius: 10px; }
+  #edu-modal .edu-right::-webkit-scrollbar-thumb:hover { background: #a3b8e2; }
 
   #edu-modal .big-title{
-    font-family:'Bebas Neue',sans-serif;
-    font-size:5.1rem;
+    font-family:'Bebas Neue', sans-serif;
+    font-size:5.5rem;
     font-weight:800;
-    letter-spacing:.035em;
-    line-height:.95;
+    letter-spacing:.04em;
+    line-height:0.92;
     text-align:center;
-    color:#123c88;
-    text-shadow:0 8px 22px rgba(18,60,136,.08);
+    color:#102c66;
+    text-shadow:0 12px 35px rgba(16, 44, 102, 0.06);
   }
 
   #edu-modal .big-title .gold{
-    color:#c69b28;
+    color:#d4af37; /* 톤다운된 황동 골드로 이쁘게 교체 */
   }
 
   #edu-modal .subline{
-    margin-top:1.05rem;
-    font-size:1rem;
+    margin-top:1.2rem;
+    font-size:1.05rem;
     font-weight:700;
-    letter-spacing:.08em;
-    color:#51627e;
+    letter-spacing:.1em;
+    color:#617594;
+    position: relative;
+    padding-bottom: 0.5rem;
+  }
+  #edu-modal .subline::after { /* 부제목 아래 포인트 미니 선 추가 */
+    content: ''; display: block; width: 30px; height: 2px; background: #d4af37; margin: 0.6rem auto 0;
   }
 
   #edu-modal .slide-label{
     display:inline-block;
     width:max-content;
-    background:#f3e7c4;
-    color:#a77b10;
-    padding:.42rem .9rem;
-    border-radius:10px;
-    font-size:.82rem;
+    background:#fdf4db;
+    color:#b38f1d;
+    padding:.45rem 1rem;
+    border-radius:30px; /* 완전 둥글게 가공해서 트렌디하게 변경 */
+    font-size:.8rem;
     font-weight:900;
-    letter-spacing:.08em;
-    margin-bottom:1.1rem;
+    letter-spacing:.1em;
+    margin-bottom:1.2rem;
+    border: 1px solid rgba(212, 175, 55, 0.2);
   }
 
   #edu-modal .main-heading{
-    font-family:'Noto Serif KR',serif;
-    font-size:3rem;
+    font-family:'Noto Serif KR', serif;
+    font-size:2.8rem;
     font-weight:900;
-    color:#0f2d63;
-    line-height:1.15;
-    margin-bottom:1.8rem;
+    color:#0a1d40;
+    line-height:1.25;
+    margin-bottom:2rem;
+    letter-spacing: -0.02em;
   }
 
   #edu-modal .body-text{
-    font-size:1.08rem;
-    color:#43536f;
-    line-height:1.95;
-    margin-bottom:1.1rem;
+    font-size:1.1rem;
+    color:#4a5973;
+    line-height:1.9;
+    margin-bottom:1.2rem;
   }
 
   #edu-modal strong{
-    color:#0f2d63;
+    color:#123c88;
+    font-weight: 900;
+    background: linear-gradient(to top, rgba(41, 121, 255, 0.08) 40%, transparent 40%); /* 형광펜 효과 가공 */
   }
 
   #edu-modal .info-row{
     display:flex;
-    gap:1rem;
-    margin-top:2.2rem;
+    gap:1.2rem;
+    margin-top:2.5rem;
   }
 
   #edu-modal .info-card{
     background:#ffffff;
-    border-radius:14px;
-    padding:1.05rem 1.35rem;
+    border-radius:18px; /* 곡률을 더 줘서 부드럽게 가공 */
+    padding:1.3rem 1.6rem;
     text-align:center;
-    min-width:235px;
-    box-shadow:0 14px 35px rgba(20,48,92,.08);
+    min-width:240px;
+    box-shadow:0 15px 45px rgba(15, 34, 73, 0.05); /* 트렌디한 네온 소프트 섀도우 */
+    border: 1px solid #edf2f9;
   }
 
-  #edu-modal .info-card.green{
-    border:1px solid rgba(29,158,117,.38);
-  }
-
-  #edu-modal .info-card.red{
-    border:1px solid rgba(204,91,91,.32);
-  }
+  #edu-modal .info-card.green{ border:1px solid rgba(46, 204, 113, 0.25); background: linear-gradient(180deg, #ffffff, #f7fdf9); }
+  #edu-modal .info-card.red{ border:1px solid rgba(231, 76, 60, 0.2); background: linear-gradient(180deg, #ffffff, #fffbfa); }
 
   #edu-modal .info-kicker{
-    font-size:.75rem;
+    font-size:.78rem;
     font-weight:900;
-    letter-spacing:.22em;
-    margin-bottom:.5rem;
+    letter-spacing:.2em;
+    margin-bottom:.6rem;
   }
 
-  #edu-modal .green .info-kicker,
-  #edu-modal .green .info-main{color:#1d9e75;}
-
-  #edu-modal .red .info-kicker,
-  #edu-modal .red .info-main{color:#b63d52;}
+  #edu-modal .green .info-kicker, #edu-modal .green .info-main{color:#27ae60;}
+  #edu-modal .red .info-kicker, #edu-modal .red .info-main{color:#c0392b;}
 
   #edu-modal .info-main{
-    font-size:1.45rem;
+    font-size:1.5rem;
     font-weight:800;
-    font-style:italic;
-    margin-bottom:.45rem;
+    font-style:normal; /* 이탤릭보다 깔끔한 노멀 서체로 가공 */
+    margin-bottom:.5rem;
+    letter-spacing: -0.01em;
   }
 
-  #edu-modal .info-desc{
-    font-size:.84rem;
-    color:#5c6a82;
-    line-height:1.6;
-  }
+  #edu-modal .info-desc{ font-size:.88rem; color:#61708a; line-height:1.6; }
 
   #edu-modal .note-box{
-    margin-top:1.8rem;
-    padding:1rem 1.4rem;
-    background:#ffffff;
-    border:1px solid #dce5f2;
-    border-radius:12px;
-    font-size:.96rem;
-    color:#43536f;
-    box-shadow:0 10px 25px rgba(20,48,92,.06);
+    margin-top:2rem;
+    padding:1.1rem 1.5rem;
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:14px;
+    font-size:.95rem;
+    color:#5c6b82;
+    box-shadow:0 8px 20px rgba(0,0,0,0.01);
   }
 
   #edu-modal .tip-box{
-    margin-top:2rem;
-    padding:1.35rem 1.5rem;
-    background:#fffaf0;
-    border:1px solid rgba(184,151,58,.28);
-    border-radius:14px;
-    box-shadow:0 14px 35px rgba(184,151,58,.08);
+    margin-top:2.2rem;
+    padding:1.5rem 1.8rem;
+    background:#fffdf6;
+    border:1px solid rgba(214, 175, 55, 0.25);
+    border-radius:18px;
+    box-shadow:0 15px 40px rgba(214, 175, 55, 0.04);
   }
 
-  #edu-modal .tip-title{
-    font-size:1.02rem;
-    font-weight:900;
-    color:#b58a18;
-    margin-bottom:.45rem;
-  }
+  #edu-modal .tip-title{ font-size:1.05rem; font-weight:900; color:#b58a18; margin-bottom:.6rem; }
+  #edu-modal .tip-text{ font-size:1rem; color:#516078; line-height:1.8; }
 
-  #edu-modal .tip-text{
-    font-size:1rem;
-    color:#43536f;
-    line-height:1.8;
-  }
-
-  #edu-modal .stat-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:1rem;
-    width:100%;
-    max-width:460px;
-  }
-
+  #edu-modal .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; width:100%; max-width:480px; }
   #edu-modal .stat-card{
     background:#ffffff;
-    border:1px solid #e6d4d4;
-    border-radius:16px;
-    padding:1.2rem 1rem;
+    border:1px solid #f1e4e4;
+    border-radius:20px;
+    padding:1.5rem 1.2rem;
     text-align:center;
-    box-shadow:0 15px 35px rgba(131,35,35,.07);
+    box-shadow:0 15px 40px rgba(192, 57, 43, 0.04);
   }
 
-  #edu-modal .stat-num{
-    font-size:2.25rem;
-    font-weight:900;
-    color:#c84848;
-    line-height:1;
-  }
+  #edu-modal .stat-num{ font-size:2.5rem; font-weight:900; color:#cd3838; line-height:1; letter-spacing: -0.02em; }
+  #edu-modal .stat-label{ font-size:.92rem; color:#62728d; margin-top:.6rem; line-height:1.5; }
 
-  #edu-modal .stat-label{
-    font-size:.9rem;
-    color:#5d6b83;
-    margin-top:.55rem;
-    line-height:1.45;
-  }
+  #edu-modal .compare-box{ width:100%; max-width:480px; }
+  #edu-modal .drug-card{ background:#ffffff; border-radius:20px; padding:1.5rem; box-shadow:0 15px 40px rgba(15,34,73,0.05); border: 1px solid #edf2f9; }
+  #edu-modal .drug-card.bad{ border:1px solid rgba(231, 76, 60, 0.2); }
+  #edu-modal .drug-card.good{ border:1px solid rgba(46, 204, 113, 0.25); }
+  #edu-modal .drug-title{ font-size:.95rem; font-weight:900; letter-spacing:.08em; margin-bottom:.8rem; }
+  #edu-modal .drug-card.bad .drug-title{color:#c0392b;}
+  #edu-modal .drug-card.good .drug-title{color:#27ae60;}
+  #edu-modal .drug-text{ font-size:1rem; color:#51617c; line-height:1.8; }
+  #edu-modal .vs{ text-align:center; font-size:1.3rem; font-weight:900; color:#bdc9db; margin:.8rem 0; font-style: italic; }
 
-  #edu-modal .compare-box{
-    width:100%;
-    max-width:460px;
-  }
-
-  #edu-modal .drug-card{
-    background:#ffffff;
-    border-radius:16px;
-    padding:1.25rem 1.35rem;
-    box-shadow:0 15px 35px rgba(20,48,92,.08);
-  }
-
-  #edu-modal .drug-card.bad{
-    border:1px solid rgba(204,91,91,.32);
-  }
-
-  #edu-modal .drug-card.good{
-    border:1px solid rgba(29,158,117,.38);
-  }
-
-  #edu-modal .drug-title{
-    font-size:.9rem;
-    font-weight:900;
-    letter-spacing:.08em;
-    margin-bottom:.7rem;
-  }
-
-  #edu-modal .drug-card.bad .drug-title{color:#b63d52;}
-  #edu-modal .drug-card.good .drug-title{color:#1d9e75;}
-
-  #edu-modal .drug-text{
-    font-size:1rem;
-    color:#4b5a73;
-    line-height:1.75;
-  }
-
-  #edu-modal .vs{
-    text-align:center;
-    font-size:1.2rem;
-    font-weight:900;
-    color:#a9b4c6;
-    margin:.65rem 0;
-  }
-
-  #edu-modal .timeline{
-    width:100%;
-    max-width:500px;
-  }
-
-  #edu-modal .time-title{
-    font-size:.9rem;
-    font-weight:900;
-    letter-spacing:.14em;
-    color:#63718b;
-    margin-bottom:1rem;
-    text-align:center;
-  }
-
+  #edu-modal .timeline{ width:100%; max-width:520px; }
+  #edu-modal .time-title{ font-size:.95rem; font-weight:900; letter-spacing:.15em; color:#536482; margin-bottom:1.2rem; text-align:center; }
   #edu-modal .time-item{
-    background:#ffffff;
-    border:1px solid #dfe6f1;
-    border-radius:14px;
-    padding:1rem 1.1rem;
-    display:flex;
-    align-items:center;
-    gap:1rem;
-    margin-bottom:.8rem;
-    box-shadow:0 12px 30px rgba(20,48,92,.06);
+    background:#ffffff; border:1px solid #edf2f7; border-radius:16px;
+    padding:1.2rem 1.4rem; display:flex; align-items:center; gap:1.2rem;
+    margin-bottom:.9rem; box-shadow:0 12px 35px rgba(15,34,73,0.03);
   }
-
-  #edu-modal .dot{
-    width:12px;
-    height:12px;
-    border-radius:50%;
-    background:#b9c3d4;
-    flex-shrink:0;
-  }
-
-  #edu-modal .dot.gold{background:#c69b28;}
-  #edu-modal .dot.green{background:#1d9e75;}
-
-  #edu-modal .time-text{
-    font-size:1rem;
-    color:#4b5a73;
-    line-height:1.55;
-  }
+  #edu-modal .dot{ width:14px; height:14px; border-radius:50%; background:#cbd5e1; flex-shrink:0; box-shadow: inset 0 2px 4px rgba(0,0,0,0.1); }
+  #edu-modal .dot.gold{background:#d4af37;}
+  #edu-modal .dot.green{background:#27ae60;}
+  #edu-modal .time-text{ font-size:1.02rem; color:#4e5d78; line-height:1.6; }
 
   #edu-modal .bottom-nav{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:1.5rem;
-    padding:1rem 2rem;
-    background:#ffffff;
-    border-top:1px solid #dfe6f1;
+    display:flex; align-items:center; justify-content:center; gap:2rem;
+    padding:1.2rem 2rem; background:#ffffff; border-top:1px solid #e2eaf5;
   }
 
   #edu-modal .nav-btn{
-    background:#ffffff;
-    border:1px solid #cbd6e6;
-    color:#102650;
-    width:42px;
-    height:42px;
-    border-radius:50%;
-    font-size:1.4rem;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    box-shadow:0 8px 20px rgba(20,48,92,.08);
+    background:#ffffff; border:1px solid #cbd6e6; color:#122b5d;
+    width:46px; height:46px; border-radius:50%; font-size:1.6rem; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    box-shadow:0 8px 25px rgba(15,34,73,0.06);
   }
 
-  #eduDots{
-    display:flex;
-    gap:.65rem;
-  }
-
+  #eduDots{ display:flex; gap:.8rem; align-items: center; }
   #eduDots .edot{
-    width:9px;
-    height:9px;
-    border-radius:50%;
-    background:#cbd3df;
-    cursor:pointer;
-    transition:background .15s, transform .15s;
+    width:10px; height:10px; border-radius:50%; background:#d2daf0;
+    cursor:pointer; transition:background .2s ease, transform .2s ease;
   }
-
   #eduDots .edot.active{
-    background:#c69b28;
-    transform:scale(1.15);
+    background:#d4af37;
+    transform:scale(1.4); /* 액티브 표시등을 더 드라마틱하게 가공 */
   }
 
   /* ========================================================
-     인터랙션 및 반응형 최적화 스타일 보완 (수정 완료)
+     기능성 최적화 클래스 세팅
      ======================================================== */
-  .edu-slide {
-    will-change: transform, opacity;
-  }
+  .edu-slide { will-change: transform, opacity; }
+  .edu-slide.active { transform: translateX(0); opacity:1; z-index:5; }
+  .edu-slide:not(.active) { transform: translateX(30px); opacity:0; pointer-events:none; z-index:1; }
 
-  /* 활성화된 슬라이드가 맨 위로 투명도 1로 보이게 설정 */
-  .edu-slide.active {
-    transform: translateX(0);
-    opacity: 1;
-    z-index: 5;
-  }
+  /* 등장 애니메이션 타이밍 극대화 가공 */
+  .edu-slide.active .big-title { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) both; }
+  .edu-slide.active .subline { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .15s both; }
+  .edu-slide.active .info-card { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .25s both; }
+  .edu-slide.active .info-card:nth-child(2) { animation-delay: .38s; }
+  .edu-slide.active .note-box { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .5s both; }
+  .edu-slide.active .slide-label { animation: eduFadeUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) .12s both; }
+  .edu-slide.active .main-heading { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .22s both; }
+  .edu-slide.active .body-text { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .35s both; }
+  .edu-slide.active .body-text:nth-of-type(2) { animation-delay: .48s; }
+  .edu-slide.active .tip-box { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .6s both, tipGlow 3s ease-in-out infinite; }
 
-  /* 비활성화된 슬라이드는 투명하게 숨기고 클릭 방지 처리 */
-  .edu-slide:not(.active) {
-    transform: translateX(24px);
-    opacity: 0;
-    pointer-events: none;
-    z-index: 1;
-  }
-
-  /* 슬라이드 안 요소 순차 등장 애니메이션 활성화 */
-  .edu-slide.active .big-title { animation: eduFadeUp .8s ease both; }
-  .edu-slide.active .subline { animation: eduFadeUp .8s ease .12s both; }
-  .edu-slide.active .info-card { animation: eduFadeUp .8s ease .22s both; }
-  .edu-slide.active .info-card:nth-child(2) { animation-delay: .35s; }
-  .edu-slide.active .note-box { animation: eduFadeUp .8s ease .48s both; }
-  .edu-slide.active .slide-label { animation: eduFadeUp .7s ease .15s both; }
-  .edu-slide.active .main-heading { animation: eduFadeUp .8s ease .25s both; }
-  .edu-slide.active .body-text { animation: eduFadeUp .8s ease .38s both; }
-  .edu-slide.active .body-text:nth-of-type(2) { animation-delay: .5s; }
-  .edu-slide.active .tip-box { animation: eduFadeUp .8s ease .65s both, tipGlow 2.8s ease-in-out infinite; }
-
-  /* 호버 시 카드 부드럽게 떠오르는 모션효과 */
-  .info-card, .stat-card, .drug-card, .time-item, .tip-box {
-    transition: transform .25s ease, box-shadow .25s ease;
-  }
-
+  /* 인터랙션 마이크로 모션 가공 */
   .info-card:hover, .stat-card:hover, .drug-card:hover, .time-item:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 18px 40px rgba(15,45,99,.12);
+    transform: translateY(-8px); /* 더 가볍게 붕 뜨는 모션 */
+    box-shadow: 0 22px 50px rgba(15, 34, 73, 0.12);
+    border-color: rgba(41, 121, 255, 0.2);
   }
+  .nav-btn:hover { transform: scale(1.1); background:#ffffff; box-shadow:0 12px 28px rgba(15,34,73,0.12); color:#2979ff; border-color:#2979ff; }
 
-  /* 버튼 및 페이지네이션 도트 인터랙션 효과 */
-  .nav-btn { transition: transform .2s ease, background .2s ease, box-shadow .2s ease; }
-  .nav-btn:hover { transform: scale(1.08); background:#ffffff; box-shadow:0 10px 25px rgba(15,45,99,.15); }
-  .edot { transition: transform .2s ease, background .2s ease; }
-  .edot.active { transform: scale(1.3); }
-
-  /* 애니메이션 키프레임 정의 정의 */
   @keyframes eduFadeUp {
-    from { opacity: 0; transform: translateY(28px); }
+    from { opacity: 0; transform: translateY(35px); }
     to { opacity: 1; transform: translateY(0); }
   }
-
   @keyframes tipGlow {
-    0%, 100% { box-shadow: 0 12px 30px rgba(184,151,58,.08); }
-    50% { box-shadow: 0 18px 45px rgba(184,151,58,.22); }
+    0%, 100% { box-shadow: 0 15px 40px rgba(214,175,55,0.04); }
+    50% { box-shadow: 0 22px 45px rgba(214,175,55,0.18); }
   }
 
-  /* 모바일 환경 1열 종대 레이아웃 깨짐 방지 완벽 보완 */
+  /* 모바일 가공 최적화 */
   @media(max-width:900px){
     #edu-modal { overflow-y: auto; }
     #eduBody { display: block; overflow: visible; height: auto; }
     #edu-modal .edu-slide { position: relative; grid-template-columns: 1fr; height: auto; }
-    #edu-modal .edu-left { padding: 2.5rem 1.5rem; border-right: none; border-bottom: 1px solid #dfe6f1; }
-    #edu-modal .edu-right { padding: 2.5rem 1.5rem; overflow-y: visible; }
-    #edu-modal .big-title { font-size: 3.5rem; }
-    #edu-modal .main-heading { font-size: 2.2rem; }
+    #edu-modal .edu-left { padding: 3.5rem 1.5rem; border-right: none; border-bottom: 1px solid #e2eaf5; }
+    #edu-modal .edu-right { padding: 3.5rem 1.5rem; overflow-y: visible; }
+    #edu-modal .big-title { font-size: 3.8rem; }
+    #edu-modal .main-heading { font-size: 2.3rem; }
     #edu-modal .info-row { flex-direction: column; gap: 1rem; }
     #edu-modal .info-card { min-width: 0; width: 100%; }
     #edu-modal .stat-grid, #edu-modal .compare-box, #edu-modal .timeline { max-width: 100%; }
