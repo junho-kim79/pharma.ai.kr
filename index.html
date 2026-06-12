@@ -310,60 +310,50 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     position:fixed;
     inset:0;
     z-index:2000;
-    background:#f4f7fc; /* 미세하게 더 고급스럽고 부드러운 배경 톤 */
+    background:#f6f8fc;
     flex-direction:column;
-    color:#0f2249;
-    font-family:'Noto Sans KR', sans-serif;
+    color:#102650;
   }
 
   #edu-modal .edu-top{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:1.2rem 2.5rem;
-    background:rgba(255, 255, 255, 0.98);
-    border-bottom:1px solid #e2eaf5;
-    box-shadow:0 8px 30px rgba(15, 34, 73, 0.03);
+    padding:1rem 2rem;
+    background:rgba(255,255,255,.96);
+    border-bottom:1px solid #dfe6f1;
+    box-shadow:0 6px 20px rgba(12,31,68,.05);
   }
 
   #edu-modal .edu-brand{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:1.5rem;
-    letter-spacing:.18em;
-    color:#122b5d;
-    font-weight: 900;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:1.35rem;
+    letter-spacing:.15em;
+    color:#102650;
   }
 
   #edu-modal .edu-brand span{
-    color:#d4af37; /* 리얼 황동 골드 포인트 컬러 적용 */
-    font-size:.95rem;
-    letter-spacing:.2em;
-    margin-left:1rem;
-    font-weight: 700;
+    color:#b58a18;
+    font-size:.9rem;
+    letter-spacing:.18em;
+    margin-left:.8rem;
   }
 
-  /* 우측 상단 1 / 4 단원 표시 배지화 가공 */
   #edu-modal .edu-count{
     font-size:.9rem;
     font-weight:800;
     letter-spacing:.3em;
-    color:#4a5d80;
-    background:#e8effa;
-    padding:0.4rem 1.2rem;
-    border-radius:20px; 
-    box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+    color:#102650;
   }
 
   #edu-modal .edu-close{
     background:none;
     border:none;
-    color:#122b5d;
-    font-size:2rem;
+    color:#102650;
+    font-size:1.8rem;
     cursor:pointer;
     line-height:1;
-    transition:transform 0.2s;
   }
-  #edu-modal .edu-close:hover { transform: scale(1.1); }
 
   #eduBody{
     flex:1;
@@ -375,26 +365,25 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
 
   #edu-modal .edu-slide{
     display:grid;
-    grid-template-columns:1.15fr 0.85fr; /* 타이틀 영역과 정보 영역 황금비율 리포지셔닝 */
+    grid-template-columns:1fr 1fr;
     width:100%;
     height:100%;
     position:absolute;
     inset:0;
-    transition:opacity .48s cubic-bezier(0.4, 0, 0.2, 1), transform .48s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:opacity .4s;
   }
 
-  /* 왼쪽 거대한 텍스트 배경 그라데이션 가공 */
   #edu-modal .edu-left{
     background:
-      radial-gradient(circle at 15% 15%, rgba(41, 121, 255, 0.14), transparent 38%),
-      radial-gradient(circle at 85% 25%, rgba(212, 175, 55, 0.09), transparent 38%),
-      linear-gradient(135deg, #f0f4fa, #fbfdfe); 
+      radial-gradient(circle at 12% 12%, rgba(76,143,201,.14), transparent 28%),
+      radial-gradient(circle at 85% 20%, rgba(184,151,58,.10), transparent 30%),
+      linear-gradient(135deg,#eef5fb,#f9fcff);
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    padding:4rem;
-    border-right:1px solid #e3eefc;
+    padding:3rem;
+    border-right:1px solid #dfe6f1;
   }
 
   #edu-modal .edu-right{
@@ -402,227 +391,430 @@ footer{background:var(--navy);padding:3rem 2rem;text-align:center;}
     display:flex;
     flex-direction:column;
     justify-content:center;
-    padding:3.5rem 4.5rem;
+    padding:3.2rem 3.5rem;
     overflow-y:auto;
   }
 
-  /* 스크롤바 디자인 슬림화 */
-  #edu-modal .edu-right::-webkit-scrollbar { width: 5px; }
-  #edu-modal .edu-right::-webkit-scrollbar-track { background: transparent; }
-  #edu-modal .edu-right::-webkit-scrollbar-thumb { background: #d5e0f2; border-radius: 10px; }
-  #edu-modal .edu-right::-webkit-scrollbar-thumb:hover { background: #a7bce4; }
-
-  /* ACINETOBACTER BAUMANNII 거대 텍스트 이펙트 가공 */
   #edu-modal .big-title{
-    font-family:'Bebas Neue', sans-serif;
-    font-size:5.8rem;
-    font-weight:900;
-    letter-spacing:.03em;
-    line-height:0.9;
+    font-family:'Bebas Neue',sans-serif;
+    font-size:5.1rem;
+    font-weight:800;
+    letter-spacing:.035em;
+    line-height:.95;
     text-align:center;
-    color:#102c66;
-    text-shadow:0 15px 40px rgba(16, 44, 102, 0.05);
+    color:#123c88;
+    text-shadow:0 8px 22px rgba(18,60,136,.08);
   }
 
   #edu-modal .big-title .gold{
-    color:#d4af37;
+    color:#c69b28;
   }
 
   #edu-modal .subline{
-    margin-top:1.3rem;
-    font-size:1.05rem;
+    margin-top:1.05rem;
+    font-size:1rem;
     font-weight:700;
-    letter-spacing:.15em;
-    color:#5a6e8c;
-    position: relative;
-    padding-bottom: 0.6rem;
-  }
-  #edu-modal .subline::after {
-    content: ''; display: block; width: 35px; height: 2px; background: #d4af37; margin: 0.8rem auto 0;
+    letter-spacing:.08em;
+    color:#51627e;
   }
 
-  /* SLIDE 01 우측 상단 라벨 배지화 가공 */
   #edu-modal .slide-label{
     display:inline-block;
     width:max-content;
-    background:#fdf4db;
-    color:#b38f1d;
-    padding:.45rem 1.1rem;
-    border-radius:30px; 
-    font-size:.8rem;
+    background:#f3e7c4;
+    color:#a77b10;
+    padding:.42rem .9rem;
+    border-radius:10px;
+    font-size:.82rem;
     font-weight:900;
-    letter-spacing:.1em;
-    margin-bottom:1.5rem;
-    border: 1px solid rgba(212, 175, 55, 0.25);
+    letter-spacing:.08em;
+    margin-bottom:1.1rem;
   }
 
-  /* "이 균의 이름은 어디서 왔나?" 메인 타이틀 */
   #edu-modal .main-heading{
-    font-family:'Noto Sans KR', sans-serif; /* 명조 계열보다 현대적인 고딕 계열 강하게 매칭 */
-    font-size:2.8rem;
+    font-family:'Noto Serif KR',serif;
+    font-size:3rem;
     font-weight:900;
-    color:#0a1d40;
-    line-height:1.3;
-    margin-bottom:2.2rem;
-    letter-spacing: -0.03em;
+    color:#0f2d63;
+    line-height:1.15;
+    margin-bottom:1.8rem;
   }
 
   #edu-modal .body-text{
-    font-size:1.1rem;
-    color:#4e5c76;
+    font-size:1.08rem;
+    color:#43536f;
     line-height:1.95;
-    margin-bottom:1.4rem;
+    margin-bottom:1.1rem;
   }
 
-  /* 강조 텍스트에 세련된 하이라이트 라인 가공 */
   #edu-modal strong{
-    color:#123c88;
-    font-weight: 900;
-    background: linear-gradient(to top, rgba(41, 121, 255, 0.09) 40%, transparent 40%);
-    padding: 0 2px;
+    color:#0f2d63;
   }
 
-  /* 실물 카드 레이아웃 클래스 구조 디자인 강화 (GENUS, SPECIES 카드 매칭) */
   #edu-modal .info-row{
     display:flex;
-    gap:1.5rem;
-    margin-top:2.8rem;
+    gap:1rem;
+    margin-top:2.2rem;
   }
 
-  /* 형이 만든 카드 형태 컴포넌트 전체 고급화 인젝션 */
-  #edu-modal .info-card, 
-  #edu-modal [class*="-card"] {
+  #edu-modal .info-card{
     background:#ffffff;
-    border-radius:20px; /* 라운딩 스무스하게 가공 */
-    padding:1.4rem 1.8rem;
+    border-radius:14px;
+    padding:1.05rem 1.35rem;
     text-align:center;
-    box-shadow:0 15px 40px rgba(15, 34, 73, 0.04); /* 트렌디한 무중력 그림자 */
-    border: 1px solid #edf2f9;
-    transition: transform .28s cubic-bezier(0.4, 0, 0.2, 1), box-shadow .28s cubic-bezier(0.4, 0, 0.2, 1), border-color .28s;
+    min-width:235px;
+    box-shadow:0 14px 35px rgba(20,48,92,.08);
   }
 
-  /* 호버 시 부드럽고 가볍게 위로 떠오르는 미세 모션 제어 */
-  #edu-modal .info-card:hover,
-  #edu-modal [class*="-card"]:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 25px 50px rgba(15, 34, 73, 0.1);
-    border-color: rgba(41, 121, 255, 0.25);
+  #edu-modal .info-card.green{
+    border:1px solid rgba(29,158,117,.38);
   }
 
-  /* GENUS / SPECIES 상단 그린, 레드 보더 및 이펙트 라인 연동 */
-  #edu-modal .green, #edu-modal [class*="green"] { border: 1px solid rgba(46, 204, 113, 0.25); background: linear-gradient(180deg, #ffffff, #f6fdf8); }
-  #edu-modal .red, #edu-modal [class*="red"] { border: 1px solid rgba(231, 76, 60, 0.2); background: linear-gradient(180deg, #ffffff, #fffbfa); }
+  #edu-modal .info-card.red{
+    border:1px solid rgba(204,91,91,.32);
+  }
 
-  #edu-modal .info-kicker{ font-size:.8rem; font-weight:900; letter-spacing:.22em; margin-bottom:.6rem; }
-  #edu-modal .green .info-kicker, #edu-modal [class*="green"] { color:#27ae60; }
-  #edu-modal .red .info-kicker, #edu-modal [class*="red"] { color:#c0392b; }
+  #edu-modal .info-kicker{
+    font-size:.75rem;
+    font-weight:900;
+    letter-spacing:.22em;
+    margin-bottom:.5rem;
+  }
 
-  #edu-modal .info-main{ font-size:1.55rem; font-weight:800; margin-bottom:.5rem; letter-spacing: -0.01em; }
-  #edu-modal .info-desc{ font-size:.9rem; color:#61728a; line-height:1.6; }
+  #edu-modal .green .info-kicker,
+  #edu-modal .green .info-main{color:#1d9e75;}
 
-  /* 2번 슬라이드 수주, ICU 등 4분할 격자 박스 및 통계 템플릿 스타일 인젝션 */
-  #edu-modal .stat-grid, #edu-modal [class*="grid"] {
+  #edu-modal .red .info-kicker,
+  #edu-modal .red .info-main{color:#b63d52;}
+
+  #edu-modal .info-main{
+    font-size:1.45rem;
+    font-weight:800;
+    font-style:italic;
+    margin-bottom:.45rem;
+  }
+
+  #edu-modal .info-desc{
+    font-size:.84rem;
+    color:#5c6a82;
+    line-height:1.6;
+  }
+
+  #edu-modal .note-box{
+    margin-top:1.8rem;
+    padding:1rem 1.4rem;
+    background:#ffffff;
+    border:1px solid #dce5f2;
+    border-radius:12px;
+    font-size:.96rem;
+    color:#43536f;
+    box-shadow:0 10px 25px rgba(20,48,92,.06);
+  }
+
+  #edu-modal .tip-box{
+    margin-top:2rem;
+    padding:1.35rem 1.5rem;
+    background:#fffaf0;
+    border:1px solid rgba(184,151,58,.28);
+    border-radius:14px;
+    box-shadow:0 14px 35px rgba(184,151,58,.08);
+  }
+
+  #edu-modal .tip-title{
+    font-size:1.02rem;
+    font-weight:900;
+    color:#b58a18;
+    margin-bottom:.45rem;
+  }
+
+  #edu-modal .tip-text{
+    font-size:1rem;
+    color:#43536f;
+    line-height:1.8;
+  }
+
+  #edu-modal .stat-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:1.2rem;
+    gap:1rem;
+    width:100%;
+    max-width:460px;
+  }
+
+  #edu-modal .stat-card{
+    background:#ffffff;
+    border:1px solid #e6d4d4;
+    border-radius:16px;
+    padding:1.2rem 1rem;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(131,35,35,.07);
+  }
+
+  #edu-modal .stat-num{
+    font-size:2.25rem;
+    font-weight:900;
+    color:#c84848;
+    line-height:1;
+  }
+
+  #edu-modal .stat-label{
+    font-size:.9rem;
+    color:#5d6b83;
+    margin-top:.55rem;
+    line-height:1.45;
+  }
+
+  #edu-modal .compare-box{
+    width:100%;
+    max-width:460px;
+  }
+
+  #edu-modal .drug-card{
+    background:#ffffff;
+    border-radius:16px;
+    padding:1.25rem 1.35rem;
+    box-shadow:0 15px 35px rgba(20,48,92,.08);
+  }
+
+  #edu-modal .drug-card.bad{
+    border:1px solid rgba(204,91,91,.32);
+  }
+
+  #edu-modal .drug-card.good{
+    border:1px solid rgba(29,158,117,.38);
+  }
+
+  #edu-modal .drug-title{
+    font-size:.9rem;
+    font-weight:900;
+    letter-spacing:.08em;
+    margin-bottom:.7rem;
+  }
+
+  #edu-modal .drug-card.bad .drug-title{color:#b63d52;}
+  #edu-modal .drug-card.good .drug-title{color:#1d9e75;}
+
+  #edu-modal .drug-text{
+    font-size:1rem;
+    color:#4b5a73;
+    line-height:1.75;
+  }
+
+  #edu-modal .vs{
+    text-align:center;
+    font-size:1.2rem;
+    font-weight:900;
+    color:#a9b4c6;
+    margin:.65rem 0;
+  }
+
+  #edu-modal .timeline{
     width:100%;
     max-width:500px;
   }
 
-  #edu-modal .stat-card{
-    background:#ffffff; border:1px solid #f1e4e4; border-radius:20px;
-    padding:1.6rem 1.2rem; text-align:center; box-shadow:0 15px 40px rgba(192, 57, 43, 0.03);
+  #edu-modal .time-title{
+    font-size:.9rem;
+    font-weight:900;
+    letter-spacing:.14em;
+    color:#63718b;
+    margin-bottom:1rem;
+    text-align:center;
   }
-  #edu-modal .stat-num{ font-size:2.6rem; font-weight:900; color:#cd3838; line-height:1; letter-spacing: -0.02em; }
-  #edu-modal .stat-label{ font-size:.95rem; color:#62728d; margin-top:.6rem; line-height:1.5; }
 
-  /* 하단 MR TALKING POINT 가이드 박스 라운딩 및 질감 가공 */
-  #edu-modal .tip-box, #edu-modal [class*="tip"] {
-    margin-top:2.5rem;
-    padding:1.6rem 2rem;
-    background:#fffdf5;
-    border: 1px solid rgba(212, 175, 55, 0.28);
-    border-radius:18px;
-    box-shadow:0 15px 45px rgba(214, 175, 55, 0.03);
-  }
-  #edu-modal .tip-title{ font-size:1.05rem; font-weight:900; color:#b58a18; margin-bottom:.6rem; }
-  #edu-modal .tip-text{ font-size:1.02rem; color:#516078; line-height:1.8; }
-
-  /* 타임라인 연혁 디자인 가공 */
-  #edu-modal .timeline{ width:100%; max-width:540px; }
-  #edu-modal .time-title{ font-size:.95rem; font-weight:900; letter-spacing:.15em; color:#536482; margin-bottom:1.4rem; text-align:center; }
   #edu-modal .time-item{
-    background:#ffffff; border:1px solid #edf2f7; border-radius:16px;
-    padding:1.2rem 1.5rem; display:flex; align-items:center; gap:1.3rem;
-    margin-bottom:.9rem; box-shadow:0 12px 35px rgba(15,34,73,0.03);
+    background:#ffffff;
+    border:1px solid #dfe6f1;
+    border-radius:14px;
+    padding:1rem 1.1rem;
+    display:flex;
+    align-items:center;
+    gap:1rem;
+    margin-bottom:.8rem;
+    box-shadow:0 12px 30px rgba(20,48,92,.06);
   }
-  #edu-modal .dot{ width:14px; height:14px; border-radius:50%; background:#cbd5e1; flex-shrink:0; }
-  #edu-modal .dot.gold{ background:#d4af37; }
-  #edu-modal .dot.green{ background:#27ae60; }
-  #edu-modal .time-text{ font-size:1.02rem; color:#4e5d78; line-height:1.6; }
 
-  /* 하단 인디케이터 도트 바 가공 */
+  #edu-modal .dot{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    background:#b9c3d4;
+    flex-shrink:0;
+  }
+
+  #edu-modal .dot.gold{background:#c69b28;}
+  #edu-modal .dot.green{background:#1d9e75;}
+
+  #edu-modal .time-text{
+    font-size:1rem;
+    color:#4b5a73;
+    line-height:1.55;
+  }
+
   #edu-modal .bottom-nav{
-    display:flex; align-items:center; justify-content:center; gap:2.2rem;
-    padding:1.2rem 2rem; background:#ffffff; border-top:1px solid #e2eaf5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:1.5rem;
+    padding:1rem 2rem;
+    background:#ffffff;
+    border-top:1px solid #dfe6f1;
   }
 
   #edu-modal .nav-btn{
-    background:#ffffff; border:1px solid #cbd6e6; color:#122b5d;
-    width:46px; height:46px; border-radius:50%; font-size:1.6rem; cursor:pointer;
-    display:flex; align-items:center; justify-content:center;
-    box-shadow:0 8px 25px rgba(15,34,73,0.06);
-    transition: all 0.2s ease;
+    background:#ffffff;
+    border:1px solid #cbd6e6;
+    color:#102650;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    font-size:1.4rem;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 8px 20px rgba(20,48,92,.08);
   }
-  #edu-modal .nav-btn:hover { transform: scale(1.1); color:#2979ff; border-color:#2979ff; box-shadow:0 12px 28px rgba(15,34,73,0.12); }
 
-  #eduDots{ display:flex; gap:.8rem; align-items: center; }
+  #eduDots{
+    display:flex;
+    gap:.65rem;
+  }
+
   #eduDots .edot{
-    width:10px; height:10px; border-radius:50%; background:#d2daf0;
-    cursor:pointer; transition:background .2s ease, transform .2s ease;
+    width:9px;
+    height:9px;
+    border-radius:50%;
+    background:#cbd3df;
+    cursor:pointer;
+    transition:background .15s, transform .15s;
   }
+
   #eduDots .edot.active{
-    background:#d4af37;
-    transform:scale(1.4);
+    background:#c69b28;
+    transform:scale(1.15);
   }
 
-  /* 슬라이드 트랜지션 모션 최적화 */
-  .edu-slide { will-change: transform, opacity; }
-  .edu-slide.active { transform: translateX(0); opacity:1; z-index:5; }
-  .edu-slide:not(.active) { transform: translateX(30px); opacity:0; pointer-events:none; z-index:1; }
-
-  /* 내부 컴포넌트 델리게이트 순차 페이드인 업 구동 */
-  .edu-slide.active .big-title { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) both; }
-  .edu-slide.active .subline { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .15s both; }
-  .edu-slide.active .info-card, .edu-slide.active [class*="-card"] { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .25s both; }
-  .edu-slide.active .info-card:nth-child(2) { animation-delay: .38s; }
-  .edu-slide.active .slide-label { animation: eduFadeUp 0.7s cubic-bezier(0.25, 1, 0.5, 1) .12s both; }
-  .edu-slide.active .main-heading { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .22s both; }
-  .edu-slide.active .body-text { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .35s both; }
-  .edu-slide.active .tip-box, .edu-slide.active [class*="tip"] { animation: eduFadeUp 0.8s cubic-bezier(0.25, 1, 0.5, 1) .55s both, tipGlow 3s ease-in-out infinite; }
-
-  @keyframes eduFadeUp {
-    from { opacity: 0; transform: translateY(35px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes tipGlow {
-    0%, 100% { box-shadow: 0 15px 40px rgba(214,175,55,0.03); }
-    50% { box-shadow: 0 22px 45px rgba(214,175,55,0.16); }
-  }
-
-  /* 모바일 깨짐방지 오버라이드 가공 */
   @media(max-width:900px){
-    #edu-modal { overflow-y: auto; }
-    #eduBody { display: block; overflow: visible; height: auto; }
-    #edu-modal .edu-slide { position: relative; grid-template-columns: 1fr; height: auto; }
-    #edu-modal .edu-left { padding: 3.5rem 1.5rem; border-right: none; border-bottom: 1px solid #e2eaf5; }
-    #edu-modal .edu-right { padding: 3.5rem 1.5rem; overflow-y: visible; }
-    #edu-modal .big-title { font-size: 3.8rem; }
-    #edu-modal .main-heading { font-size: 2.3rem; }
-    #edu-modal .info-row { flex-direction: column; gap: 1rem; }
-    #edu-modal .info-card, #edu-modal [class*="-card"] { min-width: 0; width: 100%; }
-    #edu-modal .stat-grid, #edu-modal [class*="grid"], #edu-modal .timeline { max-width: 100%; }
+    #edu-modal .edu-slide{grid-template-columns:1fr;}
+    #edu-modal .edu-left{padding:2rem;}
+    #edu-modal .edu-right{padding:2rem;}
+    #edu-modal .big-title{font-size:3.5rem;}
+    #edu-modal .main-heading{font-size:2.2rem;}
+    #edu-modal .info-row{flex-direction:column;}
   }
+  /* MR 교육자료 애니메이션 */
+.edu-slide {
+transition: opacity .45s ease, transform .45s ease;
+}
+
+.edu-slide.active {
+transform: translateX(0);
+}
+
+.edu-slide:not(.active) {
+transform: translateX(24px);
+}
+
+/* 슬라이드 안 요소 순차 등장 */
+.edu-slide.active .big-title {
+animation: eduFadeUp .8s ease both;
+}
+
+.edu-slide.active .subline {
+animation: eduFadeUp .8s ease .12s both;
+}
+
+.edu-slide.active .info-card {
+animation: eduFadeUp .8s ease .22s both;
+}
+
+.edu-slide.active .info-card:nth-child(2) {
+animation-delay: .35s;
+}
+
+.edu-slide.active .note-box {
+animation: eduFadeUp .8s ease .48s both;
+}
+
+.edu-slide.active .slide-label {
+animation: eduFadeUp .7s ease .15s both;
+}
+
+.edu-slide.active .main-heading {
+animation: eduFadeUp .8s ease .25s both;
+}
+
+.edu-slide.active .body-text {
+animation: eduFadeUp .8s ease .38s both;
+}
+
+.edu-slide.active .body-text:nth-of-type(2) {
+animation-delay: .5s;
+}
+
+.edu-slide.active .tip-box {
+animation: eduFadeUp .8s ease .65s both, tipGlow 2.8s ease-in-out infinite;
+}
+
+/* 카드 살짝 떠오르는 효과 */
+.info-card,
+.stat-card,
+.drug-card,
+.time-item,
+.tip-box {
+transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.info-card:hover,
+.stat-card:hover,
+.drug-card:hover,
+.time-item:hover {
+transform: translateY(-6px);
+box-shadow: 0 18px 40px rgba(15,45,99,.12);
+}
+
+/* 버튼 */
+.nav-btn {
+transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.nav-btn:hover {
+transform: scale(1.08);
+background:#ffffff;
+box-shadow:0 10px 25px rgba(15,45,99,.15);
+}
+
+/* 점 */
+.edot {
+transition: transform .2s ease, background .2s ease;
+}
+
+.edot.active {
+transform: scale(1.3);
+}
+
+/* 핵심 애니메이션 */
+@keyframes eduFadeUp {
+from {
+opacity: 0;
+transform: translateY(28px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+@keyframes tipGlow {
+0%, 100% {
+box-shadow: 0 12px 30px rgba(184,151,58,.08);
+}
+50% {
+box-shadow: 0 18px 45px rgba(184,151,58,.22);
+}
+}
+
 </style>
 
 <!-- MR 교육자료 모달 -->
