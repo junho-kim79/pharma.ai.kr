@@ -67,7 +67,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .container{max-width:960px;margin:0 auto;padding:24px 16px}
 
 /* TABS */
-.tab-row{display:flex;gap:6px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0}
+.tab-row{display:flex;gap:6px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:0;flex-wrap:wrap}
 .tab{
   padding:8px 20px;font-size:13px;cursor:pointer;border:none;background:none;
   font-family:'Noto Sans KR',sans-serif;color:var(--text2);border-bottom:2px solid transparent;margin-bottom:-1px;
@@ -230,6 +230,8 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
     <div class="tab-row">
       <button class="tab on" onclick="setTab('dream',this)">KKJ</button>
       <button class="tab" onclick="setTab('gumi',this)">KDS</button>
+      <button class="tab" onclick="setTab('ldw',this)">LDW</button>
+      <button class="tab" onclick="setTab('ryh',this)">RYH</button>
     </div>
 
     <!-- DREAM HOSPITAL -->
@@ -427,6 +429,94 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
       </div>
     </div>
 
+    <!-- LDW -->
+    <div id="tab-ldw" style="display:none">
+      <div class="view-row">
+        <div class="month-sel" style="margin-left:0">
+          <select id="ldwYear" onchange=""><option>2026</option><option>2025</option></select>
+          <select id="ldwMonth" onchange="">
+            <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
+            <option value="4">4월</option><option value="5">5월</option><option value="6" selected>6월</option>
+            <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
+            <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
+          </select>
+          <button onclick="queryLDW();" style="font-size:12px;padding:4px 12px;background:var(--navy);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">조회</button>
+          <span class="ref-note" id="ldwRefNote">4월 매출 기준</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="ct">LDW</span>
+          <span class="badge badge-blue" id="badge-ldw">4월 매출 기준</span>
+        </div>
+        <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:26%">품목</th>
+            <th style="width:10%" class="r">수량</th>
+            <th style="width:13%" class="r">처방금액</th>
+            <th style="width:9%" class="r">부가세</th>
+            <th style="width:11%" class="r">부가세액</th>
+            <th style="width:11%" class="r">공급가액</th>
+            <th style="width:8%" class="r">요율</th>
+            <th style="width:12%" class="r">정산금</th>
+          </tr></thead>
+          <tbody id="ldw-rows"></tbody>
+        </table>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="met met-full">
+          <div class="lb">이번 달 정산금 합계</div>
+          <div class="vl hi" id="ldw_total">0원</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RYH -->
+    <div id="tab-ryh" style="display:none">
+      <div class="view-row">
+        <div class="month-sel" style="margin-left:0">
+          <select id="ryhYear" onchange=""><option>2026</option><option>2025</option></select>
+          <select id="ryhMonth" onchange="">
+            <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
+            <option value="4">4월</option><option value="5">5월</option><option value="6" selected>6월</option>
+            <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
+            <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
+          </select>
+          <button onclick="queryRYH();" style="font-size:12px;padding:4px 12px;background:var(--navy);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">조회</button>
+          <span class="ref-note" id="ryhRefNote">4월 매출 기준</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <span class="ct">RYH</span>
+          <span class="badge badge-blue" id="badge-ryh">4월 매출 기준</span>
+        </div>
+        <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:26%">품목</th>
+            <th style="width:10%" class="r">수량</th>
+            <th style="width:13%" class="r">처방금액</th>
+            <th style="width:9%" class="r">부가세</th>
+            <th style="width:11%" class="r">부가세액</th>
+            <th style="width:11%" class="r">공급가액</th>
+            <th style="width:8%" class="r">요율</th>
+            <th style="width:12%" class="r">정산금</th>
+          </tr></thead>
+          <tbody id="ryh-rows"></tbody>
+        </table>
+        </div>
+      </div>
+      <div class="metrics">
+        <div class="met met-full">
+          <div class="lb">이번 달 정산금 합계</div>
+          <div class="vl hi" id="ryh_total">0원</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -444,8 +534,18 @@ function doPin(){
     currentKKJMonth = document.getElementById('selMonth').value;
     currentKDSYear = document.getElementById('gumiYear').value;
     currentKDSMonth = document.getElementById('gumiMonth').value;
+    currentLDWYear = document.getElementById('ldwYear').value;
+    currentLDWMonth = document.getElementById('ldwMonth').value;
+    currentRYHYear = document.getElementById('ryhYear').value;
+    currentRYHMonth = document.getElementById('ryhMonth').value;
     loadKKJ();
     loadKDS();
+    initLDW();
+    initRYH();
+    loadGeneric('ldw', LDW, 'ldw-rows', 'ldw_total', document.getElementById('ldwYear').value, document.getElementById('ldwMonth').value);
+    loadGeneric('ryh', RYH, 'ryh-rows', 'ryh_total', document.getElementById('ryhYear').value, document.getElementById('ryhMonth').value);
+    updateGenericLabel('ldw');
+    updateGenericLabel('ryh');
     initQtyInputs();
   } else {
     document.getElementById('pinErr').textContent = 'PIN이 올바르지 않습니다';
@@ -475,11 +575,26 @@ const SAIL = [
   {id:'azen',  docRate:0.10},
 ];
 
+/* ===== LDW / RYH 품목 정의 =====
+   여기에 항목을 추가/수정하면 화면과 계산에 그대로 반영됩니다.
+   name: 화면에 보일 이름 / price: 약가(단가) / rate: 정산 요율
+*/
+const LDW = [
+  {id:'rabe10', name:'라베린정 10mg', price:454,   rate:0.10},
+  {id:'rabe20', name:'라베린정 20mg', price:909,   rate:0.10},
+  {id:'lev50',  name:'레브록신주 50mL', price:8229,  rate:0.05},
+  {id:'lev100', name:'레브록신주 100mL', price:12740, rate:0.05},
+  {id:'combo',  name:'콤비신주 4.5g', price:12213, rate:0.05},
+  {id:'mont',   name:'몬텔', price:658, rate:0.10},
+];
+const RYH = LDW; // RYH는 LDW와 품목/요율 동일
+
 let currentKDSYear = '2026', currentKDSMonth = '6';
 let currentKKJYear = '2026', currentKKJMonth = '6';
+let currentLDWYear = '2026', currentLDWMonth = '6';
+let currentRYHYear = '2026', currentRYHMonth = '6';
 
 function queryKDS(){
-  // 현재 월 저장 (이전 월 기준)
   const prevKey = `kds_${currentKDSYear}_${currentKDSMonth}`;
   const gdata = {};
   const mucoEl = document.getElementById('q_muco');
@@ -487,7 +602,6 @@ function queryKDS(){
   localStorage.setItem(prevKey, JSON.stringify(gdata));
   localStorage.setItem(prevKey+'_extra', JSON.stringify(extraItems));
 
-  // 새 월로 업데이트
   currentKDSYear = document.getElementById('gumiYear').value;
   currentKDSMonth = document.getElementById('gumiMonth').value;
   updateGumiLabel();
@@ -495,7 +609,6 @@ function queryKDS(){
 }
 
 function queryKKJ(){
-  // 현재 월 저장 (이전 월 기준)
   const prevKey = `kkj_${currentKKJYear}_${currentKKJMonth}`;
   const data = {};
   [...GL.map(i=>i.id), ...SAIL.map(i=>i.id)].forEach(id=>{
@@ -504,11 +617,26 @@ function queryKKJ(){
   });
   localStorage.setItem(prevKey, JSON.stringify(data));
 
-  // 새 월로 업데이트
   currentKKJYear = document.getElementById('selYear').value;
   currentKKJMonth = document.getElementById('selMonth').value;
   updateLabels();
   loadKKJ();
+}
+
+function queryLDW(){
+  saveGeneric('ldw', LDW, 'ldw-rows');
+  currentLDWYear = document.getElementById('ldwYear').value;
+  currentLDWMonth = document.getElementById('ldwMonth').value;
+  updateGenericLabel('ldw');
+  loadGeneric('ldw', LDW, 'ldw-rows', 'ldw_total', currentLDWYear, currentLDWMonth);
+}
+
+function queryRYH(){
+  saveGeneric('ryh', RYH, 'ryh-rows');
+  currentRYHYear = document.getElementById('ryhYear').value;
+  currentRYHMonth = document.getElementById('ryhMonth').value;
+  updateGenericLabel('ryh');
+  loadGeneric('ryh', RYH, 'ryh-rows', 'ryh_total', currentRYHYear, currentRYHMonth);
 }
 
 const GAS_URL = 'https://script.google.com/macros/s/AKfycbwbRV_ktxwI2ra-mgJKnMjQ5uJC34UAXeuRYt03qclwYId5qg9YovoL_HAXPfQiRTLW/exec';
@@ -559,45 +687,103 @@ function saveKDS(){
   });
 }
 
+/* ===== LDW / RYH 공용 처리 함수 =====
+   거래처 코드(prefix: 'ldw' 또는 'ryh')만 다르고 나머지 로직은 동일하게 재사용합니다.
+   나중에 같은 구조의 거래처가 또 생기면, 품목 배열만 새로 정의하고
+   탭 HTML + 아래 함수 호출부만 복제하면 됩니다.
+*/
+function saveGeneric(prefix, items, tbodyId){
+  schedSave(()=>{
+    const y = document.getElementById(prefix+'Year').value;
+    const m = document.getElementById(prefix+'Month').value;
+    const key = `${prefix}_${y}_${m}`;
+    const data = {};
+    items.forEach(it=>{
+      const el = document.getElementById(`${prefix}_q_${it.id}`);
+      if(el) data[it.id] = el.value;
+    });
+    gasSet(key, data);
+  });
+}
+
+async function loadGeneric(prefix, items, tbodyId, totalId, y, m){
+  const key = `${prefix}_${y}_${m}`;
+  const data = await gasGet(key);
+  renderGenericRows(prefix, items, tbodyId);
+  if(data){
+    items.forEach(it=>{
+      const el = document.getElementById(`${prefix}_q_${it.id}`);
+      if(el){
+        const v = parseFloat((data[it.id]||'0').toString().replace(/,/g,''))||0;
+        el.value = v===0?'0':v.toLocaleString('ko-KR');
+      }
+    });
+  }
+  calcGeneric(prefix, items, totalId);
+}
+
+function renderGenericRows(prefix, items, tbodyId){
+  const tbody = document.getElementById(tbodyId);
+  tbody.innerHTML = items.map(it=>`
+    <tr>
+      <td>${it.name}<div class="sm">약가 ${it.price.toLocaleString('ko-KR')}원</div></td>
+      <td class="r"><input type="text" inputmode="numeric" id="${prefix}_q_${it.id}" value="0" min="0" oninput="calcSaveGeneric('${prefix}', this)"></td>
+      <td class="r" id="${prefix}_rx_${it.id}">0</td>
+      <td class="r sm">÷1.1</td>
+      <td class="r sm" id="${prefix}_vat_${it.id}">0</td>
+      <td class="r" id="${prefix}_sup_${it.id}">0</td>
+      <td class="r">${Math.round(it.rate*1000)/10}%</td>
+      <td class="r" id="${prefix}_ds_${it.id}">0</td>
+    </tr>
+  `).join('');
+}
+
+function calcSaveGeneric(prefix, el){
+  const raw = el.value.replace(/,/g,'');
+  el.value = raw;
+  const items = prefix==='ldw' ? LDW : RYH;
+  const totalId = prefix==='ldw' ? 'ldw_total' : 'ryh_total';
+  calcGeneric(prefix, items, totalId);
+  saveGeneric(prefix, items);
+  fmtInput(el);
+}
+
+function calcGeneric(prefix, items, totalId){
+  let sub = 0;
+  for(const it of items){
+    const el = document.getElementById(`${prefix}_q_${it.id}`);
+    if(!el) continue;
+    const qty = parseFloat((el.value||'0').replace(/,/g,''))||0;
+    const rx = qty * it.price;
+    const vat = rx - rx/1.1;
+    const base = rx / 1.1;
+    const ds = base * it.rate;
+    sub += ds;
+    document.getElementById(`${prefix}_rx_${it.id}`).textContent = fmt(rx);
+    document.getElementById(`${prefix}_vat_${it.id}`).textContent = '-'+fmt(vat);
+    document.getElementById(`${prefix}_sup_${it.id}`).textContent = fmt(base);
+    document.getElementById(`${prefix}_ds_${it.id}`).textContent = fmt(ds);
+  }
+  document.getElementById(totalId).textContent = fmt(sub)+'원';
+}
+
+function initLDW(){ renderGenericRows('ldw', LDW, 'ldw-rows'); }
+function initRYH(){ renderGenericRows('ryh', RYH, 'ryh-rows'); }
+
+function updateGenericLabel(prefix){
+  const y = parseInt(document.getElementById(prefix+'Year').value);
+  const m = parseInt(document.getElementById(prefix+'Month').value);
+  const m2 = m<=2 ? 12+m-2 : m-2;
+  const y2 = m<=2 ? y-1 : y;
+  document.getElementById(prefix+'RefNote').textContent = `${y2}년 ${m2}월 매출 기준`;
+  document.getElementById('badge-'+prefix).textContent = `${m2}월 매출 기준`;
+}
+
 function saveData(){
   saveKKJ();
   saveKDS();
-}
-
-async function loadData(){
-  // KKJ 로드
-  const y = document.getElementById('selYear').value;
-  const m = document.getElementById('selMonth').value;
-  const key = `kkj_${y}_${m}`;
-  const data = await gasGet(key);
-  if(data){
-    Object.entries(data).forEach(([id, val])=>{
-      const el = document.getElementById('q_'+id);
-      if(el) el.value = val;
-    });
-  } else {
-    [...GL.map(i=>i.id), ...SAIL.map(i=>i.id)].forEach(id=>{
-      const el = document.getElementById('q_'+id);
-      if(el) el.value = 0;
-    });
-  }
-  calc();
-
-  // KDS 로드
-  const gy = document.getElementById('gumiYear').value;
-  const gm = document.getElementById('gumiMonth').value;
-  const gkey = `kds_${gy}_${gm}`;
-  const gdata = await gasGet(gkey);
-  const mucoEl = document.getElementById('q_muco');
-  if(gdata){
-    if(mucoEl) mucoEl.value = gdata['muco']||0;
-  } else {
-    if(mucoEl) mucoEl.value = 0;
-  }
-  calcGumi();
-  const extraData = await gasGet(gkey+'_extra');
-  extraItems = extraData || [];
-  renderExtraItems();
+  saveGeneric('ldw', LDW);
+  saveGeneric('ryh', RYH);
 }
 
 function fmtInput(el){
@@ -623,7 +809,7 @@ function calcSaveComma(el){
   fmtInput(el);
 }
 function initQtyInputs(){
-  document.querySelectorAll('input[id^="q_"]').forEach(el=>{
+  document.querySelectorAll('input[id^="q_"], input[id^="ldw_q_"], input[id^="ryh_q_"]').forEach(el=>{
     el.addEventListener('focus', ()=>clearInput(el));
     el.addEventListener('blur', ()=>fmtInput(el));
   });
@@ -736,6 +922,8 @@ function setTab(t, btn){
   btn.classList.add('on');
   document.getElementById('tab-dream').style.display = t==='dream'?'':'none';
   document.getElementById('tab-gumi').style.display = t==='gumi'?'':'none';
+  document.getElementById('tab-ldw').style.display = t==='ldw'?'':'none';
+  document.getElementById('tab-ryh').style.display = t==='ryh'?'':'none';
 }
 
 let clickCount = 0, clickTimer = null;
