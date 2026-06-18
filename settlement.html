@@ -140,22 +140,24 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
   .top-bar .actions{display:none}
   .tab-row{display:none}
   .view-row{display:none}
-  .card-head .badge{display:none}
-  body{background:#fff;font-size:11px}
-  .container{padding:0}
-  .top-bar{background:#1a2e4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:10px 16px}
-  .card{border:1px solid #ccc;break-inside:avoid;margin-bottom:10px}
-  .card-head{background:#f0ede6!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff;font-size:10px}
+  .container{padding:0;max-width:100%}
+  .top-bar{background:#1a2e4a!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:6px 14px}
+  .top-bar .title{font-size:13px}
+  .card{border:1px solid #ccc;break-inside:avoid;margin-bottom:6px}
+  .card-head{background:#f0ede6!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;padding:6px 12px}
   .tot-row td{background:#f5f3ee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   .sec-row td{background:#f5f3ee!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .print-header{display:block!important}
-  .metrics{break-inside:avoid}
-  .met{border:1px solid #ccc}
+  .print-header{display:none!important}
+  .metrics{break-inside:avoid;margin-bottom:6px}
+  .met{border:1px solid #ccc;padding:8px 12px}
+  th,td{padding:4px 8px}
+  @page{margin:8mm}
 
   input[type=text],input[type=number]{
     border:none!important;
     background:transparent!important;
-    font-size:11px!important;
+    font-size:10px!important;
     width:auto!important;
     padding:0!important;
     pointer-events:none;
@@ -222,10 +224,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
 
   <div class="container">
 
-    <div class="print-header" id="printHeader">
-      <h2 id="printTitle"></h2>
-      <p id="printSub"></p>
-    </div>
+    <div class="print-header" id="printHeader"></div>
 
     <div class="tab-row">
       <button class="tab on" onclick="setTab('dream',this)">KKJ</button>
@@ -924,31 +923,6 @@ function setTab(t, btn){
   document.getElementById('tab-gumi').style.display = t==='gumi'?'':'none';
   document.getElementById('tab-ldw').style.display = t==='ldw'?'':'none';
   document.getElementById('tab-ryh').style.display = t==='ryh'?'':'none';
-  updatePrintHeader(t);
-}
-
-function updatePrintHeader(t){
-  const today = new Date();
-  const todayStr = `${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')}`;
-
-  if(t==='dream'){
-    updateLabels();
-  } else if(t==='gumi'){
-    const y = document.getElementById('gumiYear').value;
-    const m = document.getElementById('gumiMonth').value;
-    const m1 = parseInt(m)<=1 ? 12 : parseInt(m)-1;
-    const y1 = parseInt(m)<=1 ? parseInt(y)-1 : y;
-    document.getElementById('printTitle').textContent = `KDS 정산서 (${y}년 ${m}월)`;
-    document.getElementById('printSub').textContent = `${y1}년 ${m1}월 매출 기준 | 출력일: ${todayStr}`;
-  } else if(t==='ldw' || t==='ryh'){
-    const label = t==='ldw' ? 'LDW' : 'RYH';
-    const y = document.getElementById(t+'Year').value;
-    const m = document.getElementById(t+'Month').value;
-    const m1 = parseInt(m)<=1 ? 12 : parseInt(m)-1;
-    const y1 = parseInt(m)<=1 ? parseInt(y)-1 : y;
-    document.getElementById('printTitle').textContent = `${label} 정산서 (${y}년 ${m}월)`;
-    document.getElementById('printSub').textContent = `${y1}년 ${m1}월 매출 기준 | 출력일: ${todayStr}`;
-  }
 }
 
 let clickCount = 0, clickTimer = null;
@@ -1053,10 +1027,6 @@ function updateLabels(){
   });
   document.getElementById('sm_velox').textContent = `${m2}월 매출 기준`;
   document.getElementById('td_velox').textContent = `${m2}월`;
-
-  document.getElementById('printTitle').textContent = `KKJ 정산서 (${y}년 ${m}월)`;
-  const today = new Date();
-  document.getElementById('printSub').textContent = `${y2}년 ${m2}월 매출 기준 | 출력일: ${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')}`;
 }
 </script>
 </body>
