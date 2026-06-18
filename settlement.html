@@ -924,6 +924,31 @@ function setTab(t, btn){
   document.getElementById('tab-gumi').style.display = t==='gumi'?'':'none';
   document.getElementById('tab-ldw').style.display = t==='ldw'?'':'none';
   document.getElementById('tab-ryh').style.display = t==='ryh'?'':'none';
+  updatePrintHeader(t);
+}
+
+function updatePrintHeader(t){
+  const today = new Date();
+  const todayStr = `${today.getFullYear()}.${String(today.getMonth()+1).padStart(2,'0')}.${String(today.getDate()).padStart(2,'0')}`;
+
+  if(t==='dream'){
+    updateLabels();
+  } else if(t==='gumi'){
+    const y = document.getElementById('gumiYear').value;
+    const m = document.getElementById('gumiMonth').value;
+    const m1 = parseInt(m)<=1 ? 12 : parseInt(m)-1;
+    const y1 = parseInt(m)<=1 ? parseInt(y)-1 : y;
+    document.getElementById('printTitle').textContent = `KDS 정산서 (${y}년 ${m}월)`;
+    document.getElementById('printSub').textContent = `${y1}년 ${m1}월 매출 기준 | 출력일: ${todayStr}`;
+  } else if(t==='ldw' || t==='ryh'){
+    const label = t==='ldw' ? 'LDW' : 'RYH';
+    const y = document.getElementById(t+'Year').value;
+    const m = document.getElementById(t+'Month').value;
+    const m1 = parseInt(m)<=1 ? 12 : parseInt(m)-1;
+    const y1 = parseInt(m)<=1 ? parseInt(y)-1 : y;
+    document.getElementById('printTitle').textContent = `${label} 정산서 (${y}년 ${m}월)`;
+    document.getElementById('printSub').textContent = `${y1}년 ${m1}월 매출 기준 | 출력일: ${todayStr}`;
+  }
 }
 
 let clickCount = 0, clickTimer = null;
