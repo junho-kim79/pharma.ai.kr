@@ -1896,13 +1896,15 @@ window.vancoCur = 0;
     </div>
   </div>
 </a>
-    <div class="tool-card-flip-wrap" style="perspective:1000px;display:inline-block;width:100%">
-  <div class="tool-card-flip-inner" style="position:relative;width:100%;transition:transform 0.6s;transform-style:preserve-3d;cursor:pointer" onmouseenter="this.style.transform='rotateY(180deg)'" onmouseleave="this.style.transform='rotateY(0deg)'">
+   <div style="perspective:1000px;width:100%;height:120px">
+  <div style="position:relative;width:100%;height:100%;transition:transform 0.6s;transform-style:preserve-3d;cursor:pointer" onmouseenter="this.style.transform='rotateY(180deg)'" onmouseleave="this.style.transform='rotateY(0deg)'">
     <!-- 앞면 -->
-    <a class="tool-card" href="https://waitingnow.kr" target="_blank" style="backface-visibility:hidden;-webkit-backface-visibility:hidden;display:block">
+    <a class="tool-card" href="https://waitingnow.kr" target="_blank" style="position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;align-items:center;gap:10px">
       <span class="tool-ic"><img src="cinna4.jpg" style="width:44px;height:44px;object-fit:contain;border-radius:4px"></span>
-      <div class="tool-nm">지윤이의 일본어 교실</div>
-      <div class="tool-ds">시나모롤 테마 일본어 학습 PWA</div>
+      <div style="flex:1">
+        <div class="tool-nm">지윤이의 일본어 교실</div>
+        <div class="tool-ds">시나모롤 테마 일본어 학습 PWA</div>
+      </div>
       <span class="tool-arr">↗</span>
     </a>
     <!-- 뒷면 -->
@@ -1911,6 +1913,7 @@ window.vancoCur = 0;
     </div>
   </div>
 </div>
+높이 120px 은 다른 카드 높이에 맞게 조정하시면 됩니다 👍Claude가 응답할 때 알림을 받으시겠습
       <a class="tool-card" href="https://sobumo.com" target="_blank"><span class="tool-ic">🤝</span><div class="tool-nm">sobuMO</div><div class="tool-ds">어르신 활동가·지역 생활 심부름</div><span class="tool-arr">↗</span></a>
 <a class="tool-card flip-card andong-card" href="https://andong.ai.kr" target="_blank">
   <div class="flip-inner">
