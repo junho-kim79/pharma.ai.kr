@@ -231,6 +231,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
       <button class="tab" onclick="setTab('gumi',this)">KDS</button>
       <button class="tab" onclick="setTab('ldw',this)">LDW</button>
       <button class="tab" onclick="setTab('ryh',this)">RYH</button>
+      <button class="tab" onclick="setTab('kjh',this)">KJH</button>
     </div>
 
     <!-- DREAM HOSPITAL -->
@@ -516,6 +517,100 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
       </div>
     </div>
 
+    <!-- KJH -->
+    <div id="tab-kjh" style="display:none">
+      <div class="view-row">
+        <div class="month-sel" style="margin-left:0">
+          <select id="kjhYear" onchange=""><option>2026</option><option>2025</option></select>
+          <select id="kjhMonth" onchange="">
+            <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
+            <option value="4">4월</option><option value="5">5월</option><option value="6" selected>6월</option>
+            <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
+            <option value="10">10월</option><option value="11">11월</option><option value="12">12월</option>
+          </select>
+          <button onclick="queryKJH();" style="font-size:12px;padding:4px 12px;background:var(--navy);color:#fff;border:none;border-radius:4px;cursor:pointer;font-family:'Noto Sans KR',sans-serif;">조회</button>
+          <span class="ref-note" id="kjhRefNote"></span>
+        </div>
+      </div>
+
+      <!-- 후루마린주 (원내) -->
+      <div class="card">
+        <div class="card-head">
+          <span class="ct">원내 — 후루마린주</span>
+          <span class="badge badge-blue" id="badge-kjh"></span>
+        </div>
+        <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:26%">품목</th>
+            <th style="width:10%" class="r">수량</th>
+            <th style="width:13%" class="r">처방금액</th>
+            <th style="width:11%" class="r">부가세 제외</th>
+            <th style="width:14%" class="r">마진 제외<div class="sm">부림 12%</div></th>
+            <th style="width:8%" class="r">요율</th>
+            <th style="width:18%" class="r">정산금</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td>후루마린주<div class="sm">약가 6,698원</div></td>
+              <td class="r"><input type="text" inputmode="numeric" id="kjh_q_huru" value="0" oninput="calcSaveKJH(this)"></td>
+              <td class="r" id="kjh_rx_huru">0</td>
+              <td class="r" id="kjh_sup_huru">0</td>
+              <td class="r" id="kjh_net_huru">0</td>
+              <td class="r">10%</td>
+              <td class="r" id="kjh_ds_huru">0</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <!-- 원외 품목 -->
+      <div class="card">
+        <div class="card-head">
+          <span class="ct">원외 품목</span>
+          <span class="badge badge-green">매출금액 × 10%</span>
+        </div>
+        <div class="tbl-wrap">
+        <table>
+          <thead><tr>
+            <th style="width:36%">품목</th>
+            <th style="width:28%" class="r">매출금액 입력</th>
+            <th style="width:10%" class="r">요율</th>
+            <th style="width:26%" class="r">정산금</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td>메섹신정</td>
+              <td class="r"><input type="text" inputmode="numeric" id="kjh_q_mex" value="0" oninput="calcSaveKJH(this)"></td>
+              <td class="r">10%</td>
+              <td class="r" id="kjh_ds_mex">0</td>
+            </tr>
+            <tr>
+              <td>오페릴50서방정</td>
+              <td class="r"><input type="text" inputmode="numeric" id="kjh_q_ope" value="0" oninput="calcSaveKJH(this)"></td>
+              <td class="r">10%</td>
+              <td class="r" id="kjh_ds_ope">0</td>
+            </tr>
+            <tr>
+              <td>낙센에스</td>
+              <td class="r"><input type="text" inputmode="numeric" id="kjh_q_nak" value="0" oninput="calcSaveKJH(this)"></td>
+              <td class="r">10%</td>
+              <td class="r" id="kjh_ds_nak">0</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <div class="metrics">
+        <div class="met met-full">
+          <div class="lb">이번 달 정산금 합계 (원내 + 원외)</div>
+          <div class="vl hi" id="kjh_total">0원</div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -537,6 +632,8 @@ function doPin(){
     currentLDWMonth = document.getElementById('ldwMonth').value;
     currentRYHYear = document.getElementById('ryhYear').value;
     currentRYHMonth = document.getElementById('ryhMonth').value;
+    currentKJHYear = document.getElementById('kjhYear').value;
+    currentKJHMonth = document.getElementById('kjhMonth').value;
     loadKKJ();
     loadKDS();
     initLDW();
@@ -545,6 +642,8 @@ function doPin(){
     loadGeneric('ryh', RYH, 'ryh-rows', 'ryh_total', document.getElementById('ryhYear').value, document.getElementById('ryhMonth').value);
     updateGenericLabel('ldw');
     updateGenericLabel('ryh');
+    loadKJH();
+    updateKJHLabel();
     initQtyInputs();
   } else {
     document.getElementById('pinErr').textContent = 'PIN이 올바르지 않습니다';
@@ -778,11 +877,99 @@ function updateGenericLabel(prefix){
   document.getElementById('badge-'+prefix).textContent = `${m1}월 매출 기준`;
 }
 
+let currentKJHYear = '2026', currentKJHMonth = '6';
+
+const KJH_OUTER = [
+  {id:'mex', name:'메섹신정'},
+  {id:'ope', name:'오페릴50서방정'},
+  {id:'nak', name:'낙센에스'},
+];
+
+function calcKJH(){
+  // 후루마린주: 수량 → 처방금액 → ÷1.1 → ×0.88 → ×10%
+  const qty = parseFloat((document.getElementById('kjh_q_huru').value||'0').replace(/,/g,''))||0;
+  const rx   = qty * 6698;
+  const sup  = rx / 1.1;
+  const net  = sup * 0.88;
+  const ds   = net * 0.10;
+  document.getElementById('kjh_rx_huru').textContent  = fmt(rx);
+  document.getElementById('kjh_sup_huru').textContent = fmt(sup);
+  document.getElementById('kjh_net_huru').textContent = fmt(net);
+  document.getElementById('kjh_ds_huru').textContent  = fmt(ds);
+
+  // 원외 품목: 매출금액 × 10%
+  let outerSum = 0;
+  KJH_OUTER.forEach(it=>{
+    const amt = parseFloat((document.getElementById('kjh_q_'+it.id).value||'0').replace(/,/g,''))||0;
+    const d   = amt * 0.10;
+    outerSum += d;
+    document.getElementById('kjh_ds_'+it.id).textContent = fmt(d);
+  });
+
+  document.getElementById('kjh_total').textContent = fmt(ds + outerSum)+'원';
+}
+
+function calcSaveKJH(el){
+  const raw = el.value.replace(/,/g,'');
+  el.value = raw;
+  calcKJH();
+  saveKJH();
+  fmtInput(el);
+}
+
+function saveKJH(){
+  schedSave(()=>{
+    const y = document.getElementById('kjhYear').value;
+    const m = document.getElementById('kjhMonth').value;
+    const key = `kjh_${y}_${m}`;
+    const data = {huru: document.getElementById('kjh_q_huru').value};
+    KJH_OUTER.forEach(it=>{ data[it.id] = document.getElementById('kjh_q_'+it.id).value; });
+    gasSet(key, data);
+  });
+}
+
+async function loadKJH(){
+  const y = document.getElementById('kjhYear').value;
+  const m = document.getElementById('kjhMonth').value;
+  const key = `kjh_${y}_${m}`;
+  const data = await gasGet(key);
+  const ids = ['huru', ...KJH_OUTER.map(i=>i.id)];
+  ids.forEach(id=>{
+    const el = document.getElementById('kjh_q_'+id);
+    if(!el) return;
+    if(data && data[id] !== undefined){
+      const v = parseFloat((data[id]||'0').toString().replace(/,/g,''))||0;
+      el.value = v===0?'0':v.toLocaleString('ko-KR');
+    } else {
+      el.value = '0';
+    }
+  });
+  calcKJH();
+}
+
+function queryKJH(){
+  saveKJH();
+  currentKJHYear = document.getElementById('kjhYear').value;
+  currentKJHMonth = document.getElementById('kjhMonth').value;
+  updateKJHLabel();
+  loadKJH();
+}
+
+function updateKJHLabel(){
+  const y = parseInt(document.getElementById('kjhYear').value);
+  const m = parseInt(document.getElementById('kjhMonth').value);
+  const m1 = m<=1 ? 12 : m-1;
+  const y1 = m<=1 ? y-1 : y;
+  document.getElementById('kjhRefNote').textContent = `${y1}년 ${m1}월 매출 기준`;
+  document.getElementById('badge-kjh').textContent  = `${m1}월 매출 기준`;
+}
+
 function saveData(){
   saveKKJ();
   saveKDS();
   saveGeneric('ldw', LDW);
   saveGeneric('ryh', RYH);
+  saveKJH();
 }
 
 function fmtInput(el){
@@ -808,7 +995,7 @@ function calcSaveComma(el){
   fmtInput(el);
 }
 function initQtyInputs(){
-  document.querySelectorAll('input[id^="q_"], input[id^="ldw_q_"], input[id^="ryh_q_"]').forEach(el=>{
+  document.querySelectorAll('input[id^="q_"], input[id^="ldw_q_"], input[id^="ryh_q_"], input[id^="kjh_q_"]').forEach(el=>{
     el.addEventListener('focus', ()=>clearInput(el));
     el.addEventListener('blur', ()=>fmtInput(el));
   });
@@ -923,6 +1110,7 @@ function setTab(t, btn){
   document.getElementById('tab-gumi').style.display = t==='gumi'?'':'none';
   document.getElementById('tab-ldw').style.display = t==='ldw'?'':'none';
   document.getElementById('tab-ryh').style.display = t==='ryh'?'':'none';
+  document.getElementById('tab-kjh').style.display = t==='kjh'?'':'none';
 }
 
 let clickCount = 0, clickTimer = null;
