@@ -1839,6 +1839,358 @@ window.vancoCur = 0;
 
 
 
+<!-- ── 놀텍 카드 ── -->
+<div class="product-card" style="background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.08);">
+  <div onclick="noltecOpenModal()" style="background:#1a2e4a;height:240px;display:flex;align-items:center;justify-content:center;cursor:pointer;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,46,74,.9),rgba(201,168,76,.55));"></div>
+    <div style="position:relative;z-index:1;text-align:center;">
+      <div style="font-size:2rem;font-weight:700;letter-spacing:.12em;color:#fff;font-family:Georgia,serif;">NOLTEC</div>
+      <div style="font-size:.85rem;letter-spacing:.3em;color:rgba(255,255,255,.7);margin-top:4px;">놀 텍 정 10mg</div>
+    </div>
+  </div>
+  <div style="padding:1.6rem 1.8rem;">
+    <div style="font-size:.65rem;letter-spacing:.3em;color:#c9a84c;margin-bottom:.6rem;font-family:sans-serif;">IL-YANG PHARM · 소화성궤양용제</div>
+    <div style="font-size:2rem;font-weight:700;color:#1a2e4a;margin-bottom:.5rem;line-height:1.2;">놀텍정 10mg</div>
+    <div style="font-size:.9rem;color:#6b7280;line-height:1.7;margin-bottom:1rem;">
+      Ilaprazole 10mg · 3세대 PPI<br>
+      위식도역류질환 · CYP2C19 상호작용 낮음
+    </div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem;">
+      <span style="font-size:.72rem;padding:4px 12px;border:1px solid #e5e7eb;border-radius:999px;color:#374151;font-family:sans-serif;">3세대 PPI</span>
+      <span style="font-size:.72rem;padding:4px 12px;border:1px solid #e5e7eb;border-radius:999px;color:#374151;font-family:sans-serif;">NAB 극복</span>
+      <span style="font-size:.72rem;padding:4px 12px;border:1px solid #e5e7eb;border-radius:999px;color:#374151;font-family:sans-serif;">상호작용 낮음</span>
+    </div>
+    <button onclick="noltecOpenModal()" style="font-size:.75rem;letter-spacing:.2em;color:#c9a84c;font-family:sans-serif;background:none;border:none;padding:0;cursor:pointer;">MR 교육자료 보기 →</button>
+  </div>
+</div>
+<!-- ── /놀텍 카드 끝 ── -->
+
+<!-- ── 놀텍 모달 (슬라이드형) ── -->
+<div id="noltecModalBg" style="display:none;position:fixed;inset:0;z-index:9999;background:#fff;overflow:hidden;flex-direction:column;height:100%;">
+
+  <div style="position:relative;z-index:100;background:#fff;border-bottom:1px solid #e5e7eb;display:flex;align-items:center;justify-content:space-between;padding:.7rem 1.5rem;flex-shrink:0;">
+    <div style="font-size:.8rem;letter-spacing:.2em;font-family:sans-serif;color:#1a2e4a;font-weight:600;">놀텍정 10mg MR 교육자료</div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <span id="noltecSlideCounter" style="font-size:12px;color:#9ca3af;font-family:sans-serif;">1 / 6</span>
+      <button onclick="noltecCloseModal()" style="background:#f3f4f6;border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;color:#374151;display:flex;align-items:center;justify-content:center;">✕</button>
+    </div>
+  </div>
+
+  <div style="display:flex;gap:6px;padding:.8rem 1.5rem;overflow-x:auto;flex-wrap:nowrap;flex-shrink:0;border-bottom:1px solid #f3f4f6;" id="noltecTabs">
+    <button class="ntab active" onclick="noltecGoSlide(0)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #1a2e4a;background:#1a2e4a;color:#fff;white-space:nowrap;">01 제품소개</button>
+    <button class="ntab" onclick="noltecGoSlide(1)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">02 위산억제력</button>
+    <button class="ntab" onclick="noltecGoSlide(2)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">03 대사경로</button>
+    <button class="ntab" onclick="noltecGoSlide(3)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">04 적응증/용법</button>
+    <button class="ntab" onclick="noltecGoSlide(4)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">05 놀텍플러스</button>
+    <button class="ntab" onclick="noltecGoSlide(5)" style="flex-shrink:0;padding:6px 14px;border-radius:999px;font-size:11px;font-family:sans-serif;cursor:pointer;border:1px solid #e5e7eb;background:#fff;color:#6b7280;white-space:nowrap;">06 ALLAI 비교</button>
+  </div>
+
+  <div id="noltecSlideWrap" style="flex:1;overflow:hidden;position:relative;">
+
+    <!-- SLIDE 1 -->
+    <div class="nslide" style="position:absolute;inset:0;overflow-y:auto;transition:transform .35s ease,opacity .35s ease;transform:translateX(0);opacity:1;z-index:1;">
+      <div style="background:#1a2e4a;padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">OVERVIEW</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">놀텍정 10mg · Ilaprazole</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">일양약품 · 국산신약 12호 (2009년 허가)</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <p style="font-size:14px;color:#243447;line-height:1.8;background:#f2f6fb;border:1px solid #d9e4f2;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;">놀텍은 <strong>3세대 PPI</strong>로 분류되는 일라프라졸 성분으로, 기존 PPI 대비 <strong>더 강하고 오래가는</strong> 위산분비 억제 효과를 보이면서도, 다른 약물과의 <strong>상호작용은 적은</strong> 것이 특징입니다.</p>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:1rem;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#e8edf5;color:#1a2e4a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">1</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">PPI 계열 중 유일한 일라프라졸 성분</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">오메프라졸·란소프라졸 등과 다른 독자적 대사경로를 갖습니다.</span></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:1rem 0;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#f5ead9;color:#c9a84c;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">2</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">긴 반감기 · 빠른 약효 발현</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">기존 PPI 대비 지속력과 발현 속도 모두 개선되었습니다.</span></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-top:1rem;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#d1fae5;color:#065f46;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">3</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;margin-bottom:3px;">GERD 적응증 추가 후 꾸준한 처방 성장세</p><span style="font-size:12px;color:#6b7280;line-height:1.6;">시장에서 검증된 실적을 바탕으로 처방 확대 중입니다.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="nslide" style="position:absolute;inset:0;overflow-y:auto;transition:transform .35s ease,opacity .35s ease;transform:translateX(100%);opacity:0;z-index:0;">
+      <div style="background:#1a2e4a;padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">EFFICACY</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">강력하고 오래가는 위산 억제</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">넥시움 대비 24시간 위내 pH 유지</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <p style="font-size:14px;color:#243447;line-height:1.8;background:#f2f6fb;border:1px solid #d9e4f2;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;">기존 최고 수준이던 넥시움에 비해서도 <strong>24시간 동안 더 높은 위내 pH</strong>를 유지합니다. 특히 기존 PPI의 고질적 문제였던 <strong>야간산분비억제실패(NAB)</strong>에서 탁월한 효능을 보입니다.</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:1.2rem;">
+          <div style="border:1px solid #e5e7eb;border-radius:10px;padding:1rem;text-align:center;background:#fafafa;">
+            <div style="font-size:1.5rem;font-weight:700;color:#1a2e4a;">24H</div>
+            <div style="font-size:12px;color:#6b7280;margin-top:4px;">지속되는 위산 억제</div>
+          </div>
+          <div style="border:1px solid #e5e7eb;border-radius:10px;padding:1rem;text-align:center;background:#fafafa;">
+            <div style="font-size:1.5rem;font-weight:700;color:#1a2e4a;">NAB</div>
+            <div style="font-size:12px;color:#6b7280;margin-top:4px;">야간산분비억제실패 극복</div>
+          </div>
+        </div>
+        <div style="background:#fff8ea;border:1px solid #ecdca8;border-radius:10px;padding:1rem 1.2rem;">
+          <div style="font-size:12px;color:#9c7a1f;font-weight:700;margin-bottom:4px;">💡 MR TALKING POINT</div>
+          <div style="font-size:13px;color:#5c4a1c;">"GERD 환자들이 밤에 겪는 가슴통증·산역류, 기존 PPI로는 새벽에 다시 뚫리는 경우가 많은데 놀텍은 야간까지 억제력이 유지됩니다."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="nslide" style="position:absolute;inset:0;overflow-y:auto;transition:transform .35s ease,opacity .35s ease;transform:translateX(100%);opacity:0;z-index:0;">
+      <div style="background:#1a2e4a;padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">METABOLISM</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">대사경로가 다르다</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">CYP2C19을 타지 않는 유일한 PPI</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <p style="font-size:14px;color:#243447;line-height:1.8;background:#f2f6fb;border:1px solid #d9e4f2;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;">오메프라졸·란소프라졸·판토프라졸 등 대부분의 PPI는 <strong>CYP2C19</strong>로 대사되지만, 놀텍은 <strong>비효소적으로 주로 대사</strong>되고 나머지는 CYP3A4로 대사됩니다.</p>
+        <div style="display:flex;gap:10px;margin-bottom:1rem;">
+          <div style="flex:1;border:1.5px solid #f3d0d0;background:#fdf6f6;border-radius:10px;padding:1rem;">
+            <div style="font-weight:700;color:#c0392b;font-size:13px;margin-bottom:6px;">기존 PPI (CYP2C19)</div>
+            <div style="font-size:12px;color:#333;line-height:1.7;">클로피도그렐 병용 시 항혈소판 효과 <strong>감소 위험</strong></div>
+          </div>
+          <div style="flex:1;border:1.5px solid #c3ddc9;background:#f5faf6;border-radius:10px;padding:1rem;">
+            <div style="font-weight:700;color:#1a6b3c;font-size:13px;margin-bottom:6px;">놀텍 (비효소적 대사)</div>
+            <div style="font-size:12px;color:#333;line-height:1.7;"><strong>상호작용 위험 없이</strong> 클로피도그렐 병용 가능</div>
+          </div>
+        </div>
+        <div style="background:#fff8ea;border:1px solid #ecdca8;border-radius:10px;padding:1rem 1.2rem;">
+          <div style="font-size:12px;color:#9c7a1f;font-weight:700;margin-bottom:4px;">💡 MR TALKING POINT</div>
+          <div style="font-size:13px;color:#5c4a1c;">"심혈관 질환으로 클로피도그렐 드시는 환자분들, PPI 병용이 걱정되실 텐데 놀텍은 그 부분에서 자유롭습니다."</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="nslide" style="position:absolute;inset:0;overflow-y:auto;transition:transform .35s ease,opacity .35s ease;transform:translateX(100%);opacity:0;z-index:0;">
+      <div style="background:#1a2e4a;padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">INDICATION</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">적응증 & 용법용량</h2>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:1rem;">
+          <thead><tr><th style="background:#1a2e4a;color:#fff;padding:8px 10px;text-align:left;font-weight:500;">적응증</th><th style="background:#1a2e4a;color:#fff;padding:8px 10px;text-align:left;font-weight:500;">비고</th></tr></thead>
+          <tbody>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6;">십이지장궤양·위궤양 단기치료</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6;"></td></tr>
+            <tr><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6;">미란성식도염 단기치료</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6;"></td></tr>
+            <tr style="background:#fbf6e8;"><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6;">위식도역류질환(GERD)</td><td style="padding:8px 10px;border-bottom:1px solid #f3f4f6;color:#1a6b3c;font-weight:700;">적응증 추가</td></tr>
+            <tr><td style="padding:8px 10px;">H.pylori 감염 재발 방지</td><td style="padding:8px 10px;">항생제 병용요법</td></tr>
+          </tbody>
+        </table>
+        <div style="display:flex;gap:10px;align-items:flex-start;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#e8edf5;color:#1a2e4a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:14px;">용</div>
+          <div style="font-size:14px;color:#111827;padding-top:5px;">1일 1회 <strong>10mg</strong>, <strong>식전 복용</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="nslide" style="position:absolute;inset:0;overflow-y:auto;transition:transform .35s ease,opacity .35s ease;transform:translateX(100%);opacity:0;z-index:0;">
+      <div style="background:#1a2e4a;padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">LINE-UP</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">놀텍플러스</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">일라프라졸 + 탄산수소나트륨 복합제</p>
+      </div>
+      <div style="padding:1.5rem 2.2rem;font-family:sans-serif;">
+        <p style="font-size:14px;color:#243447;line-height:1.8;background:#f2f6fb;border:1px solid #d9e4f2;border-radius:10px;padding:1rem 1.2rem;margin-bottom:1.2rem;">놀텍 출시 약 16년 만에 나온 첫 복합제로, 제산제가 위 내 산도를 일시적으로 조절해 <strong>일라프라졸이 더 빠르게 흡수</strong>되도록 설계됐습니다.</p>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding-bottom:1rem;border-bottom:1px solid #f3f4f6;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#f5ead9;color:#c9a84c;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">1</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;">미란성 식도염 단기치료 적응증</p></div>
+        </div>
+        <div style="display:flex;gap:10px;align-items:flex-start;padding:1rem 0;">
+          <div style="width:32px;height:32px;border-radius:8px;background:#d1fae5;color:#065f46;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:15px;">2</div>
+          <div><p style="font-size:14px;font-weight:600;color:#111827;">P-CAB 계열 대비 동등하거나 우수한 Tmax</p></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="nslide" style="position:absolute;inset:0;overflow-y:auto;transition:transform .35s ease,opacity .35s ease;transform:translateX(100%);opacity:0;z-index:0;">
+      <div style="background:#1a2e4a;padding:2rem 2.2rem 1.5rem;">
+        <div style="display:inline-block;font-size:10px;letter-spacing:.2em;opacity:.7;background:rgba(255,255,255,.15);padding:3px 10px;border-radius:999px;margin-bottom:10px;font-family:sans-serif;color:#fff;">ALLAI</div>
+        <h2 style="font-size:1.7rem;font-weight:500;color:#fff;font-family:sans-serif;">경쟁품 비교</h2>
+        <p style="font-size:13px;opacity:.7;margin-top:5px;color:#fff;font-family:sans-serif;">본인부담금(30%) 기준</p>
+      </div>
+      <div style="padding:1.2rem 1.5rem 2rem;font-family:sans-serif;">
+        <div id="noltecZoomBody" style="position:relative;overflow:hidden;border-radius:8px;border:1px solid #e5e7eb;cursor:grab;touch-action:none;">
+          <div class="zoom-badge hide" id="noltecZoomBadge" style="position:absolute;top:.5rem;right:.5rem;z-index:10;background:rgba(0,0,0,.6);color:rgba(255,255,255,.8);font-size:11px;letter-spacing:.1em;padding:3px 9px;border-radius:4px;pointer-events:none;transition:opacity .3s;">1.0×</div>
+          <div class="zoom-hint" id="noltecZoomHint" style="position:absolute;bottom:.6rem;left:50%;transform:translateX(-50%);z-index:10;background:rgba(0,0,0,.5);color:rgba(255,255,255,.7);font-size:10px;letter-spacing:.1em;padding:4px 10px;border-radius:4px;pointer-events:none;white-space:nowrap;transition:opacity .6s;">스크롤·핀치 확대 &nbsp;·&nbsp; 드래그 이동 &nbsp;·&nbsp; 더블클릭 2×/복구</div>
+          <img id="noltecZoomImg" src="noltec_allai_compare.png" alt="놀텍 ALLAI 경쟁품 비교" style="width:100%;display:block;transform-origin:0 0;will-change:transform;">
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:center;gap:1rem;padding:.9rem;border-top:1px solid #f3f4f6;flex-shrink:0;">
+    <button id="noltecPrevBtn" onclick="noltecGoSlide(window.noltecCur-1)" style="width:40px;height:40px;border-radius:50%;border:1px solid #e5e7eb;background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#374151;">‹</button>
+    <div id="noltecDots" style="display:flex;gap:6px;align-items:center;">
+      <div style="width:20px;height:6px;border-radius:3px;background:#1a2e4a;cursor:pointer;" onclick="noltecGoSlide(0)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;" onclick="noltecGoSlide(1)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;" onclick="noltecGoSlide(2)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;" onclick="noltecGoSlide(3)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;" onclick="noltecGoSlide(4)"></div>
+      <div style="width:6px;height:6px;border-radius:50%;background:#d1d5db;cursor:pointer;" onclick="noltecGoSlide(5)"></div>
+    </div>
+    <button id="noltecNextBtn" onclick="noltecGoSlide(window.noltecCur+1)" style="width:40px;height:40px;border-radius:50%;border:1px solid #e5e7eb;background:#fff;font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#374151;">›</button>
+  </div>
+
+</div>
+<!-- ── /놀텍 모달 끝 ── -->
+
+<script>
+(function(){
+  window.noltecCur = 0;
+  var TOTAL = 6;
+  var slides, tabs, dots;
+
+  window.noltecOpenModal = function(){
+    slides = document.querySelectorAll('.nslide');
+    tabs = document.querySelectorAll('.ntab');
+    dots = document.querySelectorAll('#noltecDots div');
+    document.getElementById('noltecModalBg').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    noltecReset();
+    noltecGoSlide(0, true);
+  };
+
+  window.noltecCloseModal = function(){
+    document.getElementById('noltecModalBg').style.display = 'none';
+    document.body.style.overflow = '';
+  };
+
+  function noltecReset(){
+    slides.forEach(function(s, i){
+      s.style.transition = 'none';
+      s.style.transform = i === 0 ? 'translateX(0)' : 'translateX(100%)';
+      s.style.opacity = i === 0 ? '1' : '0';
+      s.style.zIndex = i === 0 ? '1' : '0';
+    });
+  }
+
+  window.noltecGoSlide = function(n, skip){
+    if(n < 0 || n >= TOTAL) return;
+    var prev = window.noltecCur;
+    if(!skip){
+      var dir = n > prev ? 1 : -1;
+      slides[prev].style.transition = 'transform .35s ease, opacity .35s ease';
+      slides[prev].style.transform = 'translateX(' + (-dir * 100) + '%)';
+      slides[prev].style.opacity = '0';
+      setTimeout(function(){ slides[prev].style.zIndex = '0'; }, 360);
+
+      tabs[prev].style.background = '#fff';
+      tabs[prev].style.color = '#6b7280';
+      tabs[prev].style.borderColor = '#e5e7eb';
+      dots[prev].style.width = '6px';
+      dots[prev].style.borderRadius = '50%';
+      dots[prev].style.background = '#d1d5db';
+
+      slides[n].style.transition = 'none';
+      slides[n].style.zIndex = '1';
+      slides[n].style.transform = 'translateX(' + (dir * 100) + '%)';
+      slides[n].style.opacity = '0';
+      setTimeout(function(){
+        slides[n].style.transition = 'transform .35s ease, opacity .35s ease';
+        slides[n].style.transform = 'translateX(0)';
+        slides[n].style.opacity = '1';
+      }, 20);
+    }
+
+    window.noltecCur = n;
+    tabs[n].style.background = '#1a2e4a';
+    tabs[n].style.color = '#fff';
+    tabs[n].style.borderColor = '#1a2e4a';
+    dots[n].style.width = '20px';
+    dots[n].style.borderRadius = '3px';
+    dots[n].style.background = '#1a2e4a';
+    document.getElementById('noltecSlideCounter').textContent = (n+1) + ' / ' + TOTAL;
+  };
+
+  document.addEventListener('keydown', function(e){
+    if(document.getElementById('noltecModalBg').style.display !== 'flex') return;
+    if(e.key === 'ArrowRight') noltecGoSlide(window.noltecCur + 1);
+    if(e.key === 'ArrowLeft') noltecGoSlide(window.noltecCur - 1);
+    if(e.key === 'Escape') noltecCloseModal();
+  });
+
+  var touchStartX = 0;
+  document.getElementById('noltecSlideWrap').addEventListener('touchstart', function(e){ touchStartX = e.touches[0].clientX; });
+  document.getElementById('noltecSlideWrap').addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - touchStartX;
+    if(dx < -40) noltecGoSlide(window.noltecCur + 1);
+    if(dx > 40) noltecGoSlide(window.noltecCur - 1);
+  });
+
+  // ── ALLAI 이미지 확대/드래그 ──
+  var zB = document.getElementById('noltecZoomBody');
+  var zI = document.getElementById('noltecZoomImg');
+  var zBg = document.getElementById('noltecZoomBadge');
+  var zHt = document.getElementById('noltecZoomHint');
+  var zSc=1, zTx=0, zTy=0, zDg=false, zLx=0, zLy=0, zPn=false, zPd=0, zTm;
+
+  function zA(){
+    zI.style.transition = 'transform .2s ease';
+    zI.style.transform = 'translate('+zTx+'px,'+zTy+'px) scale('+zSc+')';
+    zBg.textContent = zSc.toFixed(1)+'×';
+    zBg.className = 'zoom-badge' + (zSc<=1.05 ? ' hide' : '');
+  }
+  function zClamp(){
+    var vw = zB.offsetWidth, vh = zB.offsetHeight;
+    var mx = vw*(zSc*0.5), my = vh*(zSc*0.5);
+    zTx = Math.max(-mx, Math.min(mx, zTx));
+    zTy = Math.max(-my, Math.min(my, zTy));
+  }
+  function zReset(){ zSc=1; zTx=0; zTy=0; zA(); }
+  function zShowHint(){ zHt.className='zoom-hint'; clearTimeout(zTm); zTm=setTimeout(function(){ zHt.className='zoom-hint hide'; }, 2800); }
+  zShowHint();
+
+  zB.addEventListener('wheel', function(e){
+    e.preventDefault();
+    var r = zB.getBoundingClientRect(), ox = e.clientX-r.left, oy = e.clientY-r.top;
+    var d = e.deltaY>0 ? 0.88 : 1.14, ns = Math.max(1, Math.min(4, zSc*d)), ds = ns/zSc;
+    zTx = ox-ds*(ox-zTx); zTy = oy-ds*(oy-zTy); zSc = ns; zClamp(); zA();
+  }, {passive:false});
+
+  zB.addEventListener('mousedown', function(e){ zDg=true; zLx=e.clientX; zLy=e.clientY; zB.style.cursor='grabbing'; });
+  document.addEventListener('mousemove', function(e){ if(!zDg) return; zTx+=e.clientX-zLx; zTy+=e.clientY-zLy; zLx=e.clientX; zLy=e.clientY; zClamp(); zA(); });
+  document.addEventListener('mouseup', function(){ zDg=false; if(zB) zB.style.cursor='grab'; });
+
+  zB.addEventListener('touchstart', function(e){
+    zShowHint();
+    if(e.touches.length===2){ zPn=true; zPd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY); e.preventDefault(); e.stopPropagation(); }
+    else if(e.touches.length===1 && zSc>1.05){ zDg=true; zLx=e.touches[0].clientX; zLy=e.touches[0].clientY; e.preventDefault(); e.stopPropagation(); }
+  }, {passive:false});
+  zB.addEventListener('touchmove', function(e){
+    if(zPn && e.touches.length===2){
+      e.preventDefault(); e.stopPropagation();
+      var nd = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+      var r = zB.getBoundingClientRect(), cx=(e.touches[0].clientX+e.touches[1].clientX)/2-r.left, cy=(e.touches[0].clientY+e.touches[1].clientY)/2-r.top;
+      var d = nd/zPd, ns = Math.max(1, Math.min(4, zSc*d)), ds = ns/zSc;
+      zTx = cx-ds*(cx-zTx); zTy = cy-ds*(cy-zTy); zSc = ns; zPd = nd; zClamp(); zA();
+    } else if(zDg && e.touches.length===1){
+      e.preventDefault(); e.stopPropagation();
+      zTx += e.touches[0].clientX-zLx; zTy += e.touches[0].clientY-zLy;
+      zLx = e.touches[0].clientX; zLy = e.touches[0].clientY; zClamp(); zA();
+    }
+  }, {passive:false});
+  zB.addEventListener('touchend', function(e){ if(zPn||zDg) e.stopPropagation(); zPn=false; zDg=false; });
+
+  zB.addEventListener('dblclick', function(e){
+    if(zSc>1.05){ zReset(); }
+    else{
+      var r = zB.getBoundingClientRect(), ox=e.clientX-r.left, oy=e.clientY-r.top;
+      zSc=2; zTx=ox-2*ox; zTy=oy-2*oy; zClamp(); zA();
+    }
+  });
+
+  var _noltecCloseBase = window.noltecCloseModal;
+  window.noltecCloseModal = function(){ zReset(); _noltecCloseBase(); };
+})();
+</script>
+
+
       <div class="product-card">
         <div class="product-card-img-placeholder" style="display:flex;"><div style="font-family:'Bebas Neue',sans-serif;font-size:2.8rem;letter-spacing:.1em;color:var(--gold);">BRITON</div><div style="font-size:.9rem;letter-spacing:.3em;color:#4a6090;">브리턴주사</div></div>
         <div class="product-card-body">
