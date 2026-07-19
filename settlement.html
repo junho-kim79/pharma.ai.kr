@@ -305,7 +305,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
               <tr><td>콤비신<div class="sm" id="sm_combo"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_combo" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_combo"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">6.5%</td><td class="r" id="ds_combo">0</td></tr>
               <tr><td>벨록스캡<div class="sm" id="sm_velox"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_velox" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_velox"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_velox">0</td></tr>
               <tr><td>아젠카<div class="sm" id="sm_azen"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_azen" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_azen"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">10%</td><td class="r" id="ds_azen">0</td></tr>
-              <tr><td>플라스마솔루션디주<div class="sm" id="sm_plasma"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_plasma" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_plasma"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_plasma">0</td></tr>
+              <tr><td>플라스마솔루션디주<div class="sm" id="sm_plasma" style="color:#c0392b">식사예산 · 정산 별도</div></td><td class="r"><input type="text" inputmode="numeric" id="q_plasma" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_plasma"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_plasma">0</td></tr>
               <tr class="tot-row"><td colspan="5">소계</td><td class="r" id="sub_sail">0</td></tr>
             </tbody>
           </table>
@@ -316,6 +316,10 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
           <div class="met met-full">
             <div class="lb">이번 달 정산금 합계</div>
             <div class="vl hi" id="total_doc">0원</div>
+          </div>
+          <div class="met met-full" style="border-color:#e0ddd5">
+            <div class="lb" style="color:#c0392b">식사예산 (정산금액 별도, 미포함)</div>
+            <div class="vl" id="meal_budget" style="color:#c0392b">0원</div>
           </div>
         </div>
       </div>
@@ -1025,15 +1029,22 @@ function calc(){
     document.getElementById('pr_'+it.id).textContent = fmt(pr);
   }
 
+  let mealBudget = 0;
   for(const it of SAIL){
     const amt = parseFloat((document.getElementById('q_'+it.id).value||'0').replace(/,/g,''))||0;
     const doc = amt * it.docRate;
-    subSail += doc; wTotal += doc; payTotal += doc;
     document.getElementById('ds_'+it.id).textContent = fmt(doc);
     document.getElementById('w_'+it.id).textContent = fmt(doc);
     document.getElementById('ds2_'+it.id).textContent = fmt(doc);
     document.getElementById('pr_'+it.id).textContent = '0';
+    if(it.id === 'plasma'){
+      mealBudget += doc;
+    } else {
+      subSail += doc; wTotal += doc; payTotal += doc;
+    }
   }
+  const mealEl = document.getElementById('meal_budget');
+  if(mealEl) mealEl.textContent = fmt(mealBudget)+'원';
 
   const total = subGl + subSail;
   document.getElementById('total_rx_gl').textContent = fmt(totalRxGl);
@@ -1212,10 +1223,11 @@ function updateLabels(){
   document.getElementById('badge-gl').textContent = `${m2}월 매출 기준`;
   document.getElementById('badge-sail').textContent = `콤비신·아젠카·플라스마솔루션디주: ${m1}월 / 벨록스캡: ${m2}월`;
 
-  ['combo','azen','plasma'].forEach(k=>{
+  ['combo','azen'].forEach(k=>{
     document.getElementById('sm_'+k).textContent = `${m1}월 매출 기준`;
     document.getElementById('td_'+k).textContent = `${m1}월`;
   });
+  document.getElementById('td_plasma').textContent = `${m1}월`;
   document.getElementById('sm_velox').textContent = `${m2}월 매출 기준`;
   document.getElementById('td_velox').textContent = `${m2}월`;
 }
