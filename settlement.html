@@ -289,7 +289,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
         <div class="card">
           <div class="card-head">
             <span class="ct">기존</span>
-            <span class="badge badge-green" id="badge-sail">콤비신·아젠카: 5월 / 벨록스캡: 4월</span>
+            <span class="badge badge-green" id="badge-sail">콤비신·아젠카·플라스마솔루션디주: 5월 / 벨록스캡: 4월</span>
           </div>
           <div class="tbl-wrap">
           <table>
@@ -305,6 +305,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
               <tr><td>콤비신<div class="sm" id="sm_combo"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_combo" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_combo"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">6.5%</td><td class="r" id="ds_combo">0</td></tr>
               <tr><td>벨록스캡<div class="sm" id="sm_velox"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_velox" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_velox"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_velox">0</td></tr>
               <tr><td>아젠카<div class="sm" id="sm_azen"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_azen" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_azen"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">10%</td><td class="r" id="ds_azen">0</td></tr>
+              <tr><td>플라스마솔루션디주<div class="sm" id="sm_plasma"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_plasma" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_plasma"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_plasma">0</td></tr>
               <tr class="tot-row"><td colspan="5">소계</td><td class="r" id="sub_sail">0</td></tr>
             </tbody>
           </table>
@@ -350,6 +351,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
               <tr><td>콤비신</td><td class="r sm">직거래</td><td class="r" id="w_combo">0</td><td class="r">6.5%</td><td class="r" id="ds2_combo">0</td><td class="r" id="pr_combo">0</td></tr>
               <tr><td>벨록스캡</td><td class="r sm">직거래</td><td class="r" id="w_velox">0</td><td class="r">4.5%</td><td class="r" id="ds2_velox">0</td><td class="r" id="pr_velox">0</td></tr>
               <tr><td>아젠카</td><td class="r sm">직거래</td><td class="r" id="w_azen">0</td><td class="r">10%</td><td class="r" id="ds2_azen">0</td><td class="r" id="pr_azen">0</td></tr>
+              <tr><td>플라스마솔루션디주</td><td class="r sm">직거래</td><td class="r" id="w_plasma">0</td><td class="r">4.5%</td><td class="r" id="ds2_plasma">0</td><td class="r" id="pr_plasma">0</td></tr>
               <tr class="tot-row"><td colspan="2">합계</td><td class="r" id="w_total">0</td><td></td><td class="r" id="pay_total">0</td><td class="r" id="pr_total">0</td></tr>
             </tbody>
           </table>
@@ -671,6 +673,7 @@ const SAIL = [
   {id:'combo', docRate:0.065},
   {id:'velox', docRate:0.045},
   {id:'azen',  docRate:0.10},
+  {id:'plasma', docRate:0.045},
 ];
 
 /* ===== LDW / RYH 품목 정의 =====
@@ -1207,9 +1210,9 @@ function updateLabels(){
 
   document.getElementById('refNote').textContent = `${y2}년 ${m2}월 매출 기준`;
   document.getElementById('badge-gl').textContent = `${m2}월 매출 기준`;
-  document.getElementById('badge-sail').textContent = `콤비신·아젠카: ${m1}월 / 벨록스캡: ${m2}월`;
+  document.getElementById('badge-sail').textContent = `콤비신·아젠카·플라스마솔루션디주: ${m1}월 / 벨록스캡: ${m2}월`;
 
-  ['combo','azen'].forEach(k=>{
+  ['combo','azen','plasma'].forEach(k=>{
     document.getElementById('sm_'+k).textContent = `${m1}월 매출 기준`;
     document.getElementById('td_'+k).textContent = `${m1}월`;
   });
