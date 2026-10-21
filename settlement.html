@@ -239,8 +239,8 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
       <div class="view-row">
         <button class="vtab on" id="doctorTab">KKJ</button>
         <div class="month-sel">
-          <select id="selYear" onchange=""><option>2026</option><option>2025</option></select>
-          <select id="selMonth" onchange="">
+          <select id="selYear" onchange="updateLabels()"><option>2026</option><option>2025</option></select>
+          <select id="selMonth" onchange="updateLabels()">
             <option value="1">1월</option><option value="2">2월</option><option value="3">3월</option>
             <option value="4">4월</option><option value="5">5월</option><option value="6" selected>6월</option>
             <option value="7">7월</option><option value="8">8월</option><option value="9">9월</option>
@@ -1013,6 +1013,8 @@ function kkjComboRate(){
   return y > 2026 || (y === 2026 && m >= 10) ? 0.045 : 0.065;
 }
 function calc(){
+  const rateLabel = document.getElementById("rate_combo");
+  if (rateLabel) rateLabel.textContent = (kkjComboRate() * 100).toFixed(1) + "%";
   let subGl=0, subSail=0, wTotal=0, prTotal=0, payTotal=0, totalRxGl=0, totalVatGl=0;
 
   for(const it of GL){
