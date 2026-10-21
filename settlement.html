@@ -352,7 +352,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
               <tr><td>리바텍정</td><td class="r">42%</td><td class="r" id="w_rv1">0</td><td class="r">10%</td><td class="r" id="ds2_rv1">0</td><td class="r" id="pr_rv1">0</td></tr>
               <tr><td>리바텍플러스</td><td class="r">38%</td><td class="r" id="w_rv2">0</td><td class="r">10%</td><td class="r" id="ds2_rv2">0</td><td class="r" id="pr_rv2">0</td></tr>
               <tr class="sec-row"><td colspan="6">세일약품</td></tr>
-              <tr><td>콤비신</td><td class="r sm">직거래</td><td class="r" id="w_combo">0</td><td class="r">6.5%</td><td class="r" id="ds2_combo">0</td><td class="r" id="pr_combo">0</td></tr>
+              <tr><td>콤비신</td><td class="r sm">직거래</td><td class="r" id="w_combo">0</td><td class="r" id="rate_combo">6.5%</td><td class="r" id="ds2_combo">0</td><td class="r" id="pr_combo">0</td></tr>
               <tr><td>벨록스캡</td><td class="r sm">직거래</td><td class="r" id="w_velox">0</td><td class="r">4.5%</td><td class="r" id="ds2_velox">0</td><td class="r" id="pr_velox">0</td></tr>
               <tr><td>아젠카</td><td class="r sm">직거래</td><td class="r" id="w_azen">0</td><td class="r">10%</td><td class="r" id="ds2_azen">0</td><td class="r" id="pr_azen">0</td></tr>
               <tr><td>플라스마솔루션디주</td><td class="r sm">직거래</td><td class="r" id="w_plasma">0</td><td class="r">4.5%</td><td class="r" id="ds2_plasma">0</td><td class="r" id="pr_plasma">0</td></tr>
@@ -1007,6 +1007,11 @@ function initQtyInputs(){
     el.addEventListener('blur', ()=>fmtInput(el));
   });
 }
+function kkjComboRate(){
+  const y = Number(document.getElementById("selYear").value);
+  const m = Number(document.getElementById("selMonth").value);
+  return y > 2026 || (y === 2026 && m >= 10) ? 0.045 : 0.065;
+}
 function calc(){
   let subGl=0, subSail=0, wTotal=0, prTotal=0, payTotal=0, totalRxGl=0, totalVatGl=0;
 
@@ -1032,7 +1037,7 @@ function calc(){
   let mealBudget = 0;
   for(const it of SAIL){
     const amt = parseFloat((document.getElementById('q_'+it.id).value||'0').replace(/,/g,''))||0;
-    const doc = amt * it.docRate;
+    const doc = amt * (it.id === "combo" ? kkjComboRate() : it.docRate);
     document.getElementById('ds_'+it.id).textContent = fmt(doc);
     document.getElementById('w_'+it.id).textContent = fmt(doc);
     document.getElementById('ds2_'+it.id).textContent = fmt(doc);
@@ -1219,6 +1224,7 @@ function updateLabels(){
   const y2 = m<=2 ? y-1 : y;
   const y1 = m<=1 ? y-1 : y;
 
+  document.getElementById('rate_combo').textContent = (kkjComboRate()*100).toFixed(1)+'%';
   document.getElementById('refNote').textContent = `${y2}년 ${m2}월 매출 기준`;
   document.getElementById('badge-gl').textContent = `${m2}월 매출 기준`;
   document.getElementById('badge-sail').textContent = `콤비신·아젠카·플라스마솔루션디주: ${m1}월 / 벨록스캡: ${m2}월`;
