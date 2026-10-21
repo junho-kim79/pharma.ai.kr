@@ -623,6 +623,22 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
 <script>
 const PIN = '981182';
 
+/* 첫 접속 시 한국 시간 기준 현재 정산월을 기본 선택 (기존 데이터는 변경하지 않음) */
+function initCurrentSettlementMonth(){
+  const now = new Date();
+  const parts = new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Seoul',year:'numeric',month:'numeric'}).formatToParts(now);
+  const year = parts.find(p=>p.type==='year').value;
+  const month = parts.find(p=>p.type==='month').value;
+  for(const [yearId,monthId] of [['selYear','selMonth'],['gumiYear','gumiMonth'],['ldwYear','ldwMonth'],['ryhYear','ryhMonth'],['kjhYear','kjhMonth']]){
+    const ys=document.getElementById(yearId),ms=document.getElementById(monthId);
+    if(!ys||!ms)continue;
+    if(![...ys.options].some(o=>o.value===year))ys.add(new Option(year,year));
+    ys.value=year;
+    ms.value=month;
+  }
+}
+initCurrentSettlementMonth();
+
 function doPin(){
   const v = document.getElementById('pinInput').value;
   if(v === PIN){
