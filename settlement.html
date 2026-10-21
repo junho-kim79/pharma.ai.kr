@@ -302,7 +302,7 @@ input[type=number]:focus,input[type=text]:focus{outline:none;border-color:var(--
               <th style="width:16%" class="r">정산금</th>
             </tr></thead>
             <tbody>
-              <tr><td>콤비신<div class="sm" id="sm_combo"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_combo" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_combo"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">6.5%</td><td class="r" id="ds_combo">0</td></tr>
+              <tr><td>콤비신<div class="sm" id="sm_combo"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_combo" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_combo"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r" id="rate_combo_view">6.5%</td><td class="r" id="ds_combo">0</td></tr>
               <tr><td>벨록스캡<div class="sm" id="sm_velox"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_velox" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_velox"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_velox">0</td></tr>
               <tr><td>아젠카<div class="sm" id="sm_azen"></div></td><td class="r"><input type="text" inputmode="numeric" id="q_azen" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_azen"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">10%</td><td class="r" id="ds_azen">0</td></tr>
               <tr><td>플라스마솔루션디주<div class="sm" id="sm_plasma" style="color:#c0392b">식사예산 · 정산 별도</div></td><td class="r"><input type="text" inputmode="numeric" id="q_plasma" value="0" min="0" oninput="calcSaveCommaKKJ(this)"></td><td class="r sm" id="td_plasma"></td><td class="r sm" style="color:#1a6b3c">부가세<br>제외됨</td><td class="r">4.5%</td><td class="r" id="ds_plasma">0</td></tr>
@@ -1015,6 +1015,8 @@ function kkjComboRate(){
 function calc(){
   const rateLabel = document.getElementById("rate_combo");
   if (rateLabel) rateLabel.textContent = (kkjComboRate() * 100).toFixed(1) + "%";
+  const viewRateLabel = document.getElementById("rate_combo_view");
+  if (viewRateLabel) viewRateLabel.textContent = (kkjComboRate() * 100).toFixed(1) + "%";
   let subGl=0, subSail=0, wTotal=0, prTotal=0, payTotal=0, totalRxGl=0, totalVatGl=0;
 
   for(const it of GL){
@@ -1227,6 +1229,7 @@ function updateLabels(){
   const y1 = m<=1 ? y-1 : y;
 
   document.getElementById('rate_combo').textContent = (kkjComboRate()*100).toFixed(1)+'%';
+  document.getElementById('rate_combo_view').textContent = (kkjComboRate()*100).toFixed(1)+'%';
   document.getElementById('refNote').textContent = `${y2}년 ${m2}월 매출 기준`;
   document.getElementById('badge-gl').textContent = `${m2}월 매출 기준`;
   document.getElementById('badge-sail').textContent = `콤비신·아젠카·플라스마솔루션디주: ${m1}월 / 벨록스캡: ${m2}월`;
